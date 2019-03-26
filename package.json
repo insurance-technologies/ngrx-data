@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build_lib": "ng build ngrx-data",
+    "build_lib": "ng build ngrx-data-lib",
     "g_docs": "npx compodoc -p projects/ngrx-data-lib/tsconfig.lib.json -n Ngrx-Data -d docs"
   },
   "private": true,
