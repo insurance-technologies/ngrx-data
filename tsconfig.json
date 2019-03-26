@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngrx-data-lib": [
+        "dist/ngrx-data-lib"
+      ],
+      "ngrx-data-lib/*": [
+        "dist/ngrx-data-lib/*"
+      ]
+    }
   }
 }
