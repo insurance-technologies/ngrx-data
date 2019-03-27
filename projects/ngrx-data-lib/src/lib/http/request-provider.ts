@@ -1,5 +1,5 @@
 import { NameValue } from '../models/name-value';
-import { HttpMethod } from 'blocking-proxy/built/lib/webdriver_commands';
+import { HttpMethod } from '../models/http-method';
 
 /**
  * represent an http request.
@@ -56,7 +56,7 @@ export class RequestProvider {
   
     }
   
-    constructor(route: string[], params: NameValue[], requestType: HttpMethods, body: any) {
+    constructor(route: string[], params: NameValue[], requestType: HttpMethod, body: any) {
   
       //clone arrays
       this.route = route.slice(0);
