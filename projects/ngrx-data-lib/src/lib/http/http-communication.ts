@@ -6,6 +6,34 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IFormatConverter } from '../data-format/format-converter';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RequestProvider } from './request-provider';
+import { HttpMethod } from '../models/http-method';
+
+/**
+ * make http request using a request provider.
+ * @param http the http client to be use.
+ * @param baseUrl the base url for this request.
+ * @param provider the request provider to be use for this http request.
+ */
+export function makeRequest(http: HttpClient, baseUrl: string, provider: RequestProvider) : Observable<any>
+{
+  //create the url
+   let url = baseUrl + provider.url;
+   switch(provider.requestType)
+   {
+     case HttpMethod.get:
+       return getRequest(http, url, provider.responseFormats);
+
+     case HttpMethod.post:
+       return postRequest(http, url, provider.body, provider.requestFormat, provider.responseFormats);
+
+       case HttpMethod.delete:
+       return getRequest(http, url, provider.responseFormats);
+
+     case HttpMethod.put:
+       return postRequest(http, url, provider.body, provider.requestFormat, provider.responseFormats);
+   }
+}
 
 /**
  * make a get request.

@@ -1,5 +1,6 @@
 import { NameValue } from '../models/name-value';
 import { HttpMethod } from '../models/http-method';
+import { IFormatConverter } from '../data-format/format-converter';
 
 /**
  * represent an http request.
@@ -21,10 +22,32 @@ export class RequestProvider {
     //the request type
     private _requestType: HttpMethod;
   
+    //response formats
+    private _responseFormats: IFormatConverter[];
+
+    //response formats
+    private _requestFormat: IFormatConverter;
+
+    /**
+     * get the response formats that this request can parse.
+     */
+    get responseFormats() : IFormatConverter[]
+    {
+       return this._responseFormats;
+    }
+
+    /**
+     * get the format converter to parse the request body in the case of POST and PUT.
+     */
+    get requestFormat() : IFormatConverter
+    {
+       return this._requestFormat;
+    }
+
     /**
      * get the request type asociated with this provider.
      */
-    get requestType(): string {
+    get requestType(): HttpMethod {
       return this._requestType;
     }
   
@@ -56,7 +79,7 @@ export class RequestProvider {
   
     }
   
-    constructor(route: string[], params: NameValue[], requestType: HttpMethod, body: any) {
+    constructor(route: string[], params: NameValue[], requestType: HttpMethod, body: any, responseFormats: IFormatConverter[], requestFormat: IFormatConverter) {
   
       //clone arrays
       this.route = route.slice(0);
@@ -64,6 +87,8 @@ export class RequestProvider {
       
       this._requestType = requestType;
       this._body = body;
+      this._responseFormats = this._responseFormats;
+      this._requestFormat = this._requestFormat;
     }
   
     //Start of the fluent api
@@ -74,7 +99,7 @@ export class RequestProvider {
      * @param param the param to add to the url.
      */
     at(param: string): RequestProvider {
-      return new RequestProvider(this.route.concat(param), this.params, this._requestType, this._body);
+      return new RequestProvider(this.route.concat(param), this.params, this._requestType, this._body, this._responseFormats, this._requestFormat);
     }
   
     /**
@@ -86,7 +111,7 @@ export class RequestProvider {
       if (this._requestType != 'GET' && this._requestType != 'DELETE' )
         throw "query params are only valid for GET and DELETE requests.";
   
-      return new RequestProvider(this.route, this.params.concat(new NameValue(name, value)), this._requestType, this._body);
+      return new RequestProvider(this.route, this.params.concat(new NameValue(name, value)), this._requestType, this._body, this._responseFormats, this._requestFormat);
     }
   
     /**
@@ -100,8 +125,17 @@ export class RequestProvider {
       if (this._body != null)
         throw "request body can only be assigned one time.";
   
-      return new RequestProvider(this.route, this.params, this._requestType, body);
+      return new RequestProvider(this.route, this.params, this._requestType, body, this._responseFormats, this._requestFormat);
     }
+
+    useRequestFormat(format: IFormatConverter) : RequestProvider
+    {
+      if (this._requestType != 'POST' && this._requestType != 'PUT')
+        throw "request format is only valid for POST and PUT requests.";
+
+      return new RequestProvider(this.route, this.params, this._requestType, this._body, this._responseFormats, format); 
+    }
+   
   
   }
   
