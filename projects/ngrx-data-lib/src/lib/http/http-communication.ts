@@ -7,7 +7,7 @@ import { IFormatConverter } from '../data-format/format-converter';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RequestProvider } from './request-provider';
-import { HttpMethod } from '../models/http-method';
+import { HttpMethod } from './http-method';
 
 /**
  * make http request using a request provider.

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnDestroy } from '@angular/core';
 import { NgrxDataLibComponent } from './ngrx-data-lib.component';
 
 @NgModule({
@@ -7,4 +7,6 @@ import { NgrxDataLibComponent } from './ngrx-data-lib.component';
   ],
   exports: [NgrxDataLibComponent]
 })
-export class NgrxDataLibModule { }
+export class NgrxDataLibModule {
+  
+ }

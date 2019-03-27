@@ -1,5 +1,5 @@
 import { NameValue } from '../models/name-value';
-import { HttpMethod } from '../models/http-method';
+import { HttpMethod } from './http-method';
 import { IFormatConverter } from '../data-format/format-converter';
 
 /**

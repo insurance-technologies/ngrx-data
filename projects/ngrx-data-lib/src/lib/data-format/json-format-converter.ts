@@ -1,5 +1,5 @@
 import { IFormatConverter } from './format-converter';
-import { FormatDataType } from '../models/response-type';
+import { FormatDataType } from '../http/response-type';
 
 
 export class JsonFormatConverter implements IFormatConverter
