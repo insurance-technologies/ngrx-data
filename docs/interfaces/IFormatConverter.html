@@ -87,9 +87,6 @@
                                 <li>
                                     <a href="#getContentType">getContentType</a>
                                 </li>
-                                <li>
-                                    <a href="#getDataType">getDataType</a>
-                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -124,8 +121,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:21</a></div>
                 </td>
             </tr>
 
@@ -169,7 +166,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>ArrayBuffer | Blob | Document | any | string</code>
+                        <b>Returns : </b>    <code>ArrayBuffer</code>
 
                     </div>
                     <div class="io-description">
@@ -194,15 +191,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>convertToObject(data: ArrayBuffer | Blob | Document | any | string)</code>
+<code>convertToObject(data: ArrayBuffer)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:15</a></div>
                 </td>
             </tr>
 
@@ -227,7 +224,7 @@
                                 <tr>
                                     <td>data</td>
                                     <td>
-                                            <code>ArrayBuffer | Blob | Document | any | string</code>
+                                            <code>ArrayBuffer</code>
                                     </td>
 
                                     <td>
@@ -278,8 +275,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:14</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="9"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:9</a></div>
                 </td>
             </tr>
 
@@ -297,63 +294,17 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getDataType"></a>
-                    <span class="name">
-                        <b>
-                            getDataType
-                        </b>
-                        <a href="#getDataType"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getDataType()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="9"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:9</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Get the data type</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/enumerations.html#FormatDataType" target="_self" >FormatDataType</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { FormatDataType } from &#x27;../models/response-type&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { FormatDataType } from &#x27;../http/response-type&#x27;;
 
 
 export interface IFormatConverter
 {
-    /**
-     * Get the data type
-     */
-    getDataType(): FormatDataType;
-
     /**
      * get the content type related to this object.
      */
@@ -363,13 +314,13 @@ export interface IFormatConverter
      * convert the data to a javascript object. 
      * @param data the data to convert.
      */
-    convertToObject(data: ArrayBuffer | Blob | Document | any | string) : any;
+    convertToObject(data: ArrayBuffer) : any;
 
     /**
      * convert javascript object to data.
      * @param obj the javascript object to convert.
      */
-    convertToData(obj: any) : ArrayBuffer | Blob | Document | any | string;   
+    convertToData(obj: any) : ArrayBuffer;   
 }</code></pre>
     </div>
 </div>

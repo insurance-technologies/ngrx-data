@@ -95,9 +95,6 @@
                             <li>
                                 <a href="#getContentType">getContentType</a>
                             </li>
-                            <li>
-                                <a href="#getDataType">getDataType</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -139,8 +136,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:16</a></div>
                 </td>
             </tr>
 
@@ -177,7 +174,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>ArrayBuffer</code>
 
                     </div>
                     <div class="io-description">
@@ -202,15 +199,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>convertToObject(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>convertToObject(data: ArrayBuffer)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="11"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:11</a></div>
                 </td>
             </tr>
 
@@ -232,7 +229,7 @@
                                 <tr>
                                     <td>data</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            <code>ArrayBuffer</code>
                                     </td>
 
                                     <td>
@@ -279,8 +276,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="7"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:7</a></div>
                 </td>
             </tr>
 
@@ -290,45 +287,6 @@
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getDataType"></a>
-                    <span class="name">
-                        <b>
-                            getDataType
-                        </b>
-                        <a href="#getDataType"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getDataType()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="8"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:8</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/enumerations.html#FormatDataType" target="_self" >FormatDataType</a></code>
 
                     </div>
                 </td>
@@ -346,27 +304,41 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IFormatConverter } from &#x27;./format-converter&#x27;;
-import { FormatDataType } from &#x27;../models/response-type&#x27;;
+import { FormatDataType } from &#x27;../http/response-type&#x27;;
 
 
 export class JsonFormatConverter implements IFormatConverter
 {
-
-    getDataType(): FormatDataType {
-        return FormatDataType.Json;
-    }    
-    
     getContentType(): string {
-        return &#x27;application/json&#x27;;
+        return &#x27;application/json; charset&#x3D;utf-8&#x27;;
     }
 
-    convertToObject(data: any) : any {
-        return data;
+    convertToObject(data: ArrayBuffer) : any {
+        let str &#x3D; uintToString(new Uint8Array(data));
+        return JSON.parse(str);
     }
 
-    convertToData(obj: any) : any {
-        return obj;
+    convertToData(obj: any) : ArrayBuffer {
+        let str &#x3D; JSON.stringify(obj);
+        return stringToUint(str).buffer as ArrayBuffer;
     }
+}
+
+//copied from stack overflow https://stackoverflow.com/questions/17191945/conversion-between-utf-8-arraybuffer-and-string
+function stringToUint(string) {
+    var str &#x3D; btoa(unescape(encodeURIComponent(string))),
+        charList &#x3D; string.split(&#x27;&#x27;),
+        uintArray &#x3D; [];
+    for (var i &#x3D; 0; i &lt; charList.length; i++) {
+        uintArray.push(charList[i].charCodeAt(0));
+    }
+    return new Uint8Array(uintArray);
+}
+
+function uintToString(uintArray) {
+    var encodedString &#x3D; String.fromCharCode.apply(null, uintArray),
+        decodedString &#x3D; decodeURIComponent(escape(encodedString));
+    return decodedString;
 }</code></pre>
     </div>
 </div>

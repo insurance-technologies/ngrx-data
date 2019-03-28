@@ -60,13 +60,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/NgrxDataLibModule.html" data-type="entity-link">NgrxDataLibModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-NgrxDataLibModule-201f133108c0bbf9a8b5734874b6dfb2"' : 'data-target="#xs-components-links-module-NgrxDataLibModule-201f133108c0bbf9a8b5734874b6dfb2"' }>
+                                            'data-target="#components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' : 'data-target="#xs-components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-NgrxDataLibModule-201f133108c0bbf9a8b5734874b6dfb2"' :
-                                            'id="xs-components-links-module-NgrxDataLibModule-201f133108c0bbf9a8b5734874b6dfb2"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' :
+                                            'id="xs-components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' }>
                                             <li class="link">
                                                 <a href="components/NgrxDataLibComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgrxDataLibComponent</a>
@@ -84,6 +84,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <span class="icon ion-ios-arrow-down"></span>
                         </div>
                         <ul class="links collapse" ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
+                            <li class="link">
+                                <a href="classes/CreateNewAction.html" data-type="entity-link">CreateNewAction</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/EntityService.html" data-type="entity-link">EntityService</a>
+                            </li>
                             <li class="link">
                                 <a href="classes/JsonFormatConverter.html" data-type="entity-link">JsonFormatConverter</a>
                             </li>
@@ -104,6 +110,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
+                                    <a href="injectables/DataService.html" data-type="entity-link">DataService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/NgrxDataConfigurationService.html" data-type="entity-link">NgrxDataConfigurationService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/NgrxDataEffects.html" data-type="entity-link">NgrxDataEffects</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/NgrxDataLibService.html" data-type="entity-link">NgrxDataLibService</a>
                                 </li>
                             </ul>
@@ -117,7 +132,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse" ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
+                                <a href="interfaces/EntityStatesCollection.html" data-type="entity-link">EntityStatesCollection</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ExtendedEntityState.html" data-type="entity-link">ExtendedEntityState</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/IFormatConverter.html" data-type="entity-link">IFormatConverter</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/NgrxDataConfiguration.html" data-type="entity-link">NgrxDataConfiguration</a>
                             </li>
                         </ul>
                     </li>
@@ -131,6 +155,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse" ${ isNormalMode ? 'id="miscellaneous-links"' : 'id="xs-miscellaneous-links"' }>
                             <li class="link">
                                 <a href="miscellaneous/enumerations.html" data-type="entity-link">Enums</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/functions.html" data-type="entity-link">Functions</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a>
                             </li>
                         </ul>
                     </li>

@@ -92,7 +92,15 @@
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
+                                <a href="#_requestFormat">_requestFormat</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#_requestType">_requestType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_responseFormats">_responseFormats</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
@@ -122,6 +130,9 @@
                                 <a href="#at">at</a>
                             </li>
                             <li>
+                                <a href="#useRequestFormat">useRequestFormat</a>
+                            </li>
+                            <li>
                                 <a href="#withBody">withBody</a>
                             </li>
                             <li>
@@ -144,6 +155,12 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                    <a href="#responseFormats">responseFormats</a>
+                                </li>
+                                <li>
+                                    <a href="#requestFormat">requestFormat</a>
+                                </li>
+                                <li>
                                     <a href="#requestType">requestType</a>
                                 </li>
                                 <li>
@@ -165,12 +182,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(route: string[], params: <a href="../classes/NameValue.html">NameValue[]</a>, requestType: <a href="../undefineds/HttpMethod.html">HttpMethods</a>, body: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>constructor(route: string[], params: <a href="../classes/NameValue.html">NameValue[]</a>, requestType: <a href="../undefineds/HttpMethod.html">HttpMethod</a>, body: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, responseFormats: <a href="../interfaces/IFormatConverter.html">IFormatConverter[]</a>, requestFormat: <a href="../interfaces/IFormatConverter.html">IFormatConverter</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:80</a></div>
                             </td>
                         </tr>
 
@@ -215,7 +232,7 @@
                                                         <td>requestType</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../miscellaneous/enumerations.html#HttpMethod" target="_self" >HttpMethods</a></code>
+                                                                        <code><a href="../miscellaneous/enumerations.html#HttpMethod" target="_self" >HttpMethod</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -228,6 +245,30 @@
                                                   
                                                         <td>
                                                                         <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>responseFormats</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter[]</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>requestFormat</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -275,7 +316,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_requestFormat"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _requestFormat</b>
+                            <a href="#_requestFormat"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -303,7 +372,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_responseFormats"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _responseFormats</b>
+                            <a href="#_responseFormats"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -336,7 +433,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -364,7 +461,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -392,7 +489,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -428,8 +525,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:101</a></div>
                 </td>
             </tr>
 
@@ -487,6 +584,76 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="useRequestFormat"></a>
+                    <span class="name">
+                        <b>
+                            useRequestFormat
+                        </b>
+                        <a href="#useRequestFormat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>useRequestFormat(format: <a href="../interfaces/IFormatConverter.html">IFormatConverter</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>format</td>
+                                    <td>
+                                                <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/RequestProvider.html" target="_self" >RequestProvider</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="withBody"></a>
                     <span class="name">
                         <b>
@@ -505,8 +672,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:121</a></div>
                 </td>
             </tr>
 
@@ -582,8 +749,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="85"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:85</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:110</a></div>
                 </td>
             </tr>
 
@@ -667,6 +834,72 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="responseFormats"></a>
+                        <span class="name"><b>responseFormats</b><a href="#responseFormats"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>responseFormats()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:34</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>get the response formats that this request can parse.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requestFormat"></a>
+                        <span class="name"><b>requestFormat</b><a href="#requestFormat"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>requestFormat()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:42</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>get the format converter to parse the request body in the case of POST and PUT.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/IFormatConverter.html" target="_self" >IFormatConverter</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="requestType"></a>
                         <span class="name"><b>requestType</b><a href="#requestType"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -679,7 +912,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:50</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -688,7 +921,7 @@
 </div>
 
                                 <div class="io-description">
-                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    <b>Returns : </b>        <code><a href="../miscellaneous/enumerations.html#HttpMethod" target="_self" >HttpMethod</a></code>
 
                                 </div>
                         </td>
@@ -712,7 +945,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:57</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -745,7 +978,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/ngrx-data-lib/src/lib/http/request-provider.ts:64</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -768,7 +1001,8 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NameValue } from &#x27;../models/name-value&#x27;;
-import { HttpMethod } from &#x27;blocking-proxy/built/lib/webdriver_commands&#x27;;
+import { HttpMethod } from &#x27;./http-method&#x27;;
+import { IFormatConverter } from &#x27;../data-format/format-converter&#x27;;
 
 /**
  * represent an http request.
@@ -790,10 +1024,32 @@ export class RequestProvider {
     //the request type
     private _requestType: HttpMethod;
   
+    //response formats
+    private _responseFormats: IFormatConverter[];
+
+    //response formats
+    private _requestFormat: IFormatConverter;
+
+    /**
+     * get the response formats that this request can parse.
+     */
+    get responseFormats() : IFormatConverter[]
+    {
+       return this._responseFormats;
+    }
+
+    /**
+     * get the format converter to parse the request body in the case of POST and PUT.
+     */
+    get requestFormat() : IFormatConverter
+    {
+       return this._requestFormat;
+    }
+
     /**
      * get the request type asociated with this provider.
      */
-    get requestType(): string {
+    get requestType(): HttpMethod {
       return this._requestType;
     }
   
@@ -825,7 +1081,7 @@ export class RequestProvider {
   
     }
   
-    constructor(route: string[], params: NameValue[], requestType: HttpMethods, body: any) {
+    constructor(route: string[], params: NameValue[], requestType: HttpMethod, body: any, responseFormats: IFormatConverter[], requestFormat: IFormatConverter) {
   
       //clone arrays
       this.route &#x3D; route.slice(0);
@@ -833,6 +1089,8 @@ export class RequestProvider {
       
       this._requestType &#x3D; requestType;
       this._body &#x3D; body;
+      this._responseFormats &#x3D; this._responseFormats;
+      this._requestFormat &#x3D; this._requestFormat;
     }
   
     //Start of the fluent api
@@ -843,7 +1101,7 @@ export class RequestProvider {
      * @param param the param to add to the url.
      */
     at(param: string): RequestProvider {
-      return new RequestProvider(this.route.concat(param), this.params, this._requestType, this._body);
+      return new RequestProvider(this.route.concat(param), this.params, this._requestType, this._body, this._responseFormats, this._requestFormat);
     }
   
     /**
@@ -855,7 +1113,7 @@ export class RequestProvider {
       if (this._requestType !&#x3D; &#x27;GET&#x27; &amp;&amp; this._requestType !&#x3D; &#x27;DELETE&#x27; )
         throw &quot;query params are only valid for GET and DELETE requests.&quot;;
   
-      return new RequestProvider(this.route, this.params.concat(new NameValue(name, value)), this._requestType, this._body);
+      return new RequestProvider(this.route, this.params.concat(new NameValue(name, value)), this._requestType, this._body, this._responseFormats, this._requestFormat);
     }
   
     /**
@@ -869,8 +1127,17 @@ export class RequestProvider {
       if (this._body !&#x3D; null)
         throw &quot;request body can only be assigned one time.&quot;;
   
-      return new RequestProvider(this.route, this.params, this._requestType, body);
+      return new RequestProvider(this.route, this.params, this._requestType, body, this._responseFormats, this._requestFormat);
     }
+
+    useRequestFormat(format: IFormatConverter) : RequestProvider
+    {
+      if (this._requestType !&#x3D; &#x27;POST&#x27; &amp;&amp; this._requestType !&#x3D; &#x27;PUT&#x27;)
+        throw &quot;request format is only valid for POST and PUT requests.&quot;;
+
+      return new RequestProvider(this.route, this.params, this._requestType, this._body, this._responseFormats, format); 
+    }
+   
   
   }
   </code></pre>
