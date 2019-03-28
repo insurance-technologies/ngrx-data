@@ -1,10 +1,29 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnDestroy, ModuleWithProviders } from '@angular/core';
 import { NgrxDataLibComponent } from './ngrx-data-lib.component';
+import { NgrxDataConfigurationService } from './services/configuaration.service';
+import { NgrxDataConfiguration } from './models/configuration';
 
 @NgModule({
-  declarations: [NgrxDataLibComponent],
+  declarations: [
+    NgrxDataLibComponent,
+    NgrxDataConfigurationService
+  ],
   imports: [
   ],
-  exports: [NgrxDataLibComponent]
+  exports: [
+    NgrxDataLibComponent
+  ]
 })
-export class NgrxDataLibModule { }
+export class NgrxDataLibModule {
+  
+   static forRoot(config: NgrxDataConfiguration): ModuleWithProviders {
+     
+    
+     
+     return {
+      ngModule: NgrxDataLibModule,
+      providers: [NgrxDataConfigurationService, {provide: 'ngrxdataConfig', useValue: config}]
+     }
+   }
+
+ }
