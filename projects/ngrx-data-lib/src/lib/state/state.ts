@@ -1,15 +1,19 @@
-import {EntityState} from '@ngrx/entity'
+import { EntityStateCollectionAdapter, EntityStatesCollection } from './entity-states-collection-adapter';
+import { DataEntitiesStateActions, DataEntitiesStateActionTypes, CreateEntityState } from './actions';
 
-export interface EntityStatesCollection
+
+const adapter = new EntityStateCollectionAdapter();
+const initialState = adapter.getInitialState();
+
+
+export function reducer(state: EntityStatesCollection = initialState, action: DataEntitiesStateActions) : EntityStatesCollection
 {
-   [name: string] : ExtendedEntityState<any>;
+    switch(action.type)
+    {
+        case DataEntitiesStateActionTypes.CreateEntityState:
+          return adapter.addEntityState( action.uniqueName, state);         
+          
+        case DataEntitiesStateActionTypes.DeleteEntityState:
+          return adapter.addEntityState( action.uniqueName, state);         
+    }
 }
-
-export interface ExtendedEntityState<T> extends EntityState<T>
-{
-    selectedId: string | number;
-    isLoading: boolean;
-    errors: string[];
-    validation: string[];
-}
-

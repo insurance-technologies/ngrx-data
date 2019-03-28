@@ -40,21 +40,21 @@ export class DeleteAllEntityStates implements Action
 export class AddEntityToState implements Action
 {
    type = DataEntitiesStateActionTypes.AddEntityToState;   
-   constructor( public uniqueName: string ){}
+   constructor( public entity: any, public uniqueName: string ){}
 }
 
 
 export class AddMany implements Action
 {
    type = DataEntitiesStateActionTypes.AddMany;   
-   constructor( public uniqueName: string ){}
+   constructor( public entities: any[], public uniqueName: string ){}
 }
 
 
 export class DeleteEntityFromState implements Action
 {
    type = DataEntitiesStateActionTypes.DeleteEntityFromState;   
-   constructor( public uniqueName: string ){}
+   constructor( public id: string, public uniqueName: string ){}
 }
 
 
