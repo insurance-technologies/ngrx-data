@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "build_lib": "ng build ngrx-data-lib",
     "test_lib": "ng test ngrx-data-lib",
-    "g_docs": "npx compodoc -p projects/ngrx-data-lib/tsconfig.lib.json -n Ngrx-Data -d docs"    
+    "g_docs": "npx compodoc -p projects/ngrx-data-lib/tsconfig.lib.json -n Ngrx-Data -d docs"
   },
   "private": true,
   "dependencies": {

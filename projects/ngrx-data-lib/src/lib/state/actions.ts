@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-export enum DataEntitiesStateActionTypes
+export enum ActionTypes
 {
     //actions that affect the database
     CreateEntityState = '[DataEntitiesDB] CreateEntityState',
@@ -12,7 +12,7 @@ export enum DataEntitiesStateActionTypes
     AddMany = '[DataEntitiesDB] AddMany',
     DeleteEntityFromState = '[DataEntitiesDB] DeleteEntityFromState',
     DeleteAll = '[DataEntitiesDB] DeleteAll',
-    DeleteMany = '[DataEntitiesDB] DeleteAll',
+    DeleteMany = '[DataEntitiesDB] DeleteMany',
     Update = '[DataEntitiesDB] Update',
     UpdateMany = '[DataEntitiesDB] UpdateMany',    
 }
@@ -20,72 +20,73 @@ export enum DataEntitiesStateActionTypes
 //actions that affect the database
 export class CreateEntityState implements Action
 {
-   type = DataEntitiesStateActionTypes.CreateEntityState;   
+   readonly type = ActionTypes.CreateEntityState;   
    constructor( public uniqueName: string ){}
 }
 
 export class DeleteEntityState implements Action
 {
-   type = DataEntitiesStateActionTypes.DeleteEntityState;   
+   readonly type = ActionTypes.DeleteEntityState;   
    constructor( public uniqueName: string ){}
 }
 
 export class DeleteAllEntityStates implements Action
 {
-    type = DataEntitiesStateActionTypes.DeleteAllEntityStates;    
+   readonly type = ActionTypes.DeleteAllEntityStates;   
+    constructor(){} 
 }
 
 
 //actions that affect only specific entity
 export class AddEntityToState implements Action
 {
-   type = DataEntitiesStateActionTypes.AddEntityToState;   
+   readonly type = ActionTypes.AddEntityToState;   
    constructor( public entity: any, public uniqueName: string ){}
 }
 
 
 export class AddMany implements Action
 {
-   type = DataEntitiesStateActionTypes.AddMany;   
+   readonly type = ActionTypes.AddMany;   
    constructor( public entities: any[], public uniqueName: string ){}
 }
 
 
 export class DeleteEntityFromState implements Action
 {
-   type = DataEntitiesStateActionTypes.DeleteEntityFromState;   
+   readonly type = ActionTypes.DeleteEntityFromState;   
    constructor( public id: string, public uniqueName: string ){}
 }
 
 
 export class DeleteAll implements Action
 {
-   type = DataEntitiesStateActionTypes.DeleteAll;   
+   readonly type = ActionTypes.DeleteAll;   
    constructor( public uniqueName: string ){}
 }
 
 
 export class DeleteMany implements Action
 {
-   type = DataEntitiesStateActionTypes.DeleteMany;   
-   constructor( public uniqueName: string ){}
+   readonly type = ActionTypes.DeleteMany;   
+   constructor( public ids: string[], public uniqueName: string ){}
 }
 
 
 export class Update implements Action
 {
-   type = DataEntitiesStateActionTypes.Update;   
-   constructor( public uniqueName: string ){}
+   readonly type = ActionTypes.Update;   
+   constructor( public entity: any, public uniqueName: string ){}
 }
 
 
 export class UpdateMany implements Action
 {
-   type = DataEntitiesStateActionTypes.UpdateMany;   
-   constructor( public uniqueName: string ){}
+   readonly type = ActionTypes.UpdateMany;   
+   constructor( public entities: any[], public uniqueName: string ){}
 }
 
-export type DataEntitiesStateActions = 
+export type ActionsUnion = 
 //actions that affect the database
 CreateEntityState |
 DeleteEntityState |
