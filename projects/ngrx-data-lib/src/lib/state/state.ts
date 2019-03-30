@@ -39,5 +39,6 @@ export function reducer(state = initialState, action: actions.ActionsUnion) : En
 
         case actions.ActionTypes.UpdateMany:
           return adapter.entityStateRemoveMany(action.entities, action.uniqueName, state);
-    }
+    }    
 }
+

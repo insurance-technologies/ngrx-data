@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private userService: UserService, private dataService: DataService)
   {
 
-  }
+  } 
 
   ngOnInit(): void {
     
