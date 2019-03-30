@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { getRequest } from 'ngrx-data-lib';
-import { JsonFormatConverter } from 'ngrx-data-lib';
+import { DataService } from 'ngrx-data-lib';
+import { UserService } from 'src/services/userService';
 
 @Component({
   selector: 'ngd-root',
@@ -12,16 +11,14 @@ export class AppComponent implements OnInit {
   
   title = 'ngrx-data';
 
-  constructor(private http: HttpClient)
+  constructor(private userService: UserService, private dataService: DataService)
   {
 
   }
 
   ngOnInit(): void {
     
-    getRequest(this.http, 'https://reqres.in/api/users', [new JsonFormatConverter()]).subscribe(data=>{
-      console.log(data);
-    })
+     this.userService.dispatch(this.dataService.GET);
 
   }
 

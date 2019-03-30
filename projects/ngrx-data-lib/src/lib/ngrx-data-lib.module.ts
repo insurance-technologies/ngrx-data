@@ -1,29 +1,46 @@
-import { NgModule, OnDestroy, ModuleWithProviders } from '@angular/core';
-import { NgrxDataLibComponent } from './ngrx-data-lib.component';
-import { NgrxDataConfigurationService } from './services/configuaration.service';
+import { NgModule, OnDestroy, ModuleWithProviders, Injector } from '@angular/core';
 import { NgrxDataConfiguration } from './models/configuration';
+import { StoreModule } from '@ngrx/store';
+import { reducer, initialState } from './state/state';
+import { EffectsModule } from '@ngrx/effects'
+import { NgrxDataEffects } from './state/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    NgrxDataLibComponent,
-    NgrxDataConfigurationService
+    
+  ],
+  providers: [
+         
   ],
   imports: [
+    EffectsModule.forRoot([NgrxDataEffects]),   
+    HttpClientModule,
+    StoreModule.forFeature('entityDb', reducer),    
   ],
-  exports: [
-    NgrxDataLibComponent
+  exports: [    
+    
   ]
 })
-export class NgrxDataLibModule {
-  
-   static forRoot(config: NgrxDataConfiguration): ModuleWithProviders {
-     
-    
-     
+export class NgrxDataLibModule {  
+
+   static Reducer = reducer;
+   static injector: Injector = null;
+   
+   static forRoot(config: NgrxDataConfiguration): ModuleWithProviders {    
+
      return {
       ngModule: NgrxDataLibModule,
-      providers: [NgrxDataConfigurationService, {provide: 'ngrxdataConfig', useValue: config}]
+
+      providers: [
+        {provide: 'ngrxdataConfig', useValue: config}
+      ]
      }
+   }
+
+   constructor(injector: Injector)
+   {
+      NgrxDataLibModule.injector = injector;      
    }
 
  }

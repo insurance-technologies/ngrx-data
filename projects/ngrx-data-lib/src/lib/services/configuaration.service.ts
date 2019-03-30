@@ -3,7 +3,9 @@ import { NgrxDataConfiguration } from '../models/configuration';
 import { config } from 'rxjs';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+ })
 export class NgrxDataConfigurationService
 {
     /**

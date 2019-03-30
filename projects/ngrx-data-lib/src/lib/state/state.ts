@@ -1,10 +1,8 @@
 import { EntityStateCollectionAdapter, EntityStatesCollection } from './entity-states-collection-adapter';
 import * as actions from './actions';
-import { stat } from 'fs';
-
 
 const adapter = new EntityStateCollectionAdapter();
-const initialState = adapter.getInitialState();
+export const initialState = adapter.getInitialState();
 
 
 export function reducer(state = initialState, action: actions.ActionsUnion) : EntityStatesCollection
