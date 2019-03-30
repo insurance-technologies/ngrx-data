@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, Update } from '@ngrx/entity';
 import { EntityStateCollectionAdapter } from './entity-states-collection-adapter';
 import { stat } from 'fs';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
@@ -198,6 +198,59 @@ describe('Database State adapter, Entity State', ()=>{
         }
 
     })
+
+    it('entityStateRemoveAll', ()=>{
+
+        let state = collectionAdapter.addEntityState('testEntityState', collectionAdapter.getInitialState());
+        let data = [];
+        for(let i = 0; i < 1000; i++)
+        {
+            data.push( 
+            { 
+                id: i.toString(),
+                name: 'name ' + i
+            });
+        }
+        state = collectionAdapter.entityStateAddMany(data, 'testEntityState', state);
+
+        state = collectionAdapter.entityStateRemoveAll('testEntityState', state);
+        expect(state.testEntityState.ids.length).toBe(0);
+    })
+
+    it('entityStateUpdateOne', ()=>{
+
+        let state = collectionAdapter.addEntityState('testEntityState', collectionAdapter.getInitialState());
+        state = collectionAdapter.entityStateAddOne({id: '1', name: 'Alejo'}, 'testEntityState', state);
+
+        state = collectionAdapter.entityStateUpdateOne({ id: '1', name: 'Jose' }, 'testEntityState', state);
+        console.log(state);
+        expect(state.testEntityState.entities['1'].name).toBe('Jose');
+    });
+
+    
+it('entityStateUpdateMany', ()=>{
+
+    let state = collectionAdapter.addEntityState('testEntityState', collectionAdapter.getInitialState());
+        let data = [];
+        for(let i = 0; i < 1000; i++)
+        {
+            data.push( 
+            { 
+                id: i.toString(),
+                name: 'name ' + i
+            });
+        }
+        state = collectionAdapter.entityStateAddMany(data, 'testEntityState', state);
+
+    state = collectionAdapter.entityStateUpdateMany([{id: '58', name: 'Alejo'}, {id: '163', name: 'Jose'}], 'testEntityState', state);
+
+    expect(state.testEntityState.entities['58'].name).toBe('Alejo');
+    expect(state.testEntityState.entities['163'].name).toBe('Jose');   
+
+})
+
+
+
 
 })
 

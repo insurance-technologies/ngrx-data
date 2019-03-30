@@ -154,24 +154,24 @@ export class EntityStateCollectionAdapter
     }
 
 
-    entityStateUpdateOne(entity: Update<any>, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    entityStateUpdateOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
     {
         return this.processEntityState(
             (es)=>{
  
-                return entityAdapter.updateOne(entity, es); 
+                return entityAdapter.updateOne( { id: entity.id, changes: entity } , es); 
               
         }
         , uniqueName, state);
     }
 
 
-    entityStateUpdateMany(entities: Update<any>[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    entityStateUpdateMany(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
     {
         return this.processEntityState(
             (es)=>{
  
-                return entityAdapter.updateMany(entities, es); 
+                return entityAdapter.updateMany(entities.map(e=>{return{id: e.id, changes: e}}), es); 
               
         }
         , uniqueName, state);
