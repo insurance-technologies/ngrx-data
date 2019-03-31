@@ -9,6 +9,6 @@ export class UserService extends EntityService<User>
 {
     constructor()
     {
-        super('users', 'http//www.test.com/users');
+        super('users', 'http://localhost:3000/users');
     }
 }

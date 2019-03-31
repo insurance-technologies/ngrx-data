@@ -86,7 +86,7 @@ export class UpdateMany implements Action
    constructor( public entities: any[], public uniqueName: string ){}
 }
 
-export type ActionsUnion = 
+export type DBActions = 
 //actions that affect the database
 CreateEntityState |
 DeleteEntityState |

@@ -26,8 +26,11 @@ export class AppComponent implements OnInit {
 
      this.users$ = this.userService.select();
      
-     
+  }
 
+  onClick()
+  {    
+    this.userService.dispatch(this.dataService.GET);
   }
 
 }

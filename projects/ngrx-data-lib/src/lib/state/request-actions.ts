@@ -27,3 +27,8 @@ export class RequestError implements Action
    readonly type = ActionTypes.RequestError;   
    constructor( public errors: string[] ){}
 }
+
+export type RequestActions = 
+MakeRequest |
+RequestSuccess |
+RequestError

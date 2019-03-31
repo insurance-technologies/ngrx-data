@@ -18,7 +18,7 @@
  * }
  */
 import { IDataMapper } from './datamapper-interface';
-import { ActionsUnion, UpdateMany, AddMany, DeleteMany } from '../state/actions';
+import { DBActions, UpdateMany, AddMany, DeleteMany } from '../state/db-actions';
 
 interface DataWrapper
 {
@@ -27,14 +27,15 @@ interface DataWrapper
 
 export class EntityArrayMapper implements IDataMapper
 {
-    map(data: any): ActionsUnion[] {
+    map(data: any): DBActions[] {
         
-        let result: ActionsUnion[] = [];
+        let result: DBActions[] = [];
 
         let responseData = data as DataWrapper;
         let uniqueNames = Object.keys(responseData);
-        for(let uniqueName in uniqueNames)
-        {            
+        for(let i = 0; i < uniqueNames.length; i++)
+        {
+            let uniqueName = uniqueNames[i];            
             let entityActions = responseData[uniqueName];
             
             if(entityActions.add)            

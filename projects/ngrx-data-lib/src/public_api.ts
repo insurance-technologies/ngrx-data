@@ -8,7 +8,7 @@ import { from } from 'rxjs';
 export * from './lib/services/public-services';
 
 //actions
-export * from './lib/state/actions';
+export * from './lib/state/db-actions';
 
 //models
 export * from './lib/models/public-models';

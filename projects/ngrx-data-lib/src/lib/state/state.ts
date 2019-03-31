@@ -1,11 +1,13 @@
 import { EntityStateCollectionAdapter, EntityStatesCollection } from './entity-states-collection-adapter';
-import * as actions from './actions';
+import * as actions from './db-actions';
+import * as requestActions from './request-actions';
+import { AllActions } from './all-actions';
 
 const adapter = new EntityStateCollectionAdapter();
 export const initialState = adapter.getInitialState();
 
 
-export function reducer(state = initialState, action: actions.ActionsUnion) : EntityStatesCollection
+export function reducer(state = initialState, action: AllActions) : EntityStatesCollection
 {
     switch(action.type)
     {
@@ -39,6 +41,9 @@ export function reducer(state = initialState, action: actions.ActionsUnion) : En
 
         case actions.ActionTypes.UpdateMany:
           return adapter.entityStateRemoveMany(action.entities, action.uniqueName, state);
+
+        default:
+          return state;  
     }    
 }
 

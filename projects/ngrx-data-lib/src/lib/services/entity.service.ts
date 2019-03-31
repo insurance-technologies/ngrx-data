@@ -1,6 +1,6 @@
 import { Store, select } from '@ngrx/store';
 import { NgrxDataLibModule } from '../ngrx-data-lib.module';
-import * as DbActions from '../state/actions';
+import * as DbActions from '../state/db-actions';
 import * as RequestActions from '../state/request-actions';
 import { RequestProvider } from '../http/request-provider';
 import { EntityStatesCollection, ExtendedEntityState } from '../state/entity-states-collection-adapter';
