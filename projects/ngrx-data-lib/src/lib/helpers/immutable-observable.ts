@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
  * an special observable that mantains the data inmutable
  * and you can always reset the data to the orginal value
  */
-export class InmutableObservable<T> extends Observable<T>
+export class ImmutableObservable<T> extends Observable<T>
 {
     private resetObservable$ : Subject<{ lastValue: boolean, val: T }>;
     private lastValue: T;
@@ -22,9 +22,10 @@ export class InmutableObservable<T> extends Observable<T>
                    this.lastValue = next.val;                
                 
                 let val = next.val;   
+                let copy = makeShadowCopy(val);
                 
                 //shadow copy of the value
-                observer.next( {...val} );
+                observer.next( copy );
                },
                
                (error)=>{
@@ -53,8 +54,37 @@ export class InmutableObservable<T> extends Observable<T>
 /**
  * convert to an inmutable observable.
  */
-export const makeInmutable = () => (source: Observable<any>) => 
+export const makeImmutable = () => (source: Observable<any>) => 
     {     
-       return new InmutableObservable(source);
+       return new ImmutableObservable(source);
     };
 
+function makeShadowCopy(value: any) : any
+{
+   //make copy of every item if it is array
+   if(Array.isArray(value))   
+      return makeArrayCopy(value as []);
+   
+   //make shadow copy of the object
+   if(typeof value == 'object')
+   {
+      let objVal = value as {};
+      return { ...objVal };
+   }
+   
+   //we can return string because they are inmutable.
+   //for values like number they are passed by value and not by reference, so is safe to return them.
+   //for functions just return the value because they are inmutable as well.
+   return value;
+}
+
+function makeArrayCopy(value: []) : any[]
+{
+   let result = [];
+
+   //for each item make a shadow copy
+   for(let i = 0; i < value.length; i++)
+     result.push( makeShadowCopy(value[i]) );
+
+   return result;
+}

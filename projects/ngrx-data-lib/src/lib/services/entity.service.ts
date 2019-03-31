@@ -3,7 +3,7 @@ import { NgrxDataLibModule } from '../ngrx-data-lib.module';
 import * as DbActions from '../state/actions';
 import * as RequestActions from '../state/request-actions';
 import { RequestProvider } from '../http/request-provider';
-import { EntityStatesCollection } from '../state/entity-states-collection-adapter';
+import { EntityStatesCollection, ExtendedEntityState } from '../state/entity-states-collection-adapter';
 import { NgrxDataConfigurationService } from './configuaration.service';
 import { dispatch } from 'rxjs/internal/observable/pairs';
 import { DataService } from './entity-data.service';
@@ -11,8 +11,7 @@ import { Observable } from 'rxjs';
 import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
 import { map, filter } from 'rxjs/operators';
-import { ExtendedEntityState } from 'ngrx-data-lib/lib/state/entity-states-collection-adapter';
-import { makeInmutable, InmutableObservable } from '../helpers/inmutable-observable';
+import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
 
 /**
  * base class for entity services.
@@ -101,21 +100,21 @@ export class EntityService<T>
     * returns as InmutableObservable of the data.
     * @param f filter function to filter the data.
     */
-   public select( f?: (e: T)=>boolean ) : InmutableObservable<T[]>
+   public select( f?: (e: T)=>boolean ) : ImmutableObservable<T[]>
    {
       if(f)
-       return this.all$.pipe( map( e=>e.filter(f) ), makeInmutable() ) as InmutableObservable<T[]>;
+       return this.all$.pipe( map( e=>e.filter(f) ), makeImmutable() ) as ImmutableObservable<T[]>;
       else
-       return this.all$.pipe( makeInmutable() ) as InmutableObservable<T[]>;
+       return this.all$.pipe( makeImmutable() ) as ImmutableObservable<T[]>;
    }
    
    /**
     * returns InmutableObservable of an entity with specific id
     * @param id the id of the entity
     */
-   public selectById(id:string) : InmutableObservable<T>
+   public selectById(id:string) : ImmutableObservable<T>
    {
-      return this.entities$.pipe( map(e=>e[id]), makeInmutable() ) as InmutableObservable<T>;
+      return this.entities$.pipe( map(e=>e[id]), makeImmutable() ) as ImmutableObservable<T>;
    }
    
    /**
