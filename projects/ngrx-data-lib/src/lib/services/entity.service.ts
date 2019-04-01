@@ -12,6 +12,7 @@ import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
 import { map, filter } from 'rxjs/operators';
 import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
+import { v1 } from 'uuid';
 
 /**
  * base class for entity services.
@@ -131,9 +132,9 @@ export abstract class EntityService<T>
     */
    public dispatch(provider: RequestProvider)
    {
-      let uid = 'a';
+      let uid = v1();
       this.configService.injectRequestProvider(uid, provider);
-      this.store.dispatch(new RequestActions.MakeRequest(uid, this.endpoint));
+      this.store.dispatch(new RequestActions.MakeRequest(uid, this.endpoint, this.uniqueName));
    }
 
 }

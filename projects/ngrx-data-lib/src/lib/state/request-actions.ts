@@ -12,20 +12,20 @@ export enum ActionTypes
 export class MakeRequest implements Action
 {
    readonly type = ActionTypes.MakeRequest;   
-   constructor( public providerUid: string, public baseUrl: string ){}
+   constructor( public providerUid: string, public baseUrl: string, public uniqueName: string ){}
 }
 
 export class RequestSuccess implements Action
 {
    readonly type = ActionTypes.RequestSuccess;   
-   constructor( public data: any ){}
+   constructor( public data: any, public uniqueName: string ){}
 }
 
 
 export class RequestError implements Action
 {
    readonly type = ActionTypes.RequestError;   
-   constructor( public errors: string[] ){}
+   constructor( public errors: string[], public uniqueName: string ){}
 }
 
 export type RequestActions = 
