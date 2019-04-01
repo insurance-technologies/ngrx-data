@@ -59,24 +59,23 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
      if(response.ok)
      {
         if(!response.body)
-          return null;
+          throw 'response body not found';
 
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
         if(!contentType)
-          return null;
+          throw 'response without content-type';
 
         //get the format converter asociated with this content type
         let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
         if(!formatConverter)
-          return null;
+          throw "cant't find formatConverter for Content-Type: " + contentType;
           
         return formatConverter.convertToObject(response.body);
      }
-     else
-     {
-        return null;
-     }
+     else     
+        throw response.statusText;
+     
 
    }));
 }
@@ -111,23 +110,23 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
      if(response.ok)
      {
         if(!response.body)
-          return null;
+        throw 'response body not found';
           
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
         if(!contentType)
-          return null;
+        throw 'response without content-type';
 
         //get the format converter asociated with this content type
         let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
         if(!formatConverter)
-          return null;
+        throw "cant't find formatConverter for Content-Type: " + contentType;
           
         return formatConverter.convertToObject(response.body);
      }
      else
      {
-        return null;
+        throw response.statusText;
      }
 
    }));
@@ -155,24 +154,22 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
      if(response.ok)
      {
         if(!response.body)
-          return null;
+          throw 'response body not found';
 
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
         if(!contentType)
-          return null;
+          throw 'response without content-type';
 
         //get the format converter asociated with this content type
         let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
         if(!formatConverter)
-          return null;
+          throw "cant't find formatConverter for Content-Type: " + contentType;
           
         return formatConverter.convertToObject(response.body);
      }
      else
-     {
-        return null;
-     }
+      throw response.statusText;
 
    }));
 }
@@ -203,24 +200,22 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
      if(response.ok)
      {
         if(!response.body)
-          return null;
+          throw 'response body not found';
           
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
         if(!contentType)
-          return null;
+          throw 'response without content-type';
 
         //get the format converter asociated with this content type
         let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
         if(!formatConverter)
-          return null;
+          throw "cant't find formatConverter for Content-Type: " + contentType;
           
         return formatConverter.convertToObject(response.body);
      }
      else
-     {
-        return null;
-     }
+      throw response.statusText;
 
    }));
 }

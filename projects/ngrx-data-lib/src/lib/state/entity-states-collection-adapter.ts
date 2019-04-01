@@ -5,6 +5,9 @@ import { createEntityAdapter, EntityState, Update } from '@ngrx/entity';
  */
 export interface EntityStatesCollection
 {
+    /**
+     * The entity states by unique name
+     */
    [name: string] : ExtendedEntityState;
 }
 
@@ -13,7 +16,18 @@ export interface EntityStatesCollection
  */
 export interface ExtendedEntityState extends EntityState<any>
 {
-    
+    /**
+     * the errors related with this entity state.
+     */
+    errors: string[];
+    /**
+     * the number of external requests running.
+     */
+    loadingTasks: number;
+    /**
+     * id of the selected entity of this entity state
+     */
+    selectedId: string | number;
 }
 
 /**
@@ -53,7 +67,11 @@ export class EntityStateCollectionAdapter
         let copy = { ...state };
        
         //add the entity state with the help of the entity adapter
-        copy[name] = entityAdapter.getInitialState({});
+        copy[name] = entityAdapter.getInitialState({
+            errors: [],
+            loadingTasks: 0,
+            selectedId: null
+        });
 
        return copy;
     }
@@ -208,7 +226,7 @@ export class EntityStateCollectionAdapter
         , uniqueName, state);
     }
 
-    private processEntityState(func: (entityState: EntityState<any>)=>ExtendedEntityState, uniqueName: string, state: EntityStatesCollection)
+    private processEntityState(func: (entityState: ExtendedEntityState)=>ExtendedEntityState, uniqueName: string, state: EntityStatesCollection)
     {
         let entityState = state[uniqueName];
         if(!entityAdapter)

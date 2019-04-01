@@ -9,8 +9,27 @@ export const initialState = adapter.getInitialState();
 
 export function reducer(state = initialState, action: AllActions) : EntityStatesCollection
 {
+    let copyState, es;
     switch(action.type)
     {
+        case requestActions.ActionTypes.MakeRequest:
+          copyState = {...state};
+          es = copyState[action.uniqueName];
+          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks++}
+          return copyState;           
+
+        case requestActions.ActionTypes.RequestSuccess:
+          copyState = {...state};
+          es = copyState[action.uniqueName];
+          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks--}
+          return copyState;    
+          
+        case requestActions.ActionTypes.RequestError:
+          copyState = {...state};
+          es = copyState[action.uniqueName];
+          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks--, errors: action.errors}
+          return copyState;    
+
         case actions.ActionTypes.CreateEntityState:
           return adapter.addEntityState( action.uniqueName, state);         
           
@@ -19,7 +38,6 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           
         case actions.ActionTypes.DeleteAllEntityStates:
           return adapter.deleteAllEntityStates(state);
-
 
         case actions.ActionTypes.AddEntityToState:
           return adapter.entityStateAddOne(action.entity, action.uniqueName, state);
