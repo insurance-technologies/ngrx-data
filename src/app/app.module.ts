@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgrxDataLibModule, JsonFormatConverter, EntityArrayMapper } from 'ngrx-data-lib';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -12,7 +15,17 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(NgrxDataLibModule.Reducer),
+    NgrxDataLibModule.forRoot({
+      deafaultRequestFormat: new JsonFormatConverter(),
+      deafaultResponseFormats: [new JsonFormatConverter()],
+      dataMapper: new EntityArrayMapper()      
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states     
+    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

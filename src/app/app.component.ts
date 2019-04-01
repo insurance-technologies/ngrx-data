@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { getRequest } from 'ngrx-data-lib';
-import { JsonFormatConverter } from 'ngrx-data-lib';
+import { DataService } from 'ngrx-data-lib';
+import { UserService } from 'src/services/userService';
+import { Store } from '@ngrx/store';
+import { AddEntityToState } from 'projects/ngrx-data-lib/src/public_api';
+import { Observable } from 'rxjs';
+import { ImmutableObservable } from 'ngrx-data-lib/lib/helpers/immutable-observable';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'ngd-root',
@@ -11,18 +15,22 @@ import { JsonFormatConverter } from 'ngrx-data-lib';
 export class AppComponent implements OnInit {
   
   title = 'ngrx-data';
+  users$: ImmutableObservable<User[]>;
 
-  constructor(private http: HttpClient)
+  constructor(private userService: UserService, private dataService: DataService, private store: Store<any>)
   {
+     
+  } 
 
+  ngOnInit(): void {   
+
+     this.users$ = this.userService.select();
+     
   }
 
-  ngOnInit(): void {
-    
-    getRequest(this.http, 'https://reqres.in/api/users', [new JsonFormatConverter()]).subscribe(data=>{
-      console.log(data);
-    })
-
+  onClick()
+  {    
+    this.userService.dispatch(this.dataService.GET);
   }
 
 }

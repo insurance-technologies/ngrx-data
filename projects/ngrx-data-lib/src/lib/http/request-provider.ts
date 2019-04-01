@@ -87,10 +87,10 @@ export class RequestProvider {
       
       this._requestType = requestType;
       this._body = body;
-      this._responseFormats = this._responseFormats;
-      this._requestFormat = this._requestFormat;
+      this._responseFormats = responseFormats;
+      this._requestFormat = requestFormat;
     }
-  
+
     //Start of the fluent api
     //-------------------------------------------------------------------------------------------------------
   

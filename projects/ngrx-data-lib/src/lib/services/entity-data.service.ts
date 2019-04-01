@@ -10,7 +10,9 @@ import { Injectable } from '@angular/core';
 /**
  * Provide communication with extern resources providing support for multiple formats and a fluent api.
  */
-@Injectable()
+@Injectable({
+   providedIn: 'root'
+})
 export class DataService
 {
     private _getProvider : RequestProvider;
