@@ -20,6 +20,13 @@ export interface ExtendedEntityState extends EntityState<any>
  * the adapter to manage the entity changes.
  */
 const entityAdapter = createEntityAdapter<any>();
+export const {
+    selectAll,
+    selectEntities,
+    selectIds,
+    selectTotal  
+  } = entityAdapter.getSelectors();
+    
 
 export class EntityStateCollectionAdapter
 {   
@@ -28,7 +35,7 @@ export class EntityStateCollectionAdapter
      */ 
     getInitialState() : EntityStatesCollection
     {
-        return {};
+        return {};                
     }
 
     /**
