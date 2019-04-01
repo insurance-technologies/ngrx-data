@@ -16,7 +16,7 @@ import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observa
 /**
  * base class for entity services.
  */
-export class EntityService<T>
+export abstract class EntityService<T>
 {
    private store: Store<any>;
    private configService: NgrxDataConfigurationService;
