@@ -74,6 +74,113 @@
 
 
 
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#all$">all$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#configService">configService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dataService">dataService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#entities$">entities$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#entityState$">entityState$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#ids$">ids$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#store">store</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#total$">total$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#createEntityInDb">createEntityInDb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#createObservables">createObservables</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dispatch">dispatch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dispatchAddEntity">dispatchAddEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dispatchDeleteEntity">dispatchDeleteEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dispatchGetById">dispatchGetById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dispatchUpdateEntity">dispatchUpdateEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#select">select</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectById">selectById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectTotal">selectTotal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
 
             <section>
     <h3 id="constructor">Constructor</h3>
@@ -81,12 +188,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(uniqueName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, store: <a href="../interfaces/EntityStatesCollection.html">Store<EntityStatesCollection></a>)</code>
+<code>constructor(uniqueName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, endpoint: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -116,10 +223,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>store</td>
+                                                        <td>endpoint</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../interfaces/EntityStatesCollection.html" target="_self" >Store&lt;EntityStatesCollection&gt;</a></code>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -136,8 +243,923 @@
         </table>
 </section>
 
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="all$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            all$</b>
+                            <a href="#all$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Observable&lt;T[]&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:28</a></div>
+                            </td>
+                        </tr>
 
 
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            configService</b>
+                            <a href="#configService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/NgrxDataConfigurationService.html" target="_self" >NgrxDataConfigurationService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dataService</b>
+                            <a href="#dataService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="entities$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            entities$</b>
+                            <a href="#entities$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Observable&lt;Dictionary&lt;T&gt;&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="entityState$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            entityState$</b>
+                            <a href="#entityState$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ExtendedEntityState.html" target="_self" >Observable&lt;ExtendedEntityState&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ids$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            ids$</b>
+                            <a href="#ids$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Observable&lt;[] | []&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="store"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            store</b>
+                            <a href="#store"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Store&lt;any&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="total$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            total$</b>
+                            <a href="#total$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Observable&lt;number&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createEntityInDb"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            createEntityInDb
+                        </b>
+                        <a href="#createEntityInDb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createEntityInDb()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create the entity in the database</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createObservables"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            createObservables
+                        </b>
+                        <a href="#createObservables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createObservables()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dispatch"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            dispatch
+                        </b>
+                        <a href="#dispatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>dispatch(provider: <a href="../classes/RequestProvider.html">RequestProvider</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="133"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:133</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Make a request via http that change or get the data of this entity.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>provider</td>
+                                    <td>
+                                                <code><a href="../classes/RequestProvider.html" target="_self" >RequestProvider</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The request provider to execute</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dispatchAddEntity"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            dispatchAddEntity
+                        </b>
+                        <a href="#dispatchAddEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>dispatchAddEntity(entity: T)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Make request to add entity. POST request at {endpoint}</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                            <code>T</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the entity to add</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dispatchDeleteEntity"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            dispatchDeleteEntity
+                        </b>
+                        <a href="#dispatchDeleteEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>dispatchDeleteEntity(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:95</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Make a request to delete entity. DELETE request at {endpoint}/{id}</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the id of the entity to delete</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dispatchGetById"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            dispatchGetById
+                        </b>
+                        <a href="#dispatchGetById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>dispatchGetById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Make request to get entity by id. url: {endpoint}/{id}</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of the entity</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dispatchUpdateEntity"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            dispatchUpdateEntity
+                        </b>
+                        <a href="#dispatchUpdateEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>dispatchUpdateEntity(entity: T)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Make a request to update entity. PUT request at {endpoint}</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                            <code>T</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the entity to update</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="select"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            select
+                        </b>
+                        <a href="#select"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>select(f?: (e?: T) => void)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:104</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>returns as InmutableObservable of the data.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>f</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>filter function to filter the data.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ImmutableObservable.html" target="_self" >ImmutableObservable&lt;T[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectById"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            selectById
+                        </b>
+                        <a href="#selectById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:116</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>returns InmutableObservable of an entity with specific id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the id of the entity</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ImmutableObservable.html" target="_self" >ImmutableObservable&lt;T&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectTotal"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            selectTotal
+                        </b>
+                        <a href="#selectTotal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectTotal()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity.service.ts:124</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>get Observable of the quantity of entities.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;number&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -147,22 +1169,147 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Store } from &#x27;@ngrx/store&#x27;;
-import { EntityStatesCollection } from &#x27;../state/state&#x27;;
-
-
-
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Store, select } from &#x27;@ngrx/store&#x27;;
+import { NgrxDataLibModule } from &#x27;../ngrx-data-lib.module&#x27;;
+import * as DbActions from &#x27;../state/db-actions&#x27;;
+import * as RequestActions from &#x27;../state/request-actions&#x27;;
+import { RequestProvider } from &#x27;../http/request-provider&#x27;;
+import { EntityStatesCollection, ExtendedEntityState } from &#x27;../state/entity-states-collection-adapter&#x27;;
+import { NgrxDataConfigurationService } from &#x27;./configuaration.service&#x27;;
+import { dispatch } from &#x27;rxjs/internal/observable/pairs&#x27;;
+import { DataService } from &#x27;./entity-data.service&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import * as dbAdapter from &#x27;../state/entity-states-collection-adapter&#x27;;
+import { Dictionary, EntityState } from &#x27;@ngrx/entity&#x27;;
+import { map, filter } from &#x27;rxjs/operators&#x27;;
+import { makeImmutable, ImmutableObservable } from &#x27;../helpers/immutable-observable&#x27;;
+import { v1 } from &#x27;uuid&#x27;;
 
 /**
  * base class for entity services.
  */
-export class EntityService&lt;T&gt;
+export abstract class EntityService&lt;T&gt;
 {
-   constructor(private uniqueName: string, private store: Store&lt;EntityStatesCollection&gt;)
+   private store: Store&lt;any&gt;;
+   private configService: NgrxDataConfigurationService;
+   private dataService: DataService;
+   
+   private entityState$: Observable&lt;ExtendedEntityState&gt;;
+
+   private all$ : Observable&lt;T[]&gt;;
+   private entities$ : Observable&lt;Dictionary&lt;T&gt;&gt;;
+   private ids$ : Observable&lt;string[] | number[]&gt;;
+   private total$ : Observable&lt;number&gt;;
+        
+   constructor(private uniqueName: string, private endpoint: string)
    {
-      
+      this.store &#x3D; NgrxDataLibModule.injector.get(Store);
+      this.configService &#x3D; NgrxDataLibModule.injector.get(NgrxDataConfigurationService);
+      this.dataService &#x3D; NgrxDataLibModule.injector.get(DataService);
+      this.createEntityInDb();
    }
-}</code></pre>
+
+   /**
+    * Create the entity in the database
+    */
+   private createEntityInDb()
+   {
+      this.store.dispatch(new DbActions.CreateEntityState(this.uniqueName));
+      this.createObservables();
+   }
+
+   private createObservables()
+   {
+      this.entityState$ &#x3D; this.store.pipe(
+          map(state&#x3D;&gt;state.entityDb as EntityStatesCollection), //map to the entity database
+          filter(db&#x3D;&gt;db[this.uniqueName] ? true : false), //only if this entity state exist
+          map(db&#x3D;&gt;db[this.uniqueName])); //map by this entity state.
+
+      //using the Entity adapter selectors to select the entites
+      this.all$ &#x3D; this.entityState$.pipe(map(dbAdapter.selectAll));
+      this.entities$ &#x3D; this.entityState$.pipe(map(dbAdapter.selectEntities));
+      this.ids$ &#x3D; this.entityState$.pipe(map(dbAdapter.selectIds));
+      this.total$ &#x3D; this.entityState$.pipe(map(dbAdapter.selectTotal));
+   }
+
+   /**
+    * Make request to get entity by id. url: {endpoint}/{id}
+    * @param id id of the entity
+    */
+   public dispatchGetById(id: string)
+   {
+      this.dispatch(this.dataService.GET.at(id));
+   }
+
+   /**
+    * Make request to add entity. POST request at {endpoint}
+    * @param entity the entity to add
+    */
+   public dispatchAddEntity(entity: T)
+   {
+      this.dispatch(this.dataService.POST);
+   }
+
+   /**
+    * Make a request to update entity. PUT request at {endpoint}
+    * @param entity the entity to update
+    */
+   public dispatchUpdateEntity(entity: T)
+   {
+      this.dispatch(this.dataService.PUT);
+   }
+
+   /**
+    * Make a request to delete entity. DELETE request at {endpoint}/{id}
+    * @param id the id of the entity to delete
+    */
+   public dispatchDeleteEntity(id: string)
+   {
+      this.dispatch(this.dataService.DELETE.at(id));
+   }
+
+   /**
+    * returns as InmutableObservable of the data.
+    * @param f filter function to filter the data.
+    */
+   public select( f?: (e: T)&#x3D;&gt;boolean ) : ImmutableObservable&lt;T[]&gt;
+   {
+      if(f)
+       return this.all$.pipe( map( e&#x3D;&gt;e.filter(f) ), makeImmutable() ) as ImmutableObservable&lt;T[]&gt;;
+      else
+       return this.all$.pipe( makeImmutable() ) as ImmutableObservable&lt;T[]&gt;;
+   }
+   
+   /**
+    * returns InmutableObservable of an entity with specific id
+    * @param id the id of the entity
+    */
+   public selectById(id:string) : ImmutableObservable&lt;T&gt;
+   {
+      return this.entities$.pipe( map(e&#x3D;&gt;e[id]), makeImmutable() ) as ImmutableObservable&lt;T&gt;;
+   }
+   
+   /**
+    * get Observable of the quantity of entities.
+    */
+   public selectTotal() : Observable&lt;number&gt;
+   {
+      return this.total$;
+   }
+
+   /**
+    * Make a request via http that change or get the data of this entity.
+    * @param provider The request provider to execute
+    */
+   public dispatch(provider: RequestProvider)
+   {
+      let uid &#x3D; v1();
+      this.configService.injectRequestProvider(uid, provider);
+      this.store.dispatch(new RequestActions.MakeRequest(uid, this.endpoint, this.uniqueName));
+   }
+
+}
+</code></pre>
     </div>
 </div>
 

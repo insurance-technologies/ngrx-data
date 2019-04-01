@@ -61,9 +61,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/state/state.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>entity state structure.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -88,13 +95,10 @@
                                         <a href="#errors">errors</a>
                                 </li>
                                 <li>
-                                        <a href="#isLoading">isLoading</a>
+                                        <a href="#loadingTasks">loadingTasks</a>
                                 </li>
                                 <li>
                                         <a href="#selectedId">selectedId</a>
-                                </li>
-                                <li>
-                                        <a href="#validation">validation</a>
                                 </li>
                             </ul>
                         </td>
@@ -134,19 +138,25 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>the errors related with this entity state.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="isLoading"></a>
-                                        <span class="name"><b>isLoading</b><a href="#isLoading"><span class="icon ion-ios-link"></span></a></span>
+                                        <a name="loadingTasks"></a>
+                                        <span class="name"><b>loadingTasks</b><a href="#loadingTasks"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>isLoading:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                        <code>loadingTasks:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -154,7 +164,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                                         </td>
                                     </tr>
@@ -163,6 +173,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>the number of external requests running.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -192,35 +208,12 @@
 
 
 
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="validation"></a>
-                                        <span class="name"><b>validation</b><a href="#validation"><span class="icon ion-ios-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>validation:     <code>string[]</code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code>string[]</code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>id of the selected entity of this entity state</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -228,22 +221,250 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {EntityState} from &#x27;@ngrx/entity&#x27;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { createEntityAdapter, EntityState, Update } from &#x27;@ngrx/entity&#x27;;
 
+/**
+ * Database structure.
+ */
 export interface EntityStatesCollection
 {
-   [name: string] : ExtendedEntityState&lt;any&gt;;
+    /**
+     * The entity states by unique name
+     */
+   [name: string] : ExtendedEntityState;
 }
 
-export interface ExtendedEntityState&lt;T&gt; extends EntityState&lt;T&gt;
+/**
+ * entity state structure.
+ */
+export interface ExtendedEntityState extends EntityState&lt;any&gt;
 {
-    selectedId: string | number;
-    isLoading: boolean;
+    /**
+     * the errors related with this entity state.
+     */
     errors: string[];
-    validation: string[];
+    /**
+     * the number of external requests running.
+     */
+    loadingTasks: number;
+    /**
+     * id of the selected entity of this entity state
+     */
+    selectedId: string | number;
 }
 
-</code></pre>
+/**
+ * the adapter to manage the entity changes.
+ */
+const entityAdapter &#x3D; createEntityAdapter&lt;any&gt;();
+export const {
+    selectAll,
+    selectEntities,
+    selectIds,
+    selectTotal  
+  } &#x3D; entityAdapter.getSelectors();
+    
+
+export class EntityStateCollectionAdapter
+{   
+    /**
+     * return the initial state of the collection of entities
+     */ 
+    getInitialState() : EntityStatesCollection
+    {
+        return {};                
+    }
+
+    /**
+     * add an entity state to the EntityStatesCollection.
+     * @param name the unique name of the entity state to add.
+     * @param state the EntityStatesCollection.
+     */
+    addEntityState(name: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        //if the entity state already exist no changes are needed
+        if(state[name])
+          return state;
+
+        //create a shadow copy
+        let copy &#x3D; { ...state };
+       
+        //add the entity state with the help of the entity adapter
+        copy[name] &#x3D; entityAdapter.getInitialState({
+            errors: [],
+            loadingTasks: 0,
+            selectedId: null
+        });
+
+       return copy;
+    }
+
+    /**
+     * delete entity state from the EntityStatesCollection.
+     * @param name the unique name of the entity to delete.
+     * @param state the EntityStatesCollection.
+     */
+    deleteEntityState(name: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        //if the entityState does not exist no change is needed.
+        if(!state[name])
+          return state;
+
+        //create a shadow copy
+        let copy &#x3D; { ...state };  
+        
+        //set the entity state to undefine
+        copy[name] &#x3D; undefined;
+
+        return copy;
+    }
+
+    /**
+     * delete all the entity states for the EntityStatesCollection.
+     * @param state the EntityStatesCollection.
+     */
+    deleteAllEntityStates(state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return {};
+    }
+
+
+    //actions for specific entity state----------------------------------------------------------------------------------------------------------
+
+    entityStateAddOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+       return this.processEntityState(
+           (es)&#x3D;&gt;{
+
+           return entityAdapter.addOne(entity, es);
+             
+       }
+       , uniqueName, state);
+    }
+
+    entityStateAddMany(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+            return entityAdapter.addMany(entities, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateAddAll(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.addAll(entities, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateRemoveOne(id: string, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeOne(id, es); 
+              
+        }
+        , uniqueName, state);
+    }   
+
+
+    entityStateRemoveMany(ids: string[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeMany(ids, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateRemoveAll(uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeAll(es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpdateOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.updateOne( { id: entity.id, changes: entity } , es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpdateMany(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.updateMany(entities.map(e&#x3D;&gt;{return{id: e.id, changes: e}}), es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpsertOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return entityAdapter.upsertOne(entity, es);  
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpsertMany(entities: any[], uniqueName: string, state: EntityStatesCollection)
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return entityAdapter.upsertMany(entities, es);   
+              
+        }
+        , uniqueName, state);
+    }
+
+    private processEntityState(func: (entityState: ExtendedEntityState)&#x3D;&gt;ExtendedEntityState, uniqueName: string, state: EntityStatesCollection)
+    {
+        let entityState &#x3D; state[uniqueName];
+        if(!entityAdapter)
+          return state;
+ 
+        entityState &#x3D; func(entityState);
+          
+        let copy &#x3D; {...state};
+        copy[uniqueName] &#x3D; entityState;
+        return copy;
+    }
+
+    
+
+}</code></pre>
     </div>
 </div>
 

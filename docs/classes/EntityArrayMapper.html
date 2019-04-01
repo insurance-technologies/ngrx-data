@@ -27,45 +27,83 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content module">
+               <div class="content class">
                    <div class="content-data">
 
 
 
+
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-    <li>Modules</li>
-    <li>NgrxDataLibModule</li>
+  <li>Classes</li>
+  <li>EntityArrayMapper</li>
 </ol>
 
-
 <ul class="nav nav-tabs" role="tablist">
-    <li  class="active" >
-        <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
-    </li>
-    <li >
-        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
-    </li>
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="c-info">
-
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/ngrx-data-lib.module.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts</code>
         </p>
 
 
 
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../interfaces/IDataMapper.html" target="_self" >IDataMapper</a></code>
+            </p>
 
-        <div class="container-fluid module">
-            <div class="row">
-            </div>
-        </div>
 
-        <section>
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#map">map</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+            <section>
     
     <h3 id="methods">
         Methods
@@ -74,20 +112,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="forRoot"></a>
+                    <a name="map"></a>
                     <span class="name">
                         <b>
-                            <span class="modifier">Static</span>
-                            forRoot
+                            map
                         </b>
-                        <a href="#forRoot"><span class="icon ion-ios-link"></span></a>
+                        <a href="#map"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>forRoot(config: <a href="../interfaces/NgrxDataConfiguration.html">NgrxDataConfiguration</a>)</code>
+<code>map(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
@@ -95,7 +131,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/ngrx-data-lib.module.ts:30</a></div>
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts:30</a></div>
                 </td>
             </tr>
 
@@ -115,9 +151,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>config</td>
+                                    <td>data</td>
                                     <td>
-                                                <code><a href="../interfaces/NgrxDataConfiguration.html" target="_self" >NgrxDataConfiguration</a></code>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                     </td>
 
                                     <td>
@@ -132,7 +168,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/ModuleWithProviders" target="_blank" >ModuleWithProviders</a></code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#DBActions" target="_self" >DBActions[]</a></code>
 
                     </div>
                     <div class="io-description">
@@ -143,66 +179,52 @@
         </tbody>
     </table>
 </section>
+
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule, OnDestroy, ModuleWithProviders, Injector } from &#x27;@angular/core&#x27;;
-import { NgrxDataConfiguration } from &#x27;./models/configuration&#x27;;
-import { StoreModule } from &#x27;@ngrx/store&#x27;;
-import { reducer, initialState } from &#x27;./state/state&#x27;;
-import { EffectsModule } from &#x27;@ngrx/effects&#x27;
-import { NgrxDataEffects } from &#x27;./state/effects&#x27;;
-import { HttpClientModule } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IDataMapper } from &#x27;./datamapper-interface&#x27;;
+import { DBActions, UpdateMany, AddMany, DeleteMany } from &#x27;../state/db-actions&#x27;;
 
-@NgModule({
-  declarations: [
+interface DataWrapper
+{
+    [uniqueName: string]: { add:any[], update:any[], delete:string[] }
+}
+
+export class EntityArrayMapper implements IDataMapper
+{
+    map(data: any): DBActions[] {
+        
+        let result: DBActions[] &#x3D; [];
+
+        let responseData &#x3D; data as DataWrapper;
+        let uniqueNames &#x3D; Object.keys(responseData);
+        for(let i &#x3D; 0; i &lt; uniqueNames.length; i++)
+        {
+            let uniqueName &#x3D; uniqueNames[i];            
+            let entityActions &#x3D; responseData[uniqueName];
+            
+            if(entityActions.add)            
+               result.push( new AddMany(entityActions.add, uniqueName) );
+            
+            if(entityActions.update)            
+                result.push( new UpdateMany(entityActions.update, uniqueName) );            
+
+            if(entityActions.delete)            
+                result.push( new DeleteMany(entityActions.delete, uniqueName) );
+        }
+
+        return result;
+    }
     
-  ],
-  providers: [
-         
-  ],
-  imports: [
-    EffectsModule.forRoot([NgrxDataEffects]),   
-    HttpClientModule,
-    StoreModule.forFeature(&#x27;entityDb&#x27;, reducer),    
-  ],
-  exports: [    
-    
-  ]
-})
-export class NgrxDataLibModule {  
-
-   static Reducer &#x3D; reducer;
-   static injector: Injector &#x3D; null;
-   
-   static forRoot(config: NgrxDataConfiguration): ModuleWithProviders {    
-
-     return {
-      ngModule: NgrxDataLibModule,
-
-      providers: [
-        {provide: &#x27;ngrxdataConfig&#x27;, useValue: config}
-      ]
-     }
-   }
-
-   constructor(injector: Injector)
-   {
-      NgrxDataLibModule.injector &#x3D; injector;      
-   }
-
- }
-</code></pre>
+}</code></pre>
     </div>
 </div>
-
-
-
-
-
-
-
 
 
 
@@ -226,8 +248,8 @@ export class NgrxDataLibModule {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
-            var COMPODOC_CURRENT_PAGE_URL = 'NgrxDataLibModule.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'EntityArrayMapper.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

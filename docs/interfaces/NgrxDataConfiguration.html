@@ -79,6 +79,13 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                        <a href="#dataMapper">dataMapper</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#dbName">dbName</a>
+                                </li>
+                                <li>
                                         <a href="#deafaultRequestFormat">deafaultRequestFormat</a>
                                 </li>
                                 <li>
@@ -95,6 +102,69 @@
 
             <section>
                 <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dataMapper"></a>
+                                        <span class="name"><b>dataMapper</b><a href="#dataMapper"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dataMapper:         <code><a href="../interfaces/IDataMapper.html" target="_self" >IDataMapper</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/IDataMapper.html" target="_self" >IDataMapper</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="dbName"></a>
+                                        <span class="name"><b>dbName</b><a href="#dbName"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>dbName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
                                 <tr>
@@ -159,6 +229,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IFormatConverter } from &#x27;../data-format/format-converter&#x27;;
+import { IDataMapper } from &#x27;../data-mapping/datamapper-interface&#x27;;
 
 
 
@@ -166,6 +237,8 @@ export interface NgrxDataConfiguration
 {
     deafaultRequestFormat: IFormatConverter;
     deafaultResponseFormats: IFormatConverter[];
+    dataMapper: IDataMapper;
+    dbName?: string;
 }</code></pre>
     </div>
 </div>

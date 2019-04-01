@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -36,9 +36,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li>NgrxDataEffects</li>
+  <li>Classes</li>
+  <li>RequestError</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,10 +60,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/state/effects.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/state/request-actions.ts</code>
         </p>
 
 
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                        <code>Action</code>
+            </p>
 
 
             <section>
@@ -75,7 +86,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#makeRequest$">makeRequest$</a>
+                                    <span class="modifier">Public</span>
+                                <a href="#errors">errors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#type">type</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#uniqueName">uniqueName</a>
                             </li>
                         </ul>
                     </td>
@@ -96,12 +116,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(actions$: Actions, dataService: <a href="../injectables/DataService.html">DataService</a>, configService: <a href="../injectables/NgrxDataConfigurationService.html">NgrxDataConfigurationService</a>)</code>
+<code>constructor(errors: string[], uniqueName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -119,10 +139,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>actions$</td>
+                                                        <td>errors</td>
                                                   
                                                         <td>
-                                                                    <code>Actions</code>
+                                                                    <code>string[]</code>
                                                         </td>
                                                   
                                                     <td>
@@ -131,22 +151,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>dataService</td>
+                                                        <td>uniqueName</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>configService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/NgrxDataConfigurationService.html" target="_self" >NgrxDataConfigurationService</a></code>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -163,7 +171,6 @@
         </table>
 </section>
 
-
             <section>
     
         <h3 id="inputs">
@@ -173,53 +180,79 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="makeRequest$"></a>
+                        <a name="errors"></a>
                         <span class="name">
                             <b>
-                            makeRequest$</b>
-                            <a href="#makeRequest$"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Public</span>
+                            errors</b>
+                            <a href="#errors"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>this.actions$.pipe(ofType(RequestActions.ActionTypes.MakeRequest), 
-    mergeMap((action)&#x3D;&gt;{
+                            <i>Type : </i>    <code>string[]</code>
 
-       let makeRequestAction &#x3D; action as RequestActions.MakeRequest;
-
-       //get the provider from the service
-       let provider &#x3D; this.configService.getRequestProvider(makeRequestAction.providerUid);
-
-       //delete the provider from the service very important
-       this.configService.deleteRequestProvider(makeRequestAction.providerUid);
-
-       //make the http request with the provider
-       return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
-
-       .pipe(mergeMap(response&#x3D;&gt;{
-          let dataMapper &#x3D; this.configService.configuration.dataMapper;        
-          return dataMapper.map(response);
-       }), catchError(err&#x3D;&gt;{
-         return of(new RequestActions.RequestError([err], makeRequestAction.uniqueName));
-       }));
-       
-
-    }))</code>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @Effect()<br />
-                            </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Readonly</span>
+                            type</b>
+                            <a href="#type"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>ActionTypes.RequestError</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="uniqueName"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            uniqueName</b>
+                            <a href="#uniqueName"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -228,58 +261,52 @@
         </table>
 </section>
 
+
+
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { DataService } from &#x27;../services/entity-data.service&#x27;;
-import * as RequestActions from &#x27;./request-actions&#x27;;
-import { Actions, ofType, Effect } from &#x27;@ngrx/effects&#x27;;
-import { mergeMap, map, catchError } from &#x27;rxjs/operators&#x27;;
-import { NgrxDataConfigurationService } from &#x27;../services/configuaration.service&#x27;;
-import { of } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Action } from &#x27;@ngrx/store&#x27;;
+import { RequestProvider } from &#x27;../http/request-provider&#x27;;
 
-@Injectable()
-export class NgrxDataEffects
-{    
-    constructor(private actions$: Actions, private dataService: DataService, private configService: NgrxDataConfigurationService){
-      
-    }
+export enum ActionTypes
+{
+    MakeRequest &#x3D; &#x27;[Request] MakeRequest&#x27;,
+    RequestSuccess &#x3D; &#x27;[Request] RequestSuccess&#x27;,
+    RequestError &#x3D; &#x27;[Request] RequestError&#x27;
+}
 
-    @Effect()
-    makeRequest$ &#x3D; this.actions$.pipe(ofType(RequestActions.ActionTypes.MakeRequest), 
-    mergeMap((action)&#x3D;&gt;{
 
-       let makeRequestAction &#x3D; action as RequestActions.MakeRequest;
+export class MakeRequest implements Action
+{
+   readonly type &#x3D; ActionTypes.MakeRequest;   
+   constructor( public providerUid: string, public baseUrl: string, public uniqueName: string ){}
+}
 
-       //get the provider from the service
-       let provider &#x3D; this.configService.getRequestProvider(makeRequestAction.providerUid);
+export class RequestSuccess implements Action
+{
+   readonly type &#x3D; ActionTypes.RequestSuccess;   
+   constructor( public data: any, public uniqueName: string ){}
+}
 
-       //delete the provider from the service very important
-       this.configService.deleteRequestProvider(makeRequestAction.providerUid);
 
-       //make the http request with the provider
-       return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
+export class RequestError implements Action
+{
+   readonly type &#x3D; ActionTypes.RequestError;   
+   constructor( public errors: string[], public uniqueName: string ){}
+}
 
-       .pipe(mergeMap(response&#x3D;&gt;{
-          let dataMapper &#x3D; this.configService.configuration.dataMapper;        
-          return dataMapper.map(response);
-       }), catchError(err&#x3D;&gt;{
-         return of(new RequestActions.RequestError([err], makeRequestAction.uniqueName));
-       }));
-       
-
-    }))
-
-}</code></pre>
+export type RequestActions &#x3D; 
+MakeRequest |
+RequestSuccess |
+RequestError</code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -303,8 +330,8 @@ export class NgrxDataEffects
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'NgrxDataEffects.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'RequestError.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

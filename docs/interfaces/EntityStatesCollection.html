@@ -61,9 +61,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/state/state.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Database structure.</p>
+
+            </p>
 
 
 
@@ -74,15 +81,21 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <code>[name: string]:        <code><a href="../interfaces/ExtendedEntityState.html" target="_self" >ExtendedEntityState&lt;any&gt;</a></code>
+                        <code>[name: string]:        <code><a href="../interfaces/ExtendedEntityState.html" target="_self" >ExtendedEntityState</a></code>
 </code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/state.ts:4</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts:7</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The entity states by unique name</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -91,22 +104,250 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {EntityState} from &#x27;@ngrx/entity&#x27;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { createEntityAdapter, EntityState, Update } from &#x27;@ngrx/entity&#x27;;
 
+/**
+ * Database structure.
+ */
 export interface EntityStatesCollection
 {
-   [name: string] : ExtendedEntityState&lt;any&gt;;
+    /**
+     * The entity states by unique name
+     */
+   [name: string] : ExtendedEntityState;
 }
 
-export interface ExtendedEntityState&lt;T&gt; extends EntityState&lt;T&gt;
+/**
+ * entity state structure.
+ */
+export interface ExtendedEntityState extends EntityState&lt;any&gt;
 {
-    selectedId: string | number;
-    isLoading: boolean;
+    /**
+     * the errors related with this entity state.
+     */
     errors: string[];
-    validation: string[];
+    /**
+     * the number of external requests running.
+     */
+    loadingTasks: number;
+    /**
+     * id of the selected entity of this entity state
+     */
+    selectedId: string | number;
 }
 
-</code></pre>
+/**
+ * the adapter to manage the entity changes.
+ */
+const entityAdapter &#x3D; createEntityAdapter&lt;any&gt;();
+export const {
+    selectAll,
+    selectEntities,
+    selectIds,
+    selectTotal  
+  } &#x3D; entityAdapter.getSelectors();
+    
+
+export class EntityStateCollectionAdapter
+{   
+    /**
+     * return the initial state of the collection of entities
+     */ 
+    getInitialState() : EntityStatesCollection
+    {
+        return {};                
+    }
+
+    /**
+     * add an entity state to the EntityStatesCollection.
+     * @param name the unique name of the entity state to add.
+     * @param state the EntityStatesCollection.
+     */
+    addEntityState(name: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        //if the entity state already exist no changes are needed
+        if(state[name])
+          return state;
+
+        //create a shadow copy
+        let copy &#x3D; { ...state };
+       
+        //add the entity state with the help of the entity adapter
+        copy[name] &#x3D; entityAdapter.getInitialState({
+            errors: [],
+            loadingTasks: 0,
+            selectedId: null
+        });
+
+       return copy;
+    }
+
+    /**
+     * delete entity state from the EntityStatesCollection.
+     * @param name the unique name of the entity to delete.
+     * @param state the EntityStatesCollection.
+     */
+    deleteEntityState(name: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        //if the entityState does not exist no change is needed.
+        if(!state[name])
+          return state;
+
+        //create a shadow copy
+        let copy &#x3D; { ...state };  
+        
+        //set the entity state to undefine
+        copy[name] &#x3D; undefined;
+
+        return copy;
+    }
+
+    /**
+     * delete all the entity states for the EntityStatesCollection.
+     * @param state the EntityStatesCollection.
+     */
+    deleteAllEntityStates(state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return {};
+    }
+
+
+    //actions for specific entity state----------------------------------------------------------------------------------------------------------
+
+    entityStateAddOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+       return this.processEntityState(
+           (es)&#x3D;&gt;{
+
+           return entityAdapter.addOne(entity, es);
+             
+       }
+       , uniqueName, state);
+    }
+
+    entityStateAddMany(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+            return entityAdapter.addMany(entities, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateAddAll(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.addAll(entities, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateRemoveOne(id: string, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeOne(id, es); 
+              
+        }
+        , uniqueName, state);
+    }   
+
+
+    entityStateRemoveMany(ids: string[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeMany(ids, es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateRemoveAll(uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.removeAll(es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpdateOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.updateOne( { id: entity.id, changes: entity } , es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpdateMany(entities: any[], uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+ 
+                return entityAdapter.updateMany(entities.map(e&#x3D;&gt;{return{id: e.id, changes: e}}), es); 
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpsertOne(entity: any, uniqueName: string, state: EntityStatesCollection) : EntityStatesCollection
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return entityAdapter.upsertOne(entity, es);  
+              
+        }
+        , uniqueName, state);
+    }
+
+
+    entityStateUpsertMany(entities: any[], uniqueName: string, state: EntityStatesCollection)
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return entityAdapter.upsertMany(entities, es);   
+              
+        }
+        , uniqueName, state);
+    }
+
+    private processEntityState(func: (entityState: ExtendedEntityState)&#x3D;&gt;ExtendedEntityState, uniqueName: string, state: EntityStatesCollection)
+    {
+        let entityState &#x3D; state[uniqueName];
+        if(!entityAdapter)
+          return state;
+ 
+        entityState &#x3D; func(entityState);
+          
+        let copy &#x3D; {...state};
+        copy[uniqueName] &#x3D; entityState;
+        return copy;
+    }
+
+    
+
+}</code></pre>
     </div>
 </div>
 

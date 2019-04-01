@@ -57,7 +57,10 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#DataEntitiesStateActionTypes" title="projects/ngrx-data-lib/src/lib/state/actions.ts"><b>DataEntitiesStateActionTypes</b>&nbsp;&nbsp;&nbsp;(projects/.../actions.ts)</a>
+                            <a href="#ActionTypes" title="projects/ngrx-data-lib/src/lib/state/db-actions.ts"><b>ActionTypes</b>&nbsp;&nbsp;&nbsp;(projects/.../db-actions.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ActionTypes" title="projects/ngrx-data-lib/src/lib/state/request-actions.ts"><b>ActionTypes</b>&nbsp;&nbsp;&nbsp;(projects/.../request-actions.ts)</a>
                         </li>
                         <li>
                             <a href="#FormatDataType" title="projects/ngrx-data-lib/src/lib/http/response-type.ts"><b>FormatDataType</b>&nbsp;&nbsp;&nbsp;(projects/.../response-type.ts)</a>
@@ -72,24 +75,157 @@
     </table>
 </section>
 
-    <h3>projects/ngrx-data-lib/src/lib/state/actions.ts</h3>
+    <h3>projects/ngrx-data-lib/src/lib/state/db-actions.ts</h3>
     <section>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="DataEntitiesStateActionTypes"></a>
-                        <span class="name"><b>DataEntitiesStateActionTypes</b><a href="#DataEntitiesStateActionTypes"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="ActionTypes"></a>
+                        <span class="name"><b>ActionTypes</b><a href="#ActionTypes"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                &nbsp;CreateNew
+                                &nbsp;CreateEntityState
                             </td>
                         </tr>
                         <tr>
                             <td class="col-md-4">
-                                <i>Value : </i><code>[DataEntities] CreateNew</code>
+                                <i>Value : </i><code>[DataEntitiesDB] CreateEntityState</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;DeleteEntityState
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] DeleteEntityState</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;DeleteAllEntityStates
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] DeleteAllEntityStates</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;AddEntityToState
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] AddEntityToState</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;AddMany
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] AddMany</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;DeleteEntityFromState
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] DeleteEntityFromState</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;DeleteAll
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] DeleteAll</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;DeleteMany
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] DeleteMany</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;Update
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] Update</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;UpdateMany
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[DataEntitiesDB] UpdateMany</code>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <h3>projects/ngrx-data-lib/src/lib/state/request-actions.ts</h3>
+    <section>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ActionTypes"></a>
+                        <span class="name"><b>ActionTypes</b><a href="#ActionTypes"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;MakeRequest
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[Request] MakeRequest</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;RequestSuccess
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[Request] RequestSuccess</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;RequestError
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>[Request] RequestError</code>
                             </td>
                         </tr>
             </tbody>

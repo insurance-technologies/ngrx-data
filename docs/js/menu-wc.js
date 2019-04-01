@@ -58,21 +58,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse" ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
                                 <a href="modules/NgrxDataLibModule.html" data-type="entity-link">NgrxDataLibModule</a>
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' : 'data-target="#xs-components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' }>
-                                            <span class="icon ion-md-cog"></span>
-                                            <span>Components</span>
-                                            <span class="icon ion-ios-arrow-down"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' :
-                                            'id="xs-components-links-module-NgrxDataLibModule-a3dbc82d36769af3153dcac026cf3dc0"' }>
-                                            <li class="link">
-                                                <a href="components/NgrxDataLibComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">NgrxDataLibComponent</a>
-                                            </li>
-                                        </ul>
-                                    </li>
                             </li>
                 </ul>
                 </li>
@@ -85,19 +70,64 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse" ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
                             <li class="link">
-                                <a href="classes/CreateNewAction.html" data-type="entity-link">CreateNewAction</a>
+                                <a href="classes/AddEntityToState.html" data-type="entity-link">AddEntityToState</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/AddMany.html" data-type="entity-link">AddMany</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CreateEntityState.html" data-type="entity-link">CreateEntityState</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DeleteAll.html" data-type="entity-link">DeleteAll</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DeleteAllEntityStates.html" data-type="entity-link">DeleteAllEntityStates</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DeleteEntityFromState.html" data-type="entity-link">DeleteEntityFromState</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DeleteEntityState.html" data-type="entity-link">DeleteEntityState</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DeleteMany.html" data-type="entity-link">DeleteMany</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/EntityArrayMapper.html" data-type="entity-link">EntityArrayMapper</a>
                             </li>
                             <li class="link">
                                 <a href="classes/EntityService.html" data-type="entity-link">EntityService</a>
                             </li>
                             <li class="link">
+                                <a href="classes/EntityStateCollectionAdapter.html" data-type="entity-link">EntityStateCollectionAdapter</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/ImmutableObservable.html" data-type="entity-link">ImmutableObservable</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/JsonFormatConverter.html" data-type="entity-link">JsonFormatConverter</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/MakeRequest.html" data-type="entity-link">MakeRequest</a>
                             </li>
                             <li class="link">
                                 <a href="classes/NameValue.html" data-type="entity-link">NameValue</a>
                             </li>
                             <li class="link">
+                                <a href="classes/RequestError.html" data-type="entity-link">RequestError</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/RequestProvider.html" data-type="entity-link">RequestProvider</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RequestSuccess.html" data-type="entity-link">RequestSuccess</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Update.html" data-type="entity-link">Update</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/UpdateMany.html" data-type="entity-link">UpdateMany</a>
                             </li>
                         </ul>
                     </li>
@@ -118,9 +148,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="injectables/NgrxDataEffects.html" data-type="entity-link">NgrxDataEffects</a>
                                 </li>
-                                <li class="link">
-                                    <a href="injectables/NgrxDataLibService.html" data-type="entity-link">NgrxDataLibService</a>
-                                </li>
                             </ul>
                         </li>
                     <li class="chapter">
@@ -132,10 +159,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse" ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
+                                <a href="interfaces/DataWrapper.html" data-type="entity-link">DataWrapper</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/EntityStatesCollection.html" data-type="entity-link">EntityStatesCollection</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ExtendedEntityState.html" data-type="entity-link">ExtendedEntityState</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/IDataMapper.html" data-type="entity-link">IDataMapper</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/IFormatConverter.html" data-type="entity-link">IFormatConverter</a>
@@ -161,6 +194,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/variables.html" data-type="entity-link">Variables</a>
                             </li>
                         </ul>
                     </li>
