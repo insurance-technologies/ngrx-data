@@ -1,5 +1,5 @@
 import { IFormatConverter } from '../data-format/format-converter';
-import { IDataMapper } from '../data-mapping/datamapper-interface';
+import { IDataMapper } from '../data-mapping/datamapper';
 
 
 

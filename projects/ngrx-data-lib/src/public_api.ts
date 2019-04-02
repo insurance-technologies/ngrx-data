@@ -18,7 +18,7 @@ export * from './lib/data-format/format-converter';
 export * from './lib/data-format/json-format-converter';
 
 //data mapping
-export * from './lib/data-mapping/datamapper-interface';
+export * from './lib/data-mapping/datamapper';
 export * from './lib/data-mapping/entity-array-mapper';
 
 //http
