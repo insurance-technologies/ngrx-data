@@ -5,6 +5,7 @@ import { Actions, ofType, Effect } from '@ngrx/effects';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { NgrxDataConfigurationService } from '../services/configuaration.service';
 import { of } from 'rxjs';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class NgrxDataEffects
@@ -29,8 +30,18 @@ export class NgrxDataEffects
        return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
 
        .pipe(mergeMap(response=>{
-          let dataMapper = this.configService.configuration.dataMapper;        
-          return dataMapper.map(response);
+
+          let dataMapper = provider.dataMapper;    
+          
+          try{
+             let result = dataMapper(response);
+             return result;
+          }
+          catch(err)
+          {
+             return <Action[]>[new RequestActions.RequestError([err], makeRequestAction.uniqueName)];
+          }
+
        }), catchError(err=>{
          return of(new RequestActions.RequestError([err], makeRequestAction.uniqueName));
        }));

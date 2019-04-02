@@ -54,11 +54,14 @@ export class DataService
        this.deafaultRequestFormat = this.configurationService.configuration.deafaultRequestFormat;
        this.deafaultResponseFormats = this.configurationService.configuration.deafaultResponseFormats;
 
+       //get the default data mapper
+       let defaultMapper = configurationService.configuration.dataMapper;
+
        //create the requests starting points
-       this._getProvider = new RequestProvider([], [], HttpMethod.get, null, this.deafaultResponseFormats, null);
-       this._postProvider = new RequestProvider([], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat);
-       this._deleteProvider = new RequestProvider([], [], HttpMethod.delete, null, this.deafaultResponseFormats, null);
-       this._putProvider = new RequestProvider([], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat);           
+       this._getProvider = new RequestProvider([], [], HttpMethod.get, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._postProvider = new RequestProvider([], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);
+       this._deleteProvider = new RequestProvider([], [], HttpMethod.delete, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._putProvider = new RequestProvider([], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
     }
 
     /**
