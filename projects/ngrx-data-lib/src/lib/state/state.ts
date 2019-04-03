@@ -2,6 +2,7 @@ import { EntityStateCollectionAdapter, EntityStatesCollection } from './entity-s
 import * as actions from './db-actions';
 import * as requestActions from './request-actions';
 import { AllActions } from './all-actions';
+import { createFeatureSelector } from '@ngrx/store';
 
 const adapter = new EntityStateCollectionAdapter();
 export const initialState = adapter.getInitialState();
@@ -64,4 +65,6 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           return state;  
     }    
 }
+
+export const getDB = createFeatureSelector('entityDb');
 
