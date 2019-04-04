@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgrxDataLibModule, JsonFormatConverter, EntityArrayMapper } from 'ngrx-data-lib';
+import { NgrxDataLibModule, JsonFormatConverter, entityArrayMapper } from 'ngrx-data-lib';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -20,7 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     NgrxDataLibModule.forRoot({
       deafaultRequestFormat: new JsonFormatConverter(),
       deafaultResponseFormats: [new JsonFormatConverter()],
-      dataMapper: new EntityArrayMapper()      
+      dataMapper: entityArrayMapper      
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states     

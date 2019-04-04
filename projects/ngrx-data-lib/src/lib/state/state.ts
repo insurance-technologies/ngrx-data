@@ -14,20 +14,20 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
     {
         case requestActions.ActionTypes.MakeRequest:
           copyState = {...state};
-          es = copyState[action.uniqueName];
-          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks++}
+          es = copyState[action.uniqueName];          
+          copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks + 1}
           return copyState;           
 
         case requestActions.ActionTypes.RequestSuccess:
           copyState = {...state};
           es = copyState[action.uniqueName];
-          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks--}
+          copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks - 1}
           return copyState;    
           
         case requestActions.ActionTypes.RequestError:
           copyState = {...state};
           es = copyState[action.uniqueName];
-          copyState[action.uniqueName] = {...copyState[action.uniqueName], loadingTasks: es.loadingTasks--, errors: action.errors}
+          copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks - 1, errors: action.errors}
           return copyState;    
 
         case actions.ActionTypes.CreateEntityState:
