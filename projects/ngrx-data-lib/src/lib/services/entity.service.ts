@@ -60,6 +60,15 @@ export abstract class EntityService<T>
       this.ids$ = this.entityState$.pipe(map(dbAdapter.selectIds));
       this.total$ = this.entityState$.pipe(map(dbAdapter.selectTotal));
    }
+   
+   /**
+    * Make request to get all entitites. url: GET {endpoint}
+    * @param id id of the entity
+    */
+   public dispatchGet(id: string)
+   {
+      this.dispatch(this.dataService.GET);
+   }
 
    /**
     * Make request to get entity by id. url: {endpoint}/{id}
