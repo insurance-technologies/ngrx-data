@@ -18,29 +18,11 @@ Follow this instructions to get a demo of a prject running ngrx-data.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+TODO
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+TODO
 
 ## How to use it
 
@@ -231,24 +213,83 @@ It is possible to use a custom data mapper. In ngrx-data data mappers are simple
 
 ### an example of a simple data mapper:
 ```typescript
-export function entityArrayMapper(data: any): DBActions[]
+// expecting data to be an array of entities ( [{...}, {...}, {...}] )
+// this data mapper will put those entities in the entity state posts
+export function postsArrayMapper(data: any): DBActions[]
 {
     return [
-      new AddMany(data, uniqueName)
+      new AddMany(data, 'posts')
     ];
+}
+
+//app.module
+imports: [    
+    //----------------------------------------
+    NgrxDataLibModule.forRoot({       
+      //-------------------------------------- 
+      //now this data mapper can be used as the default data mapper.
+      dataMapper: postsArrayMapper      
+    }),    
+    //---------------------------------------
+    
+  ],
+
+```
+The posible actions to make CRUD operations are:
+```typescript
+   export class AddEntityToState implements Action
+{
+   readonly type = ActionTypes.AddEntityToState;   
+   constructor( public entity: any, public uniqueName: string ){}
+}
+
+
+export class AddMany implements Action
+{
+   readonly type = ActionTypes.AddMany;   
+   constructor( public entities: any[], public uniqueName: string ){}
+}
+
+
+export class DeleteEntityFromState implements Action
+{
+   readonly type = ActionTypes.DeleteEntityFromState;   
+   constructor( public id: string, public uniqueName: string ){}
+}
+
+
+export class DeleteAll implements Action
+{
+   readonly type = ActionTypes.DeleteAll;   
+   constructor( public uniqueName: string ){}
+}
+
+
+export class DeleteMany implements Action
+{
+   readonly type = ActionTypes.DeleteMany;   
+   constructor( public ids: string[], public uniqueName: string ){}
+}
+
+
+export class Update implements Action
+{
+   readonly type = ActionTypes.Update;   
+   constructor( public entity: any, public uniqueName: string ){}
+}
+
+
+export class UpdateMany implements Action
+{
+   readonly type = ActionTypes.UpdateMany;   
+   constructor( public entities: any[], public uniqueName: string ){}
 }
 ```
 
-
-
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Ngrx](https://ngrx.io) - Reactive State for Angular
+* [Ngrx-entity](https://ngrx.io/guide/entity) - small lib to create manage entities in ngrx
 
 ## Contributing
 
@@ -256,11 +297,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+TODO
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **All the team of Insurance Technologies**
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -270,6 +311,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+ ### Inspiration:  
+  Ngrx is an awesome library to manage state in angular but it can be very easy to 
+  not follow the best practices and at the end you end writing a lot of boilerplate code like copy and paste the name of the entities and creating
+  actions for every single one, effects etc.. and you end with a really big
+  state object. This library handle all the boring part for you, just concentrate
+  in the business logic of your angular app.
+
