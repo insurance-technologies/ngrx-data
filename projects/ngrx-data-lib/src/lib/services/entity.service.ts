@@ -29,7 +29,30 @@ export abstract class EntityService<T>
    private entities$ : Observable<Dictionary<T>>;
    private ids$ : Observable<string[] | number[]>;
    private total$ : Observable<number>;
-        
+   
+   public get GET() : RequestProvider
+   {
+      return this.dataService.GET;
+   }
+
+   
+   public get POST() : RequestProvider
+   {
+      return this.dataService.POST;
+   }
+
+   
+   public get PUT() : RequestProvider
+   {
+      return this.dataService.PUT;
+   }
+
+   
+   public get DELETE() : RequestProvider
+   {
+      return this.dataService.DELETE;
+   }
+
    constructor(private uniqueName: string, private endpoint: string)
    {
       this.store = NgrxDataLibModule.injector.get(Store);
@@ -67,7 +90,7 @@ export abstract class EntityService<T>
     */
    public dispatchGet(id: string)
    {
-      this.dispatch(this.dataService.GET);
+      this.dispatch(this.GET);
    }
 
    /**
@@ -76,7 +99,7 @@ export abstract class EntityService<T>
     */
    public dispatchGetById(id: string)
    {
-      this.dispatch(this.dataService.GET.at(id));
+      this.dispatch(this.GET.at(id));
    }
 
    /**
@@ -85,7 +108,7 @@ export abstract class EntityService<T>
     */
    public dispatchAddEntity(entity: T)
    {
-      this.dispatch(this.dataService.POST);
+      this.dispatch(this.POST);
    }
 
    /**
@@ -94,7 +117,7 @@ export abstract class EntityService<T>
     */
    public dispatchUpdateEntity(entity: T)
    {
-      this.dispatch(this.dataService.PUT);
+      this.dispatch(this.PUT);
    }
 
    /**
@@ -103,7 +126,7 @@ export abstract class EntityService<T>
     */
    public dispatchDeleteEntity(id: string)
    {
-      this.dispatch(this.dataService.DELETE.at(id));
+      this.dispatch(this.DELETE.at(id));
    }
 
    /**
