@@ -13,6 +13,9 @@ export * from './lib/state/db-actions';
 //models
 export * from './lib/models/public-models';
 
+//ImmutableObservable
+export * from './lib/helpers/immutable-observable';
+
 //data format
 export * from './lib/data-format/format-converter';
 export * from './lib/data-format/json-format-converter';
