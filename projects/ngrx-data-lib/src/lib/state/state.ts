@@ -18,7 +18,7 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks + 1}
           return copyState;           
 
-        case requestActions.ActionTypes.RequestSuccess:
+        case requestActions.ActionTypes.SuccessMapping:
           copyState = {...state};
           es = copyState[action.uniqueName];
           copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks - 1}

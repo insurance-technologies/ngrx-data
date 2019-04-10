@@ -9,6 +9,6 @@ export class UserService extends EntityService<User>
 {
     constructor()
     {
-        super('users', 'http://localhost:3000/users');
+        super('jojoto', 'https://my-json-server.typicode.com/insurance-technologies/fake-crud-server/users');
     }
 }
