@@ -1,4 +1,4 @@
-import { Store, select } from '@ngrx/store';
+import { Store, select, MemoizedSelector, createSelector } from '@ngrx/store';
 import { NgrxDataLibModule } from '../ngrx-data-lib.module';
 import * as DbActions from '../state/db-actions';
 import * as RequestActions from '../state/request-actions';
@@ -10,9 +10,10 @@ import { DataService } from './entity-data.service';
 import { Observable } from 'rxjs';
 import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
 import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
 import { v1 } from 'uuid';
+import { getDB } from '../state/state';
 
 /**
  * base class for entity services.
@@ -24,6 +25,13 @@ export abstract class EntityService<T>
    private dataService: DataService;
    
    private entityState$: Observable<ExtendedEntityState>;
+
+   private entityStateSelector: MemoizedSelector<EntityStatesCollection, ExtendedEntityState>;
+
+   private getAll: MemoizedSelector<object, T[]>;
+   private getEntities: MemoizedSelector<object, Dictionary<T>>;
+   private getIds: MemoizedSelector<object, string[] | number[]>;
+   private getTotal: MemoizedSelector<object, number>
 
    private all$ : Observable<T[]>;
    private entities$ : Observable<Dictionary<T>>;
@@ -66,22 +74,30 @@ export abstract class EntityService<T>
     */
    private createEntityInDb()
    {
-      this.store.dispatch(new DbActions.CreateEntityState(this.uniqueName));
-      this.createObservables();
+      this.store.pipe(
+         map(s=>s.entityDb as EntityStatesCollection), //map the database
+         filter(db=>db[this.uniqueName] ? true : false), //if exist the entityState of this service
+         take(1)).subscribe((v)=>this.createSelectors()); //we take only one to create the selectors.
+
+      this.store.dispatch(new DbActions.CreateEntityState(this.uniqueName));      
    }
 
-   private createObservables()
-   {
-      this.entityState$ = this.store.pipe(
-          map(state=>state.entityDb as EntityStatesCollection), //map to the entity database
-          filter(db=>db[this.uniqueName] ? true : false), //only if this entity state exist
-          map(db=>db[this.uniqueName])); //map by this entity state.
+   private createSelectors()
+   {      
+      this.entityStateSelector = createSelector(getDB, (s)=>s[this.uniqueName]);
 
+      this.getAll = createSelector(this.entityStateSelector, dbAdapter.selectAll); 
+      this.getEntities = createSelector(this.entityStateSelector, dbAdapter.selectEntities);
+      this.getIds = createSelector(this.entityStateSelector, dbAdapter.selectIds);
+      this.getTotal = createSelector(this.entityStateSelector, dbAdapter.selectTotal);
+
+      this.entityState$ = this.store.select(this.entityStateSelector);
+          
       //using the Entity adapter selectors to select the entites
-      this.all$ = this.entityState$.pipe(map(dbAdapter.selectAll));
-      this.entities$ = this.entityState$.pipe(map(dbAdapter.selectEntities));
-      this.ids$ = this.entityState$.pipe(map(dbAdapter.selectIds));
-      this.total$ = this.entityState$.pipe(map(dbAdapter.selectTotal));
+      this.all$ = this.store.select(this.getAll);
+      this.entities$ = this.store.select(this.getEntities);
+      this.ids$ = this.store.select(this.getIds);
+      this.total$ = this.store.select(this.getTotal);
    }
    
    /**

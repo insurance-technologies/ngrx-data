@@ -22,7 +22,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     NgrxDataLibModule.forRoot({
       deafaultRequestFormat: new JsonFormatConverter(),
       deafaultResponseFormats: [new JsonFormatConverter()],
-      dataMapper: entityArrayMapper      
+      dataMapper: entityArrayMapper
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states     
