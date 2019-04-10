@@ -7,13 +7,17 @@ import { EntityStatesCollection, ExtendedEntityState } from '../state/entity-sta
 import { NgrxDataConfigurationService } from './configuaration.service';
 import { dispatch } from 'rxjs/internal/observable/pairs';
 import { DataService } from './entity-data.service';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
 import { map, filter, take } from 'rxjs/operators';
 import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
 import { v1 } from 'uuid';
 import { getDB } from '../state/state';
+
+const errors = (state: ExtendedEntityState) => state.errors;
+const isLoading = (state: ExtendedEntityState) => state.loadingTasks > 0;
+const selectedId = (state: ExtendedEntityState) => state.selectedId;
 
 /**
  * base class for entity services.
@@ -33,10 +37,18 @@ export abstract class EntityService<T>
    private getIds: MemoizedSelector<object, string[] | number[]>;
    private getTotal: MemoizedSelector<object, number>
 
+   private getErrors: MemoizedSelector<object, string[]>
+   private getIsLoading: MemoizedSelector<object, boolean>
+   private getSelectedId: MemoizedSelector<object, string | number>
+
    private all$ : Observable<T[]>;
    private entities$ : Observable<Dictionary<T>>;
    private ids$ : Observable<string[] | number[]>;
    private total$ : Observable<number>;
+   private errors$ : Observable<string[]>;
+   private isLoading$ : Observable<boolean>;
+   private selectedId$ : Observable<string | number>;
+   private selectedEntity$ : Observable<T>;
    
    public get GET() : RequestProvider
    {
@@ -90,14 +102,22 @@ export abstract class EntityService<T>
       this.getEntities = createSelector(this.entityStateSelector, dbAdapter.selectEntities);
       this.getIds = createSelector(this.entityStateSelector, dbAdapter.selectIds);
       this.getTotal = createSelector(this.entityStateSelector, dbAdapter.selectTotal);
-
+      
       this.entityState$ = this.store.select(this.entityStateSelector);
+
+      this.getIsLoading = createSelector(this.entityStateSelector, isLoading);
+      this.getErrors = createSelector(this.entityStateSelector, errors);
+      this.getSelectedId = createSelector(this.entityStateSelector, selectedId);
           
       //using the Entity adapter selectors to select the entites
       this.all$ = this.store.select(this.getAll);
       this.entities$ = this.store.select(this.getEntities);
       this.ids$ = this.store.select(this.getIds);
       this.total$ = this.store.select(this.getTotal);
+      this.isLoading$ = this.store.select(this.getIsLoading);
+      this.errors$ = this.store.select(this.getErrors);
+      this.selectedId$ = this.store.select(this.getSelectedId);
+      this.selectedEntity$ = combineLatest(this.all$, this.selectedId$).pipe(map(([entities, id])=>entities[id]));
    }
    
    /**
@@ -143,6 +163,23 @@ export abstract class EntityService<T>
    public dispatchDeleteEntity(id: string)
    {
       this.dispatch(this.DELETE.at(id));
+   }
+
+   /**
+    * returns an Observable for the errors related with this entity state.
+    * @param f filter function to filter the errors.
+    */
+   public selectErrors( f?: (e: string)=>boolean ) : Observable<string[]>
+   {
+      if(f)
+        return this.errors$.pipe( map( e=>e.filter(f) ) );
+      else
+        return this.errors$;  
+   }
+
+   public selectSelectedEntity() : ImmutableObservable<T>
+   {
+      return this.selectedEntity$.pipe( makeImmutable() ) as ImmutableObservable<T>;
    }
 
    /**
