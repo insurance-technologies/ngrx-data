@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
   onSave(user: User) : void {    
     
-    this.userService.dispatchUpdateEntity(user);
+    this.userService.updateUser(user);
          
   }
 

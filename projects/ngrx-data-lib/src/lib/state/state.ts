@@ -56,10 +56,10 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           return adapter.entityStateRemoveMany(action.ids, action.uniqueName, state);
 
         case actions.ActionTypes.Update:
-          return adapter.entityStateRemoveMany(action.entity, action.uniqueName, state);
+          return adapter.entityStateUpdateOne(action.entity, action.uniqueName, state);
 
         case actions.ActionTypes.UpdateMany:
-          return adapter.entityStateRemoveMany(action.entities, action.uniqueName, state);
+          return adapter.entityStateUpdateMany(action.entities, action.uniqueName, state);
 
         default:
           return state;  
