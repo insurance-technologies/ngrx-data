@@ -15,6 +15,7 @@ export enum ActionTypes
     DeleteMany = '[DataEntitiesDB] DeleteMany',
     Update = '[DataEntitiesDB] Update',
     UpdateMany = '[DataEntitiesDB] UpdateMany',    
+    SelectEntity = '[DataEntitiesDB] SelectEntity',
 }
 
 //actions that affect the database
@@ -86,6 +87,12 @@ export class UpdateMany implements Action
    constructor( public entities: any[], public uniqueName: string ){}
 }
 
+export class SelectEntity implements Action
+{
+   readonly type = ActionTypes.SelectEntity;   
+   constructor( public id: string | number, public uniqueName: string ){}
+}
+
 export type DBActions = 
 //actions that affect the database
 CreateEntityState |
@@ -99,5 +106,6 @@ DeleteEntityFromState |
 DeleteAll |
 DeleteMany |
 Update |
-UpdateMany
+UpdateMany |
+SelectEntity
 ;

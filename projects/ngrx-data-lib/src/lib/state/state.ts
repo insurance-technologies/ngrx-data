@@ -19,7 +19,7 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks + 1}
           return copyState;           
 
-        case requestActions.ActionTypes.RequestSuccess:
+        case requestActions.ActionTypes.SuccessMapping:
           copyState = {...state};
           es = copyState[action.uniqueName];
           copyState[action.uniqueName] = {...es, loadingTasks: es.loadingTasks - 1}
@@ -56,10 +56,13 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
           return adapter.entityStateRemoveMany(action.ids, action.uniqueName, state);
 
         case actions.ActionTypes.Update:
-          return adapter.entityStateRemoveMany(action.entity, action.uniqueName, state);
+          return adapter.entityStateUpdateOne(action.entity, action.uniqueName, state);
 
         case actions.ActionTypes.UpdateMany:
-          return adapter.entityStateRemoveMany(action.entities, action.uniqueName, state);
+          return adapter.entityStateUpdateMany(action.entities, action.uniqueName, state);
+
+        case actions.ActionTypes.SelectEntity:
+          return adapter.selectEntityId(action.id, action.uniqueName, state);  
 
         default:
           return state;  

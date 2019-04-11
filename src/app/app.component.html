@@ -18,13 +18,24 @@
   </li>
 </ul>
 
+<span *ngIf="isLoading$ | async">Loading...</span>
+
 <div *ngIf="(users$ | async) let users">
   <div *ngFor="let user of users" >
-     <input [(ngModel)]="user.id">
-     <input [(ngModel)]="user.name">
-     <input [(ngModel)]="user.lastName">
-     <button (click)="onSave(user)">Save</button>      
+     <span>{{user.name}} </span>
+     <span>{{user.lastName}} </span>     
+     <button (click)="onSelect(user.id)">Select</button>      
   </div>  
+  
+  <br><br>
+
+  <div *ngIf="(selectedUser$ | async) let selectedUser" >
+    <input [(ngModel)]="selectedUser.id">
+    <input [(ngModel)]="selectedUser.name">
+    <input [(ngModel)]="selectedUser.lastName">
+    <button (click)="onSave(selectedUser)">Save</button>    
+ </div>  
+
   
   <button (click)="onReset()">Reset</button>
 
