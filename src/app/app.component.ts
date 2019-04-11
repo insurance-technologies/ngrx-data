@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImmutableObservable } from 'ngrx-data-lib/lib/helpers/immutable-observable';
 import { User } from 'src/models/user';
 import { UserService } from 'src/services/userService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ export class AppComponent implements OnInit {
   title = 'testingLib';
 
   users$: ImmutableObservable<User[]>;
+  selectedUser$: ImmutableObservable<User>;
+  isLoading$: Observable<boolean>;
 
   constructor(private userService: UserService)
   {
@@ -21,6 +24,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {    
     this.users$ = this.userService.select();    
+    this.selectedUser$ = this.userService.selectSelectedEntity();
+    this.isLoading$ = this.userService.selectIsLoading();
   }
 
   onGetUsers() : void{
@@ -31,10 +36,13 @@ export class AppComponent implements OnInit {
     this.users$.reset();
   }
 
-  onSave(user: User) : void {    
-    
-    this.userService.updateUser(user);
-         
+  onSave(user: User) : void {        
+    this.userService.updateUser(user);         
+  }
+
+  onSelect(id: string | number)
+  {
+    this.userService.selectEntity(id);
   }
 
 }

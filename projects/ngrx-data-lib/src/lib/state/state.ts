@@ -61,6 +61,9 @@ export function reducer(state = initialState, action: AllActions) : EntityStates
         case actions.ActionTypes.UpdateMany:
           return adapter.entityStateUpdateMany(action.entities, action.uniqueName, state);
 
+        case actions.ActionTypes.SelectEntity:
+          return adapter.selectEntityId(action.id, action.uniqueName, state);  
+
         default:
           return state;  
     }    

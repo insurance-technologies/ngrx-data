@@ -14,6 +14,7 @@ import { map, filter, take } from 'rxjs/operators';
 import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
 import { v1 } from 'uuid';
 import { getDB } from '../state/state';
+import { SelectEntity } from '../state/db-actions';
 
 const errors = (state: ExtendedEntityState) => state.errors;
 const isLoading = (state: ExtendedEntityState) => state.loadingTasks > 0;
@@ -163,6 +164,22 @@ export abstract class EntityService<T>
    public dispatchDeleteEntity(id: string)
    {
       this.dispatch(this.DELETE.at(id));
+   }
+
+   /**
+    * select entity with specific id.
+    */
+   public selectEntity(id: string | number) : void
+   {
+      this.store.dispatch(new SelectEntity(id, this.uniqueName));
+   }
+
+   /**
+    * returns a boolean observable that indicates background work related with this entity state.
+    */
+   public selectIsLoading() : Observable<boolean>
+   {
+      return this.isLoading$;
    }
 
    /**
