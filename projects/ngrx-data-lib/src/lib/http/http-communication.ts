@@ -31,7 +31,7 @@ export function makeRequest(http: HttpClient, baseUrl: string, provider: Request
        return getRequest(http, url, provider.responseFormats);
 
      case HttpMethod.put:
-       return postRequest(http, url, provider.body, provider.requestFormat, provider.responseFormats);
+       return putRequest(http, url, provider.body, provider.requestFormat, provider.responseFormats);
    }
 }
 
@@ -92,9 +92,9 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
 export function postRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
    //add the format content type
-   headers.append('Content-Type', requestFormat.getContentType());
+   headers = headers.append('Content-Type', requestFormat.getContentType());
 
    //convert the data to the format
    let dataBody = requestFormat.convertToData(body);
@@ -142,7 +142,7 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
 export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
 
    return http.delete(url, {
     headers: headers,
@@ -186,7 +186,10 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
 export function putRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+
+   //add the format content type
+   headers = headers.append('Content-Type', requestFormat.getContentType());
 
    let dataBody = requestFormat.convertToData(body);
 
