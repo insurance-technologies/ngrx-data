@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   onReset() : void{
-    this.users$.reset();
+    this.selectedUser$.reset();
   }
 
   onSave(user: User) : void {        
