@@ -63,10 +63,22 @@
                             <a href="#entityAdapter" title="projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts"><b>entityAdapter</b>&nbsp;&nbsp;&nbsp;(projects/.../entity-states-collection-adapter.ts)</a>
                         </li>
                         <li>
+                            <a href="#errors" title="projects/ngrx-data-lib/src/lib/services/entity.service.ts"><b>errors</b>&nbsp;&nbsp;&nbsp;(projects/.../entity.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getDB" title="projects/ngrx-data-lib/src/lib/state/state.ts"><b>getDB</b>&nbsp;&nbsp;&nbsp;(projects/.../state.ts)</a>
+                        </li>
+                        <li>
                             <a href="#initialState" title="projects/ngrx-data-lib/src/lib/state/state.ts"><b>initialState</b>&nbsp;&nbsp;&nbsp;(projects/.../state.ts)</a>
                         </li>
                         <li>
+                            <a href="#isLoading" title="projects/ngrx-data-lib/src/lib/services/entity.service.ts"><b>isLoading</b>&nbsp;&nbsp;&nbsp;(projects/.../entity.service.ts)</a>
+                        </li>
+                        <li>
                             <a href="#makeImmutable" title="projects/ngrx-data-lib/src/lib/helpers/immutable-observable.ts"><b>makeImmutable</b>&nbsp;&nbsp;&nbsp;(projects/.../immutable-observable.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#selectedId" title="projects/ngrx-data-lib/src/lib/services/entity.service.ts"><b>selectedId</b>&nbsp;&nbsp;&nbsp;(projects/.../entity.service.ts)</a>
                         </li>
                         <li>
                             <a href="#" title="projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts"><b></b>&nbsp;&nbsp;&nbsp;(projects/.../entity-states-collection-adapter.ts)</a>
@@ -95,6 +107,27 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>new EntityStateCollectionAdapter()</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getDB"></a>
+                        <span class="name">
+                            <b>
+                            getDB</b>
+                            <a href="#getDB"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>createFeatureSelector(&#x27;entityDb&#x27;)</code>
                         </td>
                     </tr>
 
@@ -167,6 +200,72 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>entityAdapter.getSelectors()</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>projects/ngrx-data-lib/src/lib/services/entity.service.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errors"></a>
+                        <span class="name">
+                            <b>
+                            errors</b>
+                            <a href="#errors"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(state: ExtendedEntityState) &#x3D;&gt; state.errors</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name">
+                            <b>
+                            isLoading</b>
+                            <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(state: ExtendedEntityState) &#x3D;&gt; state.loadingTasks &gt; 0</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedId"></a>
+                        <span class="name">
+                            <b>
+                            selectedId</b>
+                            <a href="#selectedId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(state: ExtendedEntityState) &#x3D;&gt; state.selectedId</code>
                         </td>
                     </tr>
 

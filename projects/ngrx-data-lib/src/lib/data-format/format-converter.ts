@@ -4,9 +4,14 @@ import { FormatDataType } from '../http/response-type';
 export interface IFormatConverter
 {
     /**
-     * get the content type related to this object.
+     * return the media type supported by this format.
      */
-    getContentType(): string;
+    getMediaType(): string;
+
+    /**
+     * return the charsets supported by this format converter.
+     */
+    getCharset(): string;
 
     /**
      * convert the data to a javascript object. 

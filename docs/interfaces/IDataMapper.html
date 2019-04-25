@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/data-mapping/datamapper-interface.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/data-mapping/datamapper.ts</code>
         </p>
 
 
@@ -72,14 +72,14 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <h6><b>Methods</b></h6>
+                            <h6><b>Properties</b></h6>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#map">map</a>
+                                            <a href="#call-declaration-39d6cec83ae2758c36266c8040758b94">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -88,94 +88,49 @@
             </table>
         </section>
 
+
+
             <section>
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="map"></a>
-                    <span class="name">
-                        <b>
-                            map
-                        </b>
-                        <a href="#map"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>map(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Signature :</i>
+                                            <a name="call-declaration-39d6cec83ae2758c36266c8040758b94"></a>
+                                            <code>
+                                                <!--ts.SyntaxKind.CallSignature-->
+                                                    [data: any, uniqueName: string, requestType: HttpMethod, dbState: EntityStatesCollection]
+                                            </code>
+                                        </td>
+                                    </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="7"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-mapping/datamapper-interface.ts:7</a></div>
-                </td>
-            </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Returns : </i>        <code><a href="../miscellaneous/typealiases.html#DBActions" target="_self" >DbActions.DBActions[]</a></code>
+
+                                        </td>
+                                    </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>data</td>
-                                    <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
 
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#DBActions" target="_self" >DbActions.DBActions[]</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
+                        </tbody>
+                    </table>
+            </section>
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as DbActions from &#x27;../state/db-actions&#x27;;
-
-
+import { HttpMethod } from &#x27;../http/http-method&#x27;;
+import { EntityStatesCollection } from &#x27;../state/entity-states-collection-adapter&#x27;;
 
 export interface IDataMapper
 {
-    map(data: any) : DbActions.DBActions[];
+    (data: any, uniqueName: string, requestType: HttpMethod, dbState: EntityStatesCollection) : DbActions.DBActions[];
 }</code></pre>
     </div>
 </div>

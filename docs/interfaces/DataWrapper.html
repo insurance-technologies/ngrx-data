@@ -80,7 +80,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts:25</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -91,40 +91,42 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IDataMapper } from &#x27;./datamapper-interface&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IDataMapper } from &#x27;./datamapper&#x27;;
 import { DBActions, UpdateMany, AddMany, DeleteMany } from &#x27;../state/db-actions&#x27;;
+import { HttpMethod } from &#x27;../http/http-method&#x27;;
+import { EntityStatesCollection } from &#x27;../state/entity-states-collection-adapter&#x27;;
 
-interface DataWrapper
-{
-    [uniqueName: string]: { add:any[], update:any[], delete:string[] }
+interface DataWrapper {
+    [uniqueName: string]: { add: any[], update: any[], delete: string[] }
 }
 
-export class EntityArrayMapper implements IDataMapper
-{
-    map(data: any): DBActions[] {
-        
-        let result: DBActions[] &#x3D; [];
+export function entityArrayMapper(data: any, uniqueName: string, requestType: HttpMethod, dbState: EntityStatesCollection): DBActions[] {
 
-        let responseData &#x3D; data as DataWrapper;
-        let uniqueNames &#x3D; Object.keys(responseData);
-        for(let i &#x3D; 0; i &lt; uniqueNames.length; i++)
-        {
-            let uniqueName &#x3D; uniqueNames[i];            
-            let entityActions &#x3D; responseData[uniqueName];
-            
-            if(entityActions.add)            
-               result.push( new AddMany(entityActions.add, uniqueName) );
-            
-            if(entityActions.update)            
-                result.push( new UpdateMany(entityActions.update, uniqueName) );            
+    let result: DBActions[] &#x3D; [];
 
-            if(entityActions.delete)            
-                result.push( new DeleteMany(entityActions.delete, uniqueName) );
-        }
+    let responseData &#x3D; data as DataWrapper;
+    let uniqueNames &#x3D; Object.keys(responseData);
+    for (let i &#x3D; 0; i &lt; uniqueNames.length; i++) {
 
-        return result;
+        let uniqueName &#x3D; uniqueNames[i];
+        if(!dbState[uniqueName])
+          throw &#x27;The entity state with unique name &#x27; + uniqueName + &#x27; is not in the state.&#x27;;
+
+        let entityActions &#x3D; responseData[uniqueName];
+
+        if (entityActions.add)
+            result.push(new AddMany(entityActions.add, uniqueName));
+
+        if (entityActions.update)
+            result.push(new UpdateMany(entityActions.update, uniqueName));
+
+        if (entityActions.delete)
+            result.push(new DeleteMany(entityActions.delete, uniqueName));
     }
-    
+
+    return result;
+
+
 }</code></pre>
     </div>
 </div>

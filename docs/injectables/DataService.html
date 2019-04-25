@@ -254,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity-data.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/services/entity-data.service.ts:73</a></div>
                 </td>
             </tr>
 
@@ -683,11 +683,14 @@ export class DataService
        this.deafaultRequestFormat &#x3D; this.configurationService.configuration.deafaultRequestFormat;
        this.deafaultResponseFormats &#x3D; this.configurationService.configuration.deafaultResponseFormats;
 
+       //get the default data mapper
+       let defaultMapper &#x3D; configurationService.configuration.dataMapper;
+
        //create the requests starting points
-       this._getProvider &#x3D; new RequestProvider([], [], HttpMethod.get, null, this.deafaultResponseFormats, null);
-       this._postProvider &#x3D; new RequestProvider([], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat);
-       this._deleteProvider &#x3D; new RequestProvider([], [], HttpMethod.delete, null, this.deafaultResponseFormats, null);
-       this._putProvider &#x3D; new RequestProvider([], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat);           
+       this._getProvider &#x3D; new RequestProvider([], [], HttpMethod.get, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._postProvider &#x3D; new RequestProvider([], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);
+       this._deleteProvider &#x3D; new RequestProvider([], [], HttpMethod.delete, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._putProvider &#x3D; new RequestProvider([], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
     }
 
     /**

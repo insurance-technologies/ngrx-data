@@ -94,7 +94,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/DeleteMany.html" data-type="entity-link">DeleteMany</a>
                             </li>
                             <li class="link">
-                                <a href="classes/EntityArrayMapper.html" data-type="entity-link">EntityArrayMapper</a>
+                                <a href="classes/EndRequest.html" data-type="entity-link">EndRequest</a>
                             </li>
                             <li class="link">
                                 <a href="classes/EntityService.html" data-type="entity-link">EntityService</a>
@@ -122,6 +122,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/RequestSuccess.html" data-type="entity-link">RequestSuccess</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/SelectEntity.html" data-type="entity-link">SelectEntity</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/SuccessMapping.html" data-type="entity-link">SuccessMapping</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/TextFormatConverter.html" data-type="entity-link">TextFormatConverter</a>
                             </li>
                             <li class="link">
                                 <a href="classes/Update.html" data-type="entity-link">Update</a>

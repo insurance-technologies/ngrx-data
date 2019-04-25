@@ -85,7 +85,10 @@
                                     <a href="#convertToObject">convertToObject</a>
                                 </li>
                                 <li>
-                                    <a href="#getContentType">getContentType</a>
+                                    <a href="#getCharset">getCharset</a>
+                                </li>
+                                <li>
+                                    <a href="#getMediaType">getMediaType</a>
                                 </li>
                             </ul>
                         </td>
@@ -121,8 +124,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:26</a></div>
                 </td>
             </tr>
 
@@ -198,8 +201,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="20"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:20</a></div>
                 </td>
             </tr>
 
@@ -257,18 +260,59 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getContentType"></a>
+                    <a name="getCharset"></a>
                     <span class="name">
                         <b>
-                            getContentType
+                            getCharset
                         </b>
-                        <a href="#getContentType"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getCharset"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getContentType()</code>
+<code>getCharset()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/format-converter.ts:14</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>return the charsets supported by this format converter.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMediaType"></a>
+                    <span class="name">
+                        <b>
+                            getMediaType
+                        </b>
+                        <a href="#getMediaType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMediaType()</code>
                 </td>
             </tr>
 
@@ -283,7 +327,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>get the content type related to this object.</p>
+                    <div class="io-description"><p>return the media type supported by this format.</p>
 </div>
 
                     <div class="io-description">
@@ -306,9 +350,14 @@
 export interface IFormatConverter
 {
     /**
-     * get the content type related to this object.
+     * return the media type supported by this format.
      */
-    getContentType(): string;
+    getMediaType(): string;
+
+    /**
+     * return the charsets supported by this format converter.
+     */
+    getCharset(): string;
 
     /**
      * convert the data to a javascript object. 

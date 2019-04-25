@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>JsonFormatConverter</li>
+  <li>TextFormatConverter</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/data-format/text-format-converter.ts</code>
         </p>
 
 
@@ -140,7 +140,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:21</a></div>
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/text-format-converter.ts:21</a></div>
                 </td>
             </tr>
 
@@ -210,7 +210,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:16</a></div>
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/text-format-converter.ts:16</a></div>
                 </td>
             </tr>
 
@@ -280,7 +280,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:12</a></div>
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/text-format-converter.ts:12</a></div>
                 </td>
             </tr>
 
@@ -319,7 +319,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="8"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts:8</a></div>
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/data-format/text-format-converter.ts:8</a></div>
                 </td>
             </tr>
 
@@ -350,10 +350,10 @@ import { FormatDataType } from &#x27;../http/response-type&#x27;;
 import { uintToString, stringToUint } from &#x27;./tools&#x27;;
 
 
-export class JsonFormatConverter implements IFormatConverter
+export class TextFormatConverter implements IFormatConverter
 {
     getMediaType(): string {
-        return &#x27;application/json&#x27;;
+        return &#x27;text/plain&#x27;
     }
 
     getCharset(): string {
@@ -397,7 +397,7 @@ export class JsonFormatConverter implements IFormatConverter
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'JsonFormatConverter.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'TextFormatConverter.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

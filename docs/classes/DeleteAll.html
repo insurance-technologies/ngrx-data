@@ -117,7 +117,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:64</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:65</a></div>
                             </td>
                         </tr>
 
@@ -180,7 +180,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:64</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:65</a></div>
                             </td>
                         </tr>
 
@@ -208,7 +208,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:65</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:66</a></div>
                             </td>
                         </tr>
 
@@ -244,6 +244,7 @@ export enum ActionTypes
     DeleteMany &#x3D; &#x27;[DataEntitiesDB] DeleteMany&#x27;,
     Update &#x3D; &#x27;[DataEntitiesDB] Update&#x27;,
     UpdateMany &#x3D; &#x27;[DataEntitiesDB] UpdateMany&#x27;,    
+    SelectEntity &#x3D; &#x27;[DataEntitiesDB] SelectEntity&#x27;,
 }
 
 //actions that affect the database
@@ -315,6 +316,12 @@ export class UpdateMany implements Action
    constructor( public entities: any[], public uniqueName: string ){}
 }
 
+export class SelectEntity implements Action
+{
+   readonly type &#x3D; ActionTypes.SelectEntity;   
+   constructor( public id: string | number, public uniqueName: string ){}
+}
+
 export type DBActions &#x3D; 
 //actions that affect the database
 CreateEntityState |
@@ -328,7 +335,8 @@ DeleteEntityFromState |
 DeleteAll |
 DeleteMany |
 Update |
-UpdateMany
+UpdateMany |
+SelectEntity
 ;</code></pre>
     </div>
 </div>

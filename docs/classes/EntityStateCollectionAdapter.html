@@ -126,6 +126,9 @@
                                     <span class="modifier">Private</span>
                                 <a href="#processEntityState">processEntityState</a>
                             </li>
+                            <li>
+                                <a href="#selectEntityId">selectEntityId</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -1401,8 +1404,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="229"
-                            class="link-to-prism">projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts:229</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="240"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts:240</a></div>
                 </td>
             </tr>
 
@@ -1425,6 +1428,100 @@
                                     <td>func</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>uniqueName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>
+                                                <code><a href="../interfaces/EntityStatesCollection.html" target="_self" >EntityStatesCollection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/EntityStatesCollection.html" target="_self" >EntityStatesCollection</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectEntityId"></a>
+                    <span class="name">
+                        <b>
+                            selectEntityId
+                        </b>
+                        <a href="#selectEntityId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectEntityId(id: number | string, uniqueName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, state: <a href="../interfaces/EntityStatesCollection.html">EntityStatesCollection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="229"
+                            class="link-to-prism">projects/ngrx-data-lib/src/lib/state/entity-states-collection-adapter.ts:229</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                            <code>number | string</code>
                                     </td>
 
                                     <td>
@@ -1706,6 +1803,17 @@ export class EntityStateCollectionAdapter
             (es)&#x3D;&gt;{
 
                 return entityAdapter.upsertMany(entities, es);   
+              
+        }
+        , uniqueName, state);
+    }
+
+    selectEntityId(id: number | string, uniqueName: string, state: EntityStatesCollection)
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return { ...es, selectedId: id };  
               
         }
         , uniqueName, state);

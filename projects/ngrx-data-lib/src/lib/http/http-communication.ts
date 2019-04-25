@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RequestProvider } from './request-provider';
 import { HttpMethod } from './http-method';
+import { stringToUint } from '../data-format/tools';
 
 /**
  * make http request using a request provider.
@@ -46,8 +47,8 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
    //create the headers
    let headers = new HttpHeaders();
    //add all the formats to the Accept header
-   headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
-
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getMediaType()) );
+   
    //create the request
    return http.get(url, {
     headers: headers,
@@ -67,7 +68,12 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
           throw 'response without content-type';
 
         //get the format converter asociated with this content type
-        let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();      
+
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
         if(!formatConverter)
           throw "cant't find formatConverter for Content-Type: " + contentType;
           
@@ -92,9 +98,9 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
 export function postRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getMediaType()) );
    //add the format content type
-   headers = headers.append('Content-Type', requestFormat.getContentType());
+   headers = headers.append('Content-Type', `${requestFormat.getMediaType()}; charset=${requestFormat.getCharset()}`   );
 
    //convert the data to the format
    let dataBody = requestFormat.convertToData(body);
@@ -118,7 +124,12 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
         throw 'response without content-type';
 
         //get the format converter asociated with this content type
-        let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();      
+
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
         if(!formatConverter)
         throw "cant't find formatConverter for Content-Type: " + contentType;
           
@@ -142,7 +153,7 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
 export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getMediaType()) );
 
    return http.delete(url, {
     headers: headers,
@@ -162,7 +173,12 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
           throw 'response without content-type';
 
         //get the format converter asociated with this content type
-        let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();      
+
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
         if(!formatConverter)
           throw "cant't find formatConverter for Content-Type: " + contentType;
           
@@ -186,10 +202,9 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
 export function putRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]) : Observable<any>
 {
    let headers = new HttpHeaders();
-   headers = headers.append('Accept', formatsAcepted.map(f=>f.getContentType()) );
-
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getMediaType()) );
    //add the format content type
-   headers = headers.append('Content-Type', requestFormat.getContentType());
+   headers = headers.append('Content-Type', `${requestFormat.getMediaType()}; charset=${requestFormat.getCharset()}`   );
 
    let dataBody = requestFormat.convertToData(body);
 
@@ -211,7 +226,12 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
           throw 'response without content-type';
 
         //get the format converter asociated with this content type
-        let formatConverter = formatsAcepted.find(c=>c.getContentType() == contentType);
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();      
+
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
         if(!formatConverter)
           throw "cant't find formatConverter for Content-Type: " + contentType;
           
@@ -221,4 +241,11 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
       throw response.statusText;
 
    }));
+}
+
+function extractCharset(charset: string)
+{
+   let trimed = charset.trim();
+   let splited = trimed.split('=');
+   return splited[1];
 }

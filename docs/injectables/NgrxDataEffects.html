@@ -77,6 +77,9 @@
                             <li>
                                 <a href="#makeRequest$">makeRequest$</a>
                             </li>
+                            <li>
+                                <a href="#requestSuccess">requestSuccess</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -96,12 +99,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(actions$: Actions, dataService: <a href="../injectables/DataService.html">DataService</a>, configService: <a href="../injectables/NgrxDataConfigurationService.html">NgrxDataConfigurationService</a>)</code>
+<code>constructor(actions$: Actions, dataService: <a href="../injectables/DataService.html">DataService</a>, configService: <a href="../injectables/NgrxDataConfigurationService.html">NgrxDataConfigurationService</a>, store: Store<any>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -154,6 +157,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                    <code>Store&lt;any&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -188,20 +203,25 @@
 
        let makeRequestAction &#x3D; action as RequestActions.MakeRequest;
 
-       //get the provider from the service
-       let provider &#x3D; this.configService.getRequestProvider(makeRequestAction.providerUid);
+       let providerUid &#x3D; makeRequestAction.providerUid;
+       let uniqueName &#x3D; makeRequestAction.uniqueName;
 
-       //delete the provider from the service very important
-       this.configService.deleteRequestProvider(makeRequestAction.providerUid);
+       //get the provider from the service
+       let provider &#x3D; this.configService.getRequestProvider(providerUid);
 
        //make the http request with the provider
        return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
 
        .pipe(mergeMap(response&#x3D;&gt;{
-          let dataMapper &#x3D; this.configService.configuration.dataMapper;        
-          return dataMapper.map(response);
+
+         return &lt;Action[]&gt;[new RequestActions.RequestSuccess(providerUid, response, uniqueName)];
+
        }), catchError(err&#x3D;&gt;{
-         return of(new RequestActions.RequestError([err], makeRequestAction.uniqueName));
+
+         //delete the provider from the service very important
+         this.configService.deleteRequestProvider(providerUid);
+         return of(new RequestActions.RequestError([err], uniqueName));
+
        }));
        
 
@@ -219,7 +239,74 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requestSuccess"></a>
+                        <span class="name">
+                            <b>
+                            requestSuccess</b>
+                            <a href="#requestSuccess"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.actions$.pipe(ofType(RequestActions.ActionTypes.RequestSuccess),
+    withLatestFrom(this.store),
+    mergeMap(([action, state])&#x3D;&gt;{
+
+      let requestSuccessAction &#x3D; action as RequestActions.RequestSuccess;
+
+      let data &#x3D; requestSuccessAction.data;      
+      let uniqueName &#x3D; requestSuccessAction.uniqueName;
+
+      //get the provider from the service
+      let provider &#x3D; this.configService.getRequestProvider(requestSuccessAction.providerUid);
+      //delete the provider from the service very important
+      this.configService.deleteRequestProvider(requestSuccessAction.providerUid);
+
+      let method &#x3D; provider.requestType;
+
+      let dataMapper &#x3D; provider.dataMapper;
+
+      try
+      {
+         let crudActions &#x3D; dataMapper(data, uniqueName, method, state.entityDb);
+
+         let result : Action[] &#x3D; crudActions;
+         result.push(new RequestActions.SuccessMapping(uniqueName));
+
+         return &lt;Action[]&gt;crudActions;
+      }
+      catch(error)
+      {
+         return &lt;Action[]&gt;[new RequestActions.RequestError([error], uniqueName)];
+      }
+
+    }))</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @Effect()<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/effects.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -236,16 +323,52 @@
 import { DataService } from &#x27;../services/entity-data.service&#x27;;
 import * as RequestActions from &#x27;./request-actions&#x27;;
 import { Actions, ofType, Effect } from &#x27;@ngrx/effects&#x27;;
-import { mergeMap, map, catchError } from &#x27;rxjs/operators&#x27;;
+import { mergeMap, map, catchError, withLatestFrom } from &#x27;rxjs/operators&#x27;;
 import { NgrxDataConfigurationService } from &#x27;../services/configuaration.service&#x27;;
 import { of } from &#x27;rxjs&#x27;;
+import { Action, Store } from &#x27;@ngrx/store&#x27;;
 
 @Injectable()
 export class NgrxDataEffects
 {    
-    constructor(private actions$: Actions, private dataService: DataService, private configService: NgrxDataConfigurationService){
+    constructor(private actions$: Actions, private dataService: DataService, private configService: NgrxDataConfigurationService, private store: Store&lt;any&gt;){
       
     }
+
+    @Effect()
+    requestSuccess &#x3D; this.actions$.pipe(ofType(RequestActions.ActionTypes.RequestSuccess),
+    withLatestFrom(this.store),
+    mergeMap(([action, state])&#x3D;&gt;{
+
+      let requestSuccessAction &#x3D; action as RequestActions.RequestSuccess;
+
+      let data &#x3D; requestSuccessAction.data;      
+      let uniqueName &#x3D; requestSuccessAction.uniqueName;
+
+      //get the provider from the service
+      let provider &#x3D; this.configService.getRequestProvider(requestSuccessAction.providerUid);
+      //delete the provider from the service very important
+      this.configService.deleteRequestProvider(requestSuccessAction.providerUid);
+
+      let method &#x3D; provider.requestType;
+
+      let dataMapper &#x3D; provider.dataMapper;
+
+      try
+      {
+         let crudActions &#x3D; dataMapper(data, uniqueName, method, state.entityDb);
+
+         let result : Action[] &#x3D; crudActions;
+         result.push(new RequestActions.SuccessMapping(uniqueName));
+
+         return &lt;Action[]&gt;crudActions;
+      }
+      catch(error)
+      {
+         return &lt;Action[]&gt;[new RequestActions.RequestError([error], uniqueName)];
+      }
+
+    }));
 
     @Effect()
     makeRequest$ &#x3D; this.actions$.pipe(ofType(RequestActions.ActionTypes.MakeRequest), 
@@ -253,20 +376,25 @@ export class NgrxDataEffects
 
        let makeRequestAction &#x3D; action as RequestActions.MakeRequest;
 
-       //get the provider from the service
-       let provider &#x3D; this.configService.getRequestProvider(makeRequestAction.providerUid);
+       let providerUid &#x3D; makeRequestAction.providerUid;
+       let uniqueName &#x3D; makeRequestAction.uniqueName;
 
-       //delete the provider from the service very important
-       this.configService.deleteRequestProvider(makeRequestAction.providerUid);
+       //get the provider from the service
+       let provider &#x3D; this.configService.getRequestProvider(providerUid);
 
        //make the http request with the provider
        return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
 
        .pipe(mergeMap(response&#x3D;&gt;{
-          let dataMapper &#x3D; this.configService.configuration.dataMapper;        
-          return dataMapper.map(response);
+
+         return &lt;Action[]&gt;[new RequestActions.RequestSuccess(providerUid, response, uniqueName)];
+
        }), catchError(err&#x3D;&gt;{
-         return of(new RequestActions.RequestError([err], makeRequestAction.uniqueName));
+
+         //delete the provider from the service very important
+         this.configService.deleteRequestProvider(providerUid);
+         return of(new RequestActions.RequestError([err], uniqueName));
+
        }));
        
 

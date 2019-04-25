@@ -449,6 +449,17 @@ export class EntityStateCollectionAdapter
         , uniqueName, state);
     }
 
+    selectEntityId(id: number | string, uniqueName: string, state: EntityStatesCollection)
+    {
+        return this.processEntityState(
+            (es)&#x3D;&gt;{
+
+                return { ...es, selectedId: id };  
+              
+        }
+        , uniqueName, state);
+    }
+
     private processEntityState(func: (entityState: ExtendedEntityState)&#x3D;&gt;ExtendedEntityState, uniqueName: string, state: EntityStatesCollection)
     {
         let entityState &#x3D; state[uniqueName];

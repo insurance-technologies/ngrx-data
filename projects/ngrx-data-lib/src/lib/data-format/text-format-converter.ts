@@ -5,8 +5,12 @@ import { uintToString, stringToUint } from './tools';
 
 export class TextFormatConverter implements IFormatConverter
 {
-    getContentType(): string {
-        return 'text/plain; charset=utf-8';
+    getMediaType(): string {
+        return 'text/plain'
+    }
+
+    getCharset(): string {
+        return 'utf-8';
     }
 
     convertToObject(data: ArrayBuffer) : any {

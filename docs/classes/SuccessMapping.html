@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>CreateEntityState</li>
+  <li>SuccessMapping</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/ngrx-data-lib/src/lib/state/db-actions.ts</code>
+            <code>projects/ngrx-data-lib/src/lib/state/request-actions.ts</code>
         </p>
 
 
@@ -117,7 +117,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -175,12 +175,12 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>ActionTypes.CreateEntityState</code>
+                            <i>Default value : </i><code>ActionTypes.SuccessMapping</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -208,7 +208,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/db-actions.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/ngrx-data-lib/src/lib/state/request-actions.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -228,116 +228,55 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Action } from &#x27;@ngrx/store&#x27;;
+import { RequestProvider } from &#x27;../http/request-provider&#x27;;
+import { HttpMethod } from &#x27;../http/http-method&#x27;;
 
 export enum ActionTypes
 {
-    //actions that affect the database
-    CreateEntityState &#x3D; &#x27;[DataEntitiesDB] CreateEntityState&#x27;,
-    DeleteEntityState &#x3D; &#x27;[DataEntitiesDB] DeleteEntityState&#x27;,
-    DeleteAllEntityStates &#x3D; &#x27;[DataEntitiesDB] DeleteAllEntityStates&#x27;,
-    
-    //actions that affect only specific entity
-    AddEntityToState &#x3D; &#x27;[DataEntitiesDB] AddEntityToState&#x27;,
-    AddMany &#x3D; &#x27;[DataEntitiesDB] AddMany&#x27;,
-    DeleteEntityFromState &#x3D; &#x27;[DataEntitiesDB] DeleteEntityFromState&#x27;,
-    DeleteAll &#x3D; &#x27;[DataEntitiesDB] DeleteAll&#x27;,
-    DeleteMany &#x3D; &#x27;[DataEntitiesDB] DeleteMany&#x27;,
-    Update &#x3D; &#x27;[DataEntitiesDB] Update&#x27;,
-    UpdateMany &#x3D; &#x27;[DataEntitiesDB] UpdateMany&#x27;,    
-    SelectEntity &#x3D; &#x27;[DataEntitiesDB] SelectEntity&#x27;,
+    MakeRequest &#x3D; &#x27;[Request] MakeRequest&#x27;,
+    RequestSuccess &#x3D; &#x27;[Request] RequestSuccess&#x27;,
+    RequestError &#x3D; &#x27;[Request] RequestError&#x27;,
+    SuccessMapping &#x3D; &#x27;[Request] SuccessMapping&#x27;,
+    EndRequest &#x3D; &#x27;[Request] EndRequest&#x27;,
 }
 
-//actions that affect the database
-export class CreateEntityState implements Action
+
+export class MakeRequest implements Action
 {
-   readonly type &#x3D; ActionTypes.CreateEntityState;   
-   constructor( public uniqueName: string ){}
+   readonly type &#x3D; ActionTypes.MakeRequest;   
+   constructor( public providerUid: string, public baseUrl: string, public uniqueName: string ){}
 }
 
-export class DeleteEntityState implements Action
+export class RequestSuccess implements Action
 {
-   readonly type &#x3D; ActionTypes.DeleteEntityState;   
-   constructor( public uniqueName: string ){}
+   readonly type &#x3D; ActionTypes.RequestSuccess;   
+   constructor( public providerUid: string, public data: any, public uniqueName: string ){}
 }
 
-export class DeleteAllEntityStates implements Action
+export class RequestError implements Action
 {
-   readonly type &#x3D; ActionTypes.DeleteAllEntityStates;   
-    constructor(){} 
+   readonly type &#x3D; ActionTypes.RequestError;   
+   constructor( public errors: string[], public uniqueName: string ){}
 }
 
-
-//actions that affect only specific entity
-export class AddEntityToState implements Action
+export class SuccessMapping implements Action
 {
-   readonly type &#x3D; ActionTypes.AddEntityToState;   
-   constructor( public entity: any, public uniqueName: string ){}
+   readonly type &#x3D; ActionTypes.SuccessMapping;   
+   constructor(public uniqueName: string){}
 }
 
-
-export class AddMany implements Action
+export class EndRequest implements Action
 {
-   readonly type &#x3D; ActionTypes.AddMany;   
-   constructor( public entities: any[], public uniqueName: string ){}
+   readonly type &#x3D; ActionTypes.EndRequest;   
+   constructor(public uniqueName: string){}
 }
 
-
-export class DeleteEntityFromState implements Action
-{
-   readonly type &#x3D; ActionTypes.DeleteEntityFromState;   
-   constructor( public id: string, public uniqueName: string ){}
-}
-
-
-export class DeleteAll implements Action
-{
-   readonly type &#x3D; ActionTypes.DeleteAll;   
-   constructor( public uniqueName: string ){}
-}
-
-
-export class DeleteMany implements Action
-{
-   readonly type &#x3D; ActionTypes.DeleteMany;   
-   constructor( public ids: string[], public uniqueName: string ){}
-}
-
-
-export class Update implements Action
-{
-   readonly type &#x3D; ActionTypes.Update;   
-   constructor( public entity: any, public uniqueName: string ){}
-}
-
-
-export class UpdateMany implements Action
-{
-   readonly type &#x3D; ActionTypes.UpdateMany;   
-   constructor( public entities: any[], public uniqueName: string ){}
-}
-
-export class SelectEntity implements Action
-{
-   readonly type &#x3D; ActionTypes.SelectEntity;   
-   constructor( public id: string | number, public uniqueName: string ){}
-}
-
-export type DBActions &#x3D; 
-//actions that affect the database
-CreateEntityState |
-DeleteEntityState |
-DeleteAllEntityStates |
-
-//actions that affect only specific entity
-AddEntityToState | 
-AddMany |
-DeleteEntityFromState |
-DeleteAll |
-DeleteMany |
-Update |
-UpdateMany |
-SelectEntity
-;</code></pre>
+export type RequestActions &#x3D; 
+MakeRequest |
+RequestSuccess |
+RequestError |
+SuccessMapping |
+EndRequest</code></pre>
     </div>
 </div>
 
@@ -364,7 +303,7 @@ SelectEntity
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CreateEntityState.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'SuccessMapping.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

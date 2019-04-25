@@ -60,6 +60,12 @@
                             <a href="#deleteRequest" title="projects/ngrx-data-lib/src/lib/http/http-communication.ts"><b>deleteRequest</b>&nbsp;&nbsp;&nbsp;(projects/.../http-communication.ts)</a>
                         </li>
                         <li>
+                            <a href="#entityArrayMapper" title="projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts"><b>entityArrayMapper</b>&nbsp;&nbsp;&nbsp;(projects/.../entity-array-mapper.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#extractCharset" title="projects/ngrx-data-lib/src/lib/http/http-communication.ts"><b>extractCharset</b>&nbsp;&nbsp;&nbsp;(projects/.../http-communication.ts)</a>
+                        </li>
+                        <li>
                             <a href="#getRequest" title="projects/ngrx-data-lib/src/lib/http/http-communication.ts"><b>getRequest</b>&nbsp;&nbsp;&nbsp;(projects/.../http-communication.ts)</a>
                         </li>
                         <li>
@@ -84,10 +90,10 @@
                             <a href="#StaticConstructed" title="projects/ngrx-data-lib/src/lib/helpers/static-constructor.decorator.ts"><b>StaticConstructed</b>&nbsp;&nbsp;&nbsp;(projects/.../static-constructor.decorator.ts)</a>
                         </li>
                         <li>
-                            <a href="#stringToUint" title="projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts"><b>stringToUint</b>&nbsp;&nbsp;&nbsp;(projects/.../json-format-converter.ts)</a>
+                            <a href="#stringToUint" title="projects/ngrx-data-lib/src/lib/data-format/tools.ts"><b>stringToUint</b>&nbsp;&nbsp;&nbsp;(projects/.../tools.ts)</a>
                         </li>
                         <li>
-                            <a href="#uintToString" title="projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts"><b>uintToString</b>&nbsp;&nbsp;&nbsp;(projects/.../json-format-converter.ts)</a>
+                            <a href="#uintToString" title="projects/ngrx-data-lib/src/lib/data-format/tools.ts"><b>uintToString</b>&nbsp;&nbsp;&nbsp;(projects/.../tools.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -186,6 +192,59 @@
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractCharset"></a>
+                    <span class="name">
+                        <b>
+                            extractCharset
+                        </b>
+                        <a href="#extractCharset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractCharset(charset)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>charset</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
                     </div>
                 </td>
             </tr>
@@ -639,6 +698,105 @@
             </tr>
         </tbody>
     </table>
+</section>    <h3>projects/ngrx-data-lib/src/lib/data-mapping/entity-array-mapper.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entityArrayMapper"></a>
+                    <span class="name">
+                        <b>
+                            entityArrayMapper
+                        </b>
+                        <a href="#entityArrayMapper"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>entityArrayMapper(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, uniqueName, requestType, dbState)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>uniqueName</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>requestType</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>dbState</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#DBActions" target="_self" >DBActions[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>projects/ngrx-data-lib/src/lib/helpers/immutable-observable.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -895,7 +1053,7 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>projects/ngrx-data-lib/src/lib/data-format/json-format-converter.ts</h3>
+</section>    <h3>projects/ngrx-data-lib/src/lib/data-format/tools.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>

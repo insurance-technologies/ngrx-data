@@ -18,7 +18,7 @@ export class UserService extends EntityService<User>
     updateUser(user: User)
     {
         
-        this.dispatch( this.PUT.withDataMapper( (data, uniqueName, method, dbState) => {
+        this.dispatch( this.PUT.withBody(user).withDataMapper( (data, uniqueName, method, dbState) => {
 
            return [ new Update(user, uniqueName) ];
 
