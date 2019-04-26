@@ -118,7 +118,7 @@ export abstract class EntityService<T>
       this.isLoading$ = this.store.select(this.getIsLoading);
       this.errors$ = this.store.select(this.getErrors);
       this.selectedId$ = this.store.select(this.getSelectedId);
-      this.selectedEntity$ = combineLatest(this.all$, this.selectedId$).pipe(map(([entities, id])=>entities[id]));
+      this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id])=>entities[id]));
    }
    
    /**
