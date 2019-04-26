@@ -2,6 +2,7 @@ import { Injectable, Inject } from "@angular/core";
 import { NgrxDataConfiguration } from '../models/configuration';
 import { config } from 'rxjs';
 import { RequestProvider } from '../http/request-provider';
+import { EntityService } from './entity.service';
 
 @Injectable({
     providedIn: 'root'
@@ -33,8 +34,10 @@ export class NgrxDataConfigurationService
         return this.requestProviders[uuid];
     }
 
+    routerParamNames: Map<string, string>;
+
     constructor(@Inject('ngrxdataConfig') private config: NgrxDataConfiguration )
     {
-        
+        this.routerParamNames = new Map<string, string>();
     }
 }

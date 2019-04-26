@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     this.users$ = this.userService.select();    
     this.selectedUser$ = this.userService.selectSelectedEntity();
     this.isLoading$ = this.userService.selectIsLoading();
+    this.onGetUsers();
   }
 
   onGetUsers() : void{
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
 
   onSelect(id: string | number)
   {
-    this.userService.selectEntity(id);
+    // this.userService.selectEntity(id);
   }
 
 }

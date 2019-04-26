@@ -2,15 +2,24 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../services/entity-data.service';
 import * as RequestActions from './request-actions';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, catchError, withLatestFrom, switchMap } from 'rxjs/operators';
 import { NgrxDataConfigurationService } from '../services/configuaration.service';
 import { of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
+import { Router, ActivatedRoute, ChildActivationEnd, ChildActivationStart, ParamMap, ActivatedRouteSnapshot } from '@angular/router';
+import { SelectEntity } from './db-actions';
 
 @Injectable()
 export class NgrxDataEffects
 {    
-    constructor(private actions$: Actions, private dataService: DataService, private configService: NgrxDataConfigurationService, private store: Store<any>){
+    constructor(
+       private actions$: Actions, 
+       private dataService: DataService, 
+       private configService: NgrxDataConfigurationService, 
+       private store: Store<any>,
+       private router: Router,
+       private route: ActivatedRoute
+       ){
       
     }
 
@@ -78,5 +87,64 @@ export class NgrxDataEffects
        
 
     }))
+
+    @Effect()
+    routingEffect$ = this.router.events.pipe(mergeMap(v=>{
+
+      
+      if( v instanceof ChildActivationStart )
+      {         
+         let params = new Map<string, string>();
+
+         this.getParams(params, v.snapshot);
+         return this.processParams(params);
+      }
+    
+      return <Action[]>[];
+
+    }));
+
+    //routing
+    
+    getParams(paramsMap: Map<string, string>, snapchot: ActivatedRouteSnapshot)
+    {
+       let snapchotParamMap = snapchot.paramMap;
+       let keys = snapchotParamMap.keys;
+       
+       for(let i = 0; i < keys.length; i++)
+       {
+          let key = keys[i];
+          paramsMap.set( key, snapchotParamMap.get(key) );
+       }
+
+       for(let i = 0; i < snapchot.children.length; i++)
+       {
+          this.getParams(paramsMap, snapchot.children[i]);
+       }
+    }
+
+    processParams(params: Map<string, string>) : Action[]
+    {
+      console.log(params);
+
+      let keys = Array.from( params.keys() );
+      let routesParamNames = this.configService.routerParamNames;
+      
+      let result: SelectEntity[] = [];
+
+      for(let i = 0; i < keys.length; i++)
+      {
+         let key = keys[i];
+         let uniqueName = routesParamNames.get(key);
+         if(uniqueName)
+         {
+            let id = params.get(key);
+            result.push( new SelectEntity(id, uniqueName) );
+         }
+      }
+
+      return <Action[]>result;
+
+    }
 
 }

@@ -74,12 +74,15 @@ export abstract class EntityService<T>
       return this.dataService.DELETE;
    }
 
-   constructor(private uniqueName: string, private endpoint: string)
+   constructor(private uniqueName: string, private endpoint: string, private routerParamName?: string)
    {
       this.store = NgrxDataLibModule.injector.get(Store);
       this.configService = NgrxDataLibModule.injector.get(NgrxDataConfigurationService);
       this.dataService = NgrxDataLibModule.injector.get(DataService);
       this.createEntityInDb();
+
+      if(routerParamName)
+        this.configService.routerParamNames.set(routerParamName, uniqueName);
    }
 
    /**

@@ -7,6 +7,12 @@ import { from } from 'rxjs';
 //services
 export * from './lib/services/public-services';
 
+//state interface
+export { EntityStatesCollection } from './lib/state/entity-states-collection-adapter';
+
+//reducer
+export { reducer } from './lib/state/state';
+
 //actions
 export * from './lib/state/db-actions';
 

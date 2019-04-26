@@ -1,0 +1,10 @@
+
+  <div *ngIf="(selectedUser$ | async) let selectedUser" >
+    <input [(ngModel)]="selectedUser.id">
+    <input [(ngModel)]="selectedUser.name">
+    <input [(ngModel)]="selectedUser.lastName">
+    <button (click)="onSave(selectedUser)">Save</button>    
+ </div>  
+
+  
+  <button (click)="onReset()">Reset</button>
