@@ -10,9 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
-import { reducer } from 'projects/ngrx-data-lib/src/public_api';
-
-const jsonFormat = new JsonFormatConverter();
+import { reducer, jsonFormatConverterFactory } from 'projects/ngrx-data-lib/src/public_api';
 
 @NgModule({
   declarations: [
@@ -26,8 +24,8 @@ const jsonFormat = new JsonFormatConverter();
     HttpClientModule,
     StoreModule.forRoot(reducer),
     NgrxDataLibModule.forRoot({
-      deafaultRequestFormat: jsonFormat,
-      deafaultResponseFormats: [jsonFormat],
+      deafaultRequestFormat: jsonFormatConverterFactory,
+      deafaultResponseFormats: [jsonFormatConverterFactory],
       dataMapper: entityArrayMapper
     }),
     RouterModule.forRoot([

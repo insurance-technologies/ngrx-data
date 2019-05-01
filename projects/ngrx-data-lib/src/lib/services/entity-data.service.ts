@@ -51,8 +51,8 @@ export class DataService
     constructor(private http: HttpClient, private configurationService: NgrxDataConfigurationService)
     {
        //Get the configuration parameters needed
-       this.deafaultRequestFormat = this.configurationService.configuration.deafaultRequestFormat;
-       this.deafaultResponseFormats = this.configurationService.configuration.deafaultResponseFormats;
+       this.deafaultRequestFormat = this.configurationService.configuration.deafaultRequestFormat();
+       this.deafaultResponseFormats = this.configurationService.configuration.deafaultResponseFormats.map(x=>x());
 
        //get the default data mapper
        let defaultMapper = configurationService.configuration.dataMapper;

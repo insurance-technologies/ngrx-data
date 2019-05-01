@@ -1,12 +1,11 @@
 import { IFormatConverter } from '../data-format/format-converter';
 import { IDataMapper } from '../data-mapping/datamapper';
-
+import { IFormatConverterFactory } from '../../public_api';
 
 
 export interface NgrxDataConfiguration
 {
-    deafaultRequestFormat: IFormatConverter;
-    deafaultResponseFormats: IFormatConverter[];
-    dataMapper: IDataMapper;
-    dbName?: string;
+    deafaultRequestFormat: IFormatConverterFactory;
+    deafaultResponseFormats: IFormatConverterFactory[];
+    dataMapper: IDataMapper;    
 }
