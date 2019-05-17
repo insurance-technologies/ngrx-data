@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImmutableObservable } from 'ngrx-data-lib/lib/helpers/immutable-observable';
-import { User } from 'src/models/user';
-import { UserService } from 'src/services/userService';
-import { Observable } from 'rxjs';
-import { UserDomain } from 'src/models/user.domain';
+
 
 @Component({
   selector: 'app-root',
@@ -13,38 +9,16 @@ import { UserDomain } from 'src/models/user.domain';
 export class AppComponent implements OnInit {
   
   title = 'testingLib';
+  show = false;
 
-  users$: ImmutableObservable<UserDomain[]>;
-  selectedUser$: ImmutableObservable<User>;
-  isLoading$: Observable<boolean>;
-
-  constructor(private userService: UserService)
+  constructor()
   {
 
   }
 
   ngOnInit(): void {    
-    this.users$ = this.userService.selectDomainModel();    
-    this.selectedUser$ = this.userService.selectSelectedEntity();
-    this.isLoading$ = this.userService.selectIsLoading();
-    this.onGetUsers();
+    
   }
 
-  onGetUsers() : void{
-    this.userService.dispatch(this.userService.GET);
-  }
-
-  onReset() : void{
-    this.selectedUser$.reset();
-  }
-
-  onSave(user: User) : void {        
-    this.userService.updateUser(user);         
-  }
-
-  onSelect(id: string | number)
-  {
-    // this.userService.selectEntity(id);
-  }
 
 }

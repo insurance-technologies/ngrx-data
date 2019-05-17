@@ -15,6 +15,7 @@ import { v1 } from 'uuid';
 import { getDB } from '../state/state';
 import { SelectEntity } from '../state/db-actions';
 import { IDomainModelFactory } from '../domain-model/domain-model.factory';
+import { Router, ActivatedRoute } from '@angular/router';
 
 const errors = (state: ExtendedEntityState) => state.errors;
 const isLoading = (state: ExtendedEntityState) => state.loadingTasks > 0;
@@ -26,6 +27,8 @@ const selectedId = (state: ExtendedEntityState) => state.selectedId;
 export abstract class EntityService<T, M = {}>
 {
    private store: Store<any>;
+   private route: ActivatedRoute;
+   private router: Router;
    private configService: NgrxDataConfigurationService;
    private dataService: DataService;
    private domainModelFactory: IDomainModelFactory<T, M> = null;
@@ -74,12 +77,14 @@ export abstract class EntityService<T, M = {}>
    constructor(
       private uniqueName: string,
       private endpoint: string,
-      options?: {
+      private options?: {
          routerParamName?: string,
          domainModelFactory?: IDomainModelFactory<T, M>
       }
    ) {
       this.store = NgrxDataLibModule.injector.get(Store);
+      this.route = NgrxDataLibModule.injector.get(ActivatedRoute);
+      this.router = NgrxDataLibModule.injector.get(Router);
       this.configService = NgrxDataLibModule.injector.get(NgrxDataConfigurationService);
       this.dataService = NgrxDataLibModule.injector.get(DataService);
       this.createEntityInDb();
@@ -102,9 +107,12 @@ export abstract class EntityService<T, M = {}>
     */
    private createEntityInDb() {
       this.store.pipe(
-         map(s => s.entityDb as EntityStatesCollection), //map the database
-         filter(db => db[this.uniqueName] ? true : false), //if exist the entityState of this service
-         take(1)).subscribe((v) => this.createSelectors()); //we take only one to create the selectors.
+         map(s => s.entityDb as EntityStatesCollection), // map the database
+         filter(db => db[this.uniqueName] ? true : false), // if exist the entityState of this service
+         take(1)).subscribe((v) => {
+            this.createSelectors();
+            this.checkRouter();
+         }); // we take only one to create the selectors.
 
       this.store.dispatch(new DbActions.CreateEntityState(this.uniqueName));
    }
@@ -132,6 +140,34 @@ export abstract class EntityService<T, M = {}>
       this.errors$ = this.store.select(this.getErrors);
       this.selectedId$ = this.store.select(this.getSelectedId);
       this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));
+   }
+
+   private checkRouter() {
+
+      if (this.options && this.options.routerParamName) {
+         const id = this.getParam(this.route.root);
+         this.selectEntity(id);
+      }
+   }
+
+   private getParam(route: ActivatedRoute): string | number {
+
+      if (route.snapshot.paramMap.has(this.options.routerParamName)) {
+         return route.snapshot.paramMap.get(this.options.routerParamName);
+      }
+
+      if (route.children.length === 0) {
+         return null;
+      }
+
+      for (let i = 0; i < this.route.children.length; i++) {
+         const param = this.getParam(route.children[i]);
+         if (param) {
+            return param;
+         }
+      }
+
+      return null;
    }
 
    /**

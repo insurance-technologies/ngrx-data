@@ -18,22 +18,8 @@
   </li>
 </ul>
 
-<span *ngIf="isLoading$ | async">Loading...</span>
-
-<div *ngIf="(users$ | async) let users">
-  <div *ngFor="let user of users" >
-     <span>{{user.fullName}} </span>
-     <span>{{user.lastName}} </span>     
-     <a [routerLink]="['/users', user.id]" >Select</a>      
-  </div>  
-  
-  <br><br>
-
-  <router-outlet></router-outlet>
 
 
-</div>
+<routing-helper *ngIf="show"></routing-helper>
 
-<button (click)="onGetUsers()">Get Users!!</button>
-
-<router-outlet></router-outlet>
+<button (click)="show = !show" >Show/Hide</button>

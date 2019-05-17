@@ -11,11 +11,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { reducer, jsonFormatConverterFactory } from 'projects/ngrx-data-lib/src/public_api';
+import { RoutingHelperComponent } from './routing-helper/routing-helper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    RoutingHelperComponent
   ],
   imports: [
     BrowserModule,

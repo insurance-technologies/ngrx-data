@@ -1,0 +1,20 @@
+
+<span *ngIf="isLoading$ | async">Loading...</span>
+
+<div *ngIf="(users$ | async) let users">
+  <div *ngFor="let user of users" >
+     <span>{{user.fullName}} </span>
+     <span>{{user.lastName}} </span>     
+     <a [routerLink]="['/users', user.id]" >Select</a>      
+  </div>  
+  
+  <br><br>
+
+  <router-outlet></router-outlet>
+
+
+</div>
+
+<button (click)="onGetUsers()">Get Users!!</button>
+
+<router-outlet></router-outlet>
