@@ -3,6 +3,7 @@ import { ImmutableObservable } from 'ngrx-data-lib/lib/helpers/immutable-observa
 import { User } from 'src/models/user';
 import { UserService } from 'src/services/userService';
 import { Observable } from 'rxjs';
+import { UserDomain } from 'src/models/user.domain';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   
   title = 'testingLib';
 
-  users$: ImmutableObservable<User[]>;
+  users$: ImmutableObservable<UserDomain[]>;
   selectedUser$: ImmutableObservable<User>;
   isLoading$: Observable<boolean>;
 
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    this.users$ = this.userService.select();    
+    this.users$ = this.userService.selectDomainModel();    
     this.selectedUser$ = this.userService.selectSelectedEntity();
     this.isLoading$ = this.userService.selectIsLoading();
     this.onGetUsers();
