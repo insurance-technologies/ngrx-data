@@ -24,20 +24,13 @@
   <div *ngFor="let user of users" >
      <span>{{user.name}} </span>
      <span>{{user.lastName}} </span>     
-     <button (click)="onSelect(user.id)">Select</button>      
+     <a [routerLink]="['/users', user.id]" >Select</a>      
   </div>  
   
   <br><br>
 
-  <div *ngIf="(selectedUser$ | async) let selectedUser" >
-    <input [(ngModel)]="selectedUser.id">
-    <input [(ngModel)]="selectedUser.name">
-    <input [(ngModel)]="selectedUser.lastName">
-    <button (click)="onSave(selectedUser)">Save</button>    
- </div>  
+  <router-outlet></router-outlet>
 
-  
-  <button (click)="onReset()">Reset</button>
 
 </div>
 

@@ -23,3 +23,10 @@ export class JsonFormatConverter implements IFormatConverter
         return stringToUint(str).buffer as ArrayBuffer;
     }
 }
+
+const jsonFormatConverter = new JsonFormatConverter();
+
+export function jsonFormatConverterFactory() : IFormatConverter
+{
+    return jsonFormatConverter;
+}

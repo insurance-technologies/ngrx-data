@@ -12,7 +12,7 @@ export class UserService extends EntityService<User>
 {
     constructor()
     {
-        super('users', 'https://my-json-server.typicode.com/insurance-technologies/fake-crud-server/users/');
+        super('users', 'https://my-json-server.typicode.com/insurance-technologies/fake-crud-server/users/', 'users');
     }
 
     updateUser(user: User)

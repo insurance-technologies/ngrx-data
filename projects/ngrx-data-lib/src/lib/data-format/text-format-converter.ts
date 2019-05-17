@@ -23,3 +23,11 @@ export class TextFormatConverter implements IFormatConverter
         return stringToUint(str).buffer as ArrayBuffer;
     }
 }
+
+
+const textFormatConverter = new TextFormatConverter();
+
+export function textFormatConverterFactory() : IFormatConverter
+{
+    return textFormatConverter;
+}

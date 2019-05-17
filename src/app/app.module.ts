@@ -8,22 +8,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgrxDataLibModule, JsonFormatConverter, entityArrayMapper } from 'ngrx-data-lib';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterModule } from '@angular/router';
+import { UserComponent } from './user/user.component';
+import { reducer, jsonFormatConverterFactory } from 'projects/ngrx-data-lib/src/public_api';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot(NgrxDataLibModule.Reducer),
+    StoreModule.forRoot(reducer),
     NgrxDataLibModule.forRoot({
-      deafaultRequestFormat: new JsonFormatConverter(),
-      deafaultResponseFormats: [new JsonFormatConverter()],
+      deafaultRequestFormat: jsonFormatConverterFactory,
+      deafaultResponseFormats: [jsonFormatConverterFactory],
       dataMapper: entityArrayMapper
     }),
+    RouterModule.forRoot([
+        { path: 'users/:users', component: UserComponent }  
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states     
     }),
