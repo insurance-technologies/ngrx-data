@@ -22,7 +22,7 @@
 
 <div *ngIf="(users$ | async) let users">
   <div *ngFor="let user of users" >
-     <span>{{user.name}} </span>
+     <span>{{user.fullName}} </span>
      <span>{{user.lastName}} </span>     
      <a [routerLink]="['/users', user.id]" >Select</a>      
   </div>  
