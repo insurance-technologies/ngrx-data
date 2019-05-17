@@ -256,7 +256,7 @@ export abstract class EntityService<T, M = {}>
       if (f) {
          return this.all$.pipe(map(e => e.filter(f)), makeImmutable()) as ImmutableObservable<T[]>;
       } else {
-         return this.all$.pipe(makeImmutable(), map(e => e.map(i => this.domainModelFactory(i)))) as ImmutableObservable<T[]>;
+         return this.all$.pipe( makeImmutable() ) as ImmutableObservable<T[]>;
       }
    }
 
