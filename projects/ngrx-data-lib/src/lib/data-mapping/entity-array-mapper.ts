@@ -21,6 +21,7 @@ import { IDataMapper } from './datamapper';
 import { DBActions, UpdateMany, AddMany, DeleteMany } from '../state/db-actions';
 import { HttpMethod } from '../http/http-method';
 import { EntityStatesCollection } from '../state/entity-states-collection-adapter';
+import { addMany, updateMany, removeMany } from '../state/action.functions';
 
 interface DataWrapper {
     [uniqueName: string]: { add: any[], update: any[], delete: string[] }
@@ -41,13 +42,14 @@ export function entityArrayMapper(data: any, uniqueName: string, requestType: Ht
         let entityActions = responseData[uniqueName];
 
         if (entityActions.add)
-            result.push(new AddMany(entityActions.add, uniqueName));
+            result.push( addMany(uniqueName, entityActions.add) );
 
         if (entityActions.update)
-            result.push(new UpdateMany(entityActions.update, uniqueName));
+            result.push( updateMany(uniqueName, entityActions.delete) );
 
         if (entityActions.delete)
-            result.push(new DeleteMany(entityActions.delete, uniqueName));
+            result.push( removeMany(uniqueName, data.delete) );
+            
     }
 
     return result;
