@@ -65,8 +65,7 @@ export class RequestProvider {
     /**
      * get the data mapper asociated with this request.
      */
-    get dataMapper() : IDataMapper
-    {
+    get dataMapper() : IDataMapper {
       return this._dataMapper;
     }
   
