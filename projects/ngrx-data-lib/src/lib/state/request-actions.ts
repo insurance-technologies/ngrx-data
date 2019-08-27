@@ -15,7 +15,7 @@ export enum ActionTypes
 export class MakeRequest implements Action
 {
    readonly type = ActionTypes.MakeRequest;   
-   constructor( public providerUid: string, public baseUrl: string, public uniqueName: string ){}
+   constructor( public providerUid: string, public uniqueName: string ){}
 }
 
 export class RequestSuccess implements Action

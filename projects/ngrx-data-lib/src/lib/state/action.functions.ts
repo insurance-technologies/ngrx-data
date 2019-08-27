@@ -1,5 +1,5 @@
 import { CreateEntityState, DeleteEntityState, AddEntityToState, AddMany, DeleteAll, Update } from './db-actions';
-import { DeleteEntityFromState, DeleteMany, UpdateMany } from 'ngrx-data-lib/public_api';
+import { DeleteEntityFromState, DeleteMany, UpdateMany } from './db-actions';
 
 /**
  * add an entity to the state

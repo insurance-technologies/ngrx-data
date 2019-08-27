@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   }
 
   onSave(user: User) : void {        
-    this.userService.updateUser(user);         
+    //this.userService.updateUser(user);         
   }
 
 

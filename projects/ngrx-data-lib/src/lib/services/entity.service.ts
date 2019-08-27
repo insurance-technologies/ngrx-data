@@ -56,22 +56,22 @@ export abstract class EntityService<T, M = {}>
    private selectedEntity$: Observable<T>;
 
    public get GET(): RequestProvider {
-      return this.dataService.GET;
+      return this.dataService.GET(this.uniqueName, this.endpoint);
    }
 
 
    public get POST(): RequestProvider {
-      return this.dataService.POST;
+      return this.dataService.POST(this.uniqueName, this.endpoint);
    }
 
 
    public get PUT(): RequestProvider {
-      return this.dataService.PUT;
+      return this.dataService.PUT(this.uniqueName, this.endpoint);
    }
 
 
    public get DELETE(): RequestProvider {
-      return this.dataService.DELETE;
+      return this.dataService.DELETE(this.uniqueName, this.endpoint);
    }
 
    constructor(
@@ -304,7 +304,7 @@ export abstract class EntityService<T, M = {}>
    public dispatch(provider: RequestProvider) {
       const uid = v1();
       this.configService.injectRequestProvider(uid, provider);
-      this.store.dispatch(new RequestActions.MakeRequest(uid, this.endpoint, this.uniqueName));
+      this.store.dispatch(new RequestActions.MakeRequest(uid, this.uniqueName));
    }
 
 }
