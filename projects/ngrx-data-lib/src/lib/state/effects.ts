@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../services/entity-data.service';
 import * as RequestActions from './request-actions';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { mergeMap, map, catchError, withLatestFrom, switchMap } from 'rxjs/operators';
+import { mergeMap, map, catchError, withLatestFrom, switchMap, filter } from 'rxjs/operators';
 import { NgrxDataConfigurationService } from '../services/configuaration.service';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ChildActivationEnd, ChildActivationStart, ParamMap, ActivatedRouteSnapshot } from '@angular/router';
 import { SelectEntity } from './db-actions';
@@ -17,14 +17,12 @@ export class NgrxDataEffects {
       private dataService: DataService,
       private configService: NgrxDataConfigurationService,
       private store: Store<any>,
-      private router: Router,
-      private route: ActivatedRoute
+      private router: Router      
    ) {
-
    }
 
    @Effect()
-   requestSuccess = this.actions$.pipe(ofType(RequestActions.ActionTypes.RequestSuccess),
+   requestSuccess = this.actions$.pipe(ofDynamicType(RequestActions.ActionTypes.RequestSuccess),
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
 
@@ -82,7 +80,7 @@ export class NgrxDataEffects {
       }));
 
    @Effect()
-   makeRequest$ = this.actions$.pipe(ofType(RequestActions.ActionTypes.MakeRequest),
+   makeRequest$ = this.actions$.pipe(ofDynamicType(RequestActions.ActionTypes.MakeRequest),
       mergeMap((action) => {
 
          let makeRequestAction = action as RequestActions.MakeRequest;
@@ -163,4 +161,8 @@ export class NgrxDataEffects {
 
    }
 
+   
+
 }
+
+const ofDynamicType = (type: string) => (sourceObservable: Observable<Action>) => sourceObservable.pipe(filter( a => a.type.startsWith(type) ));

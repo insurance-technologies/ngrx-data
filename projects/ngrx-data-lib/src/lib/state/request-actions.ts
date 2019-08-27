@@ -14,32 +14,32 @@ export enum ActionTypes
 
 export class MakeRequest implements Action
 {
-   readonly type = ActionTypes.MakeRequest;   
-   constructor( public providerUid: string, public uniqueName: string ){}
+   readonly type: string;
+   constructor( public providerUid: string, public uniqueName: string ){ this.type = `${ActionTypes.MakeRequest}: ${uniqueName}` }
 }
 
 export class RequestSuccess implements Action
 {
-   readonly type = ActionTypes.RequestSuccess;   
-   constructor( public providerUid: string, public data: any, public uniqueName: string ){}
+   readonly type: string;
+   constructor( public providerUid: string, public data: any, public uniqueName: string ){ this.type = `${ActionTypes.RequestSuccess}: ${uniqueName}` }
 }
 
 export class RequestError implements Action
 {
-   readonly type = ActionTypes.RequestError;   
-   constructor( public errors: string[], public uniqueName: string ){}
+   readonly type: string;
+   constructor( public errors: string[], public uniqueName: string ){ this.type = `${ActionTypes.RequestError}: ${uniqueName}` }
 }
 
 export class SuccessMapping implements Action
 {
-   readonly type = ActionTypes.SuccessMapping;   
-   constructor(public uniqueName: string){}
+   readonly type: string;
+   constructor(public uniqueName: string){ this.type = `${ActionTypes.SuccessMapping}: ${uniqueName}` }
 }
 
 export class EndRequest implements Action
 {
-   readonly type = ActionTypes.EndRequest;   
-   constructor(public uniqueName: string){}
+   readonly type: string;
+   constructor(public uniqueName: string){ this.type = `${ActionTypes.EndRequest}: ${uniqueName}` }
 }
 
 export type RequestActions = 
