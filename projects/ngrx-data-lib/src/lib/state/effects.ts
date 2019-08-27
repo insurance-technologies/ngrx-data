@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ChildActivationEnd, ChildActivationStart, ParamMap, ActivatedRouteSnapshot } from '@angular/router';
 import { SelectEntity } from './db-actions';
+import { v1 } from 'uuid';
 
 @Injectable()
 export class NgrxDataEffects {
@@ -30,10 +31,12 @@ export class NgrxDataEffects {
          let requestSuccessAction = action as RequestActions.RequestSuccess;
 
          let data = requestSuccessAction.data;
-         let uniqueName = requestSuccessAction.uniqueName;
+         
 
          //get the provider from the service
-         let provider = this.configService.getRequestProvider(requestSuccessAction.providerUid);
+         let provider = this.configService.getRequestProvider(requestSuccessAction.providerUid);        
+         let uniqueName = provider.uniqueName;
+
          //delete the provider from the service very important
          this.configService.deleteRequestProvider(requestSuccessAction.providerUid);
 
@@ -41,17 +44,40 @@ export class NgrxDataEffects {
 
          let dataMapper = provider.dataMapper;
 
+         if (!dataMapper){
+
+            if( provider.chainedRequest ){
+               let id = v1();
+               let requestProvider = provider.chainedRequest( requestSuccessAction.data );
+               this.configService.injectRequestProvider( id, requestProvider );
+               return [ new RequestActions.MakeRequest(id, requestProvider.uniqueName) ]
+            }
+
+         }
+
+         let result: Action[] = [];
+
          try {
             let crudActions = dataMapper(data, uniqueName, method, state.entityDb);
 
-            let result: Action[] = crudActions;
-            result.push(new RequestActions.SuccessMapping(uniqueName));
-
-            return <Action[]>crudActions;
+            crudActions.forEach(a => result.push(a));
+            
+            result.push(new RequestActions.SuccessMapping(uniqueName));            
          }
          catch (error) {
             return <Action[]>[new RequestActions.RequestError([error], uniqueName)];
          }
+         finally{
+
+            if( provider.chainedRequest ){
+               let id = v1();
+               let requestProvider = provider.chainedRequest( requestSuccessAction.data );
+               this.configService.injectRequestProvider( id, requestProvider );
+               result.push(new RequestActions.MakeRequest(id, requestProvider.uniqueName));
+            }
+         }
+
+         return result;
 
       }));
 
@@ -62,17 +88,17 @@ export class NgrxDataEffects {
          let makeRequestAction = action as RequestActions.MakeRequest;
 
          let providerUid = makeRequestAction.providerUid;
-         let uniqueName = makeRequestAction.uniqueName;
-
+         
          //get the provider from the service
          let provider = this.configService.getRequestProvider(providerUid);
+         let uniqueName = provider.uniqueName;
 
          //make the http request with the provider
-         return this.dataService.makeRequest(makeRequestAction.baseUrl, provider)
+         return this.dataService.makeRequest(provider.baseUrl, provider)
 
             .pipe(mergeMap(response => {
 
-               return <Action[]>[new RequestActions.RequestSuccess(providerUid, response, uniqueName)];
+               return <Action[]>[new RequestActions.RequestSuccess(providerUid, response, makeRequestAction.uniqueName)];
 
             }), catchError(err => {
 

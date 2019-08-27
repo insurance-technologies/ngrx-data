@@ -27,7 +27,7 @@ export class RoutingHelperComponent implements OnInit {
 
   
   onGetUsers() : void{
-    this.userService.dispatch(this.userService.GET);
+    this.userService.dispatch(this.userService.getUsers());
   }
 
   onReset() : void{
@@ -35,7 +35,7 @@ export class RoutingHelperComponent implements OnInit {
   }
 
   onSave(user: User) : void {        
-    this.userService.updateUser(user);         
+    //this.userService.updateUser(user);         
   }
 
 

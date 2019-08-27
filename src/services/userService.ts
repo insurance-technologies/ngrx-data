@@ -15,22 +15,15 @@ export class UserService extends EntityService<User, UserDomain>
     {
         super(
             'users', 
-            'https://my-json-server.typicode.com/insurance-technologies/fake-crud-server/users/', 
-            {
-                domainModelFactory: (u) => new UserDomain(u),
+            'https://my-json-server.typicode.com/insurance-technologies/fake-crud-server/users/', {
+                domainModelFactory: u => new UserDomain(u),
                 routerParamName: 'users'
-            }
-            );
+            } );
     }
 
-    updateUser(user: User)
-    {
-        
-        this.dispatch( this.PUT.withBody(user).withDataMapper( (data, uniqueName, method, dbState) => {
+    add = (user: User) => this.POST.withBody(user).then( r => this.GET.at(r.id) );
 
-           return [ new Update(user, uniqueName) ];
+    update = (user: User) => this.PUT.withBody(user).withDataMapper(null).then( resp => this.GET.at(resp.id) );
 
-        }));
-    }
-
+    getUsers = () => this.GET.then( y => this.GET.then( x => this.GET.then( r => this.GET ) ) );
 }

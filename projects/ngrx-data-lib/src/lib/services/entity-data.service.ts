@@ -15,10 +15,10 @@ import { Injectable } from '@angular/core';
 })
 export class DataService
 {
-    private _getProvider : RequestProvider;
-    private _postProvider : RequestProvider;
-    private _deleteProvider : RequestProvider;
-    private _putProvider : RequestProvider;
+    private _getProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
+    private _postProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
+    private _deleteProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
+    private _putProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
 
     private deafaultRequestFormat: IFormatConverter;
     private deafaultResponseFormats: IFormatConverter[];
@@ -58,10 +58,10 @@ export class DataService
        let defaultMapper = configurationService.configuration.dataMapper;
 
        //create the requests starting points
-       this._getProvider = new RequestProvider([], [], HttpMethod.get, null, this.deafaultResponseFormats, null, defaultMapper);
-       this._postProvider = new RequestProvider([], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);
-       this._deleteProvider = new RequestProvider([], [], HttpMethod.delete, null, this.deafaultResponseFormats, null, defaultMapper);
-       this._putProvider = new RequestProvider([], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
+       this._getProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.get, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._postProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);
+       this._deleteProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.delete, null, this.deafaultResponseFormats, null, defaultMapper);
+       this._putProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
     }
 
     /**
