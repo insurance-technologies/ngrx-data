@@ -1,6 +1,6 @@
 {
   "name": "@instechnologies/ngrx-data-lib",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "author": {
     "name": "Insurance Technologies"
   },
@@ -19,12 +19,11 @@
   "keywords": ["ngrx", "ngrx-data", "ngrxdata", "angularstate", "state", "entity", "entities", "ngrx-entity", "ngrx-entities"],
   "license": "MIT",  
   "peerDependencies": {
-    "@angular/common": "^7.1.0",
-    "@angular/core": "^7.1.0",
-    "@ngrx/effects": "^8.1.0",
-    "@ngrx/entity": "^8.1.0",
-    "@ngrx/store": "^8.1.0",
-    "@ngrx/store-devtools": "^8.1.0",
+    "@angular/common": "^8.2.3",
+    "@angular/core": "^8.2.3",
+    "@ngrx/effects": "^8.2.3",
+    "@ngrx/entity": "^8.2.0",
+    "@ngrx/store": "^8.2.0",
     "@types/uuid": "^3.4.4",
     "class-transformer": "^0.2.0",
     "uuid": "^3.3.2"
