@@ -9,6 +9,7 @@ import { Action, Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ChildActivationEnd, ChildActivationStart, ParamMap, ActivatedRouteSnapshot } from '@angular/router';
 import { SelectEntity } from './db-actions';
 import { v1 } from 'uuid';
+import { stat } from 'fs';
 
 @Injectable()
 export class NgrxDataEffects {
@@ -56,7 +57,7 @@ export class NgrxDataEffects {
          let result: Action[] = [];
 
          try {
-            let crudActions = dataMapper(data, uniqueName, method, state.entityDb);
+            let crudActions = dataMapper( { data: data, uniqueName: uniqueName, requestType: method, requestBody: provider.body, dbState: state.entityDb });
 
             crudActions.forEach(a => result.push(a));
             

@@ -15,6 +15,8 @@ export { reducer } from './lib/state/state';
 
 //actions
 export * from './lib/state/db-actions';
+export * from './lib/state/action.functions';
+export * from './lib/http/http-method';
 
 //models
 export * from './lib/models/public-models';
