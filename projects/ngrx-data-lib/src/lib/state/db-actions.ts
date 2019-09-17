@@ -63,7 +63,7 @@ export class DeleteEntityFromState implements Action
 export class DeleteAll implements Action
 {
    readonly type: string;
-   constructor( public uniqueName: string ){}
+   constructor( public uniqueName: string ){ this.type = `${ActionTypes.DeleteAll}: ${uniqueName}` }
 }
 
 

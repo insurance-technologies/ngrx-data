@@ -6,7 +6,7 @@ import { RequestProvider } from '../http/request-provider';
 import { EntityStatesCollection, ExtendedEntityState } from '../state/entity-states-collection-adapter';
 import { NgrxDataConfigurationService } from './configuaration.service';
 import { DataService } from './entity-data.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
 import { map, filter, take } from 'rxjs/operators';
@@ -139,7 +139,9 @@ export abstract class EntityService<T, M = {}>
       this.isLoading$ = this.store.select(this.getIsLoading);
       this.errors$ = this.store.select(this.getErrors);
       this.selectedId$ = this.store.select(this.getSelectedId);
-      this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));
+
+      this.selectedEntity$ = new BehaviorSubject(undefined);
+      combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id])).subscribe(v => (this.selectedEntity$ as BehaviorSubject<T>).next(v));
    }
 
    private checkRouter() {

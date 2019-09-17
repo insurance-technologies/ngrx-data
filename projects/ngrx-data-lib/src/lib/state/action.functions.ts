@@ -51,7 +51,7 @@ export function clear(name: string) {
  * @param value value to update
  */
 export function update(name: string, value: any) {
-    return new Update(name, value);
+    return new Update(value, name);
 }
 
 /**
