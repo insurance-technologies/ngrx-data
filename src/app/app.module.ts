@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgrxDataLibModule, JsonFormatConverter, entityArrayMapper } from 'ngrx-data-lib';
+import { NgrxDataLibModule, JsonFormatConverter, entityArrayMapper, MapperData, HttpMethod, clear, addMany, update, add } from 'ngrx-data-lib';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
@@ -28,7 +28,19 @@ import { RoutingHelperComponent } from './routing-helper/routing-helper.componen
     NgrxDataLibModule.forRoot({
       deafaultRequestFormat: jsonFormatConverterFactory,
       deafaultResponseFormats: [jsonFormatConverterFactory],
-      dataMapper: entityArrayMapper
+      dataMapper: (data: MapperData) => {
+        if(data.requestType == HttpMethod.get) {
+          if( Array.isArray( data.data ) ) {
+             return [ clear(data.uniqueName), addMany(data.uniqueName, data.data) ];
+          } else if( typeof data.data === 'object' ) {
+              if(data.dbState[data.uniqueName].entities[data.data.id]){
+                  return [ update(data.uniqueName, data.data) ]
+              } else {
+                  return [ add(data.uniqueName, data.data) ]
+              }            
+          }
+      }
+      }
     }),
     RouterModule.forRoot([
         { path: 'users/:users', component: UserComponent }  

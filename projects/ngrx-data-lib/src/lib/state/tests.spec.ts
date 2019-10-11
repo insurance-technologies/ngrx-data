@@ -222,8 +222,7 @@ describe('Database State adapter, Entity State', ()=>{
         let state = collectionAdapter.addEntityState('testEntityState', collectionAdapter.getInitialState());
         state = collectionAdapter.entityStateAddOne({id: '1', name: 'Alejo'}, 'testEntityState', state);
 
-        state = collectionAdapter.entityStateUpdateOne({ id: '1', name: 'Jose' }, 'testEntityState', state);
-        console.log(state);
+        state = collectionAdapter.entityStateUpdateOne({ id: '1', name: 'Jose' }, 'testEntityState', state);        
         expect(state.testEntityState.entities['1'].name).toBe('Jose');
     });
 

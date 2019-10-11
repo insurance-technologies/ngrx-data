@@ -69,6 +69,11 @@ export abstract class EntityService<T, M = {}>
       return this.dataService.PUT(this.uniqueName, this.endpoint);
    }
 
+   
+   public get PATCH(): RequestProvider {
+      return this.dataService.PATCH(this.uniqueName, this.endpoint);
+   }
+
 
    public get DELETE(): RequestProvider {
       return this.dataService.DELETE(this.uniqueName, this.endpoint);
@@ -139,9 +144,7 @@ export abstract class EntityService<T, M = {}>
       this.isLoading$ = this.store.select(this.getIsLoading);
       this.errors$ = this.store.select(this.getErrors);
       this.selectedId$ = this.store.select(this.getSelectedId);
-
-      this.selectedEntity$ = new BehaviorSubject(undefined);
-      combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id])).subscribe(v => (this.selectedEntity$ as BehaviorSubject<T>).next(v));
+      this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));      
    }
 
    private checkRouter() {
@@ -240,6 +243,11 @@ export abstract class EntityService<T, M = {}>
 
    public selectSelectedEntity(): ImmutableObservable<T> {
       return this.selectedEntity$.pipe(makeImmutable()) as ImmutableObservable<T>;
+   }
+
+   
+   public selectSelectedEntityId(): Observable<string> {
+      return this.selectedId$ as Observable<string>;
    }
 
    public selectSelectedDomainModel(): ImmutableObservable<M> {

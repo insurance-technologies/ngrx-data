@@ -161,8 +161,8 @@ export class RequestProvider {
    * @param body the body to add
    */
   withBody(body: any): RequestProvider {
-    if (this._requestType != 'POST' && this._requestType != 'PUT')
-      throw "request body is only valid for POST and PUT requests.";
+    if (this._requestType != 'POST' && this._requestType != 'PUT' && this._requestType != 'PATCH')
+      throw "request body is only valid for POST, PATCH and PUT requests.";
 
     if (this._body != null)
       throw "request body can only be assigned one time.";
@@ -171,8 +171,8 @@ export class RequestProvider {
   }
 
   withRequestFormat(format: IFormatConverter): RequestProvider {
-    if (this._requestType != 'POST' && this._requestType != 'PUT')
-      throw "request format is only valid for POST and PUT requests.";
+    if (this._requestType != 'POST' && this._requestType != 'PUT' && this._requestType != 'PATCH')
+      throw "request format is only valid for POST, PATCH and PUT requests.";
 
     return new RequestProvider(this.uniqueName, this.baseUrl, this.route, this.params, this._requestType, this._body, this._responseFormats, format, this._dataMapper);
   }

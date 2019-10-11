@@ -19,6 +19,7 @@ export class DataService
     private _postProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
     private _deleteProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
     private _putProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
+    private _patchProvider : (uniqueName: string, baseUrl: string) => RequestProvider;
 
     private deafaultRequestFormat: IFormatConverter;
     private deafaultResponseFormats: IFormatConverter[];
@@ -39,9 +40,14 @@ export class DataService
     get DELETE(){ return this._deleteProvider; } 
 
     /**
-     * get ht put request provider.
+     * get the put request provider.
      */
     get PUT(){ return this._putProvider; } 
+    
+    /**
+     * get the patch request provider.
+     */
+    get PATCH(){ return this._patchProvider; }
         
     /**
      * create a new instance of data service.
@@ -62,6 +68,7 @@ export class DataService
        this._postProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.post, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);
        this._deleteProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.delete, null, this.deafaultResponseFormats, null, defaultMapper);
        this._putProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.put, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
+       this._patchProvider = (uniqueName: string, baseUrl: string) => new RequestProvider(uniqueName, baseUrl, [], [], HttpMethod.patch, null, this.deafaultResponseFormats, this.deafaultRequestFormat, defaultMapper);           
     }
 
     /**

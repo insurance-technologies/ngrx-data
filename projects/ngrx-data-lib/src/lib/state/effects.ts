@@ -142,8 +142,7 @@ export class NgrxDataEffects {
    }
 
    processParams(params: Map<string, string>): Action[] {
-      console.log(params);
-
+    
       let keys = Array.from(params.keys());
       let routesParamNames = this.configService.routerParamNames;
 
