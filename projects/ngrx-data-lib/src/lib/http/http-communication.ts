@@ -41,48 +41,49 @@ export function makeRequest(http: HttpClient, baseUrl: string, provider: Request
  * make a get request.
  * @param http the angular http client.
  * @param url the url of the endpoint.
- * @param formatsAcepted an array of the formats that can parse the response. 
+ * @param formatsAcepted an array of the formats that can parse the response.
  */
-export function getRequest(http: HttpClient, url: string, formatsAcepted: IFormatConverter[]): Observable<any> {
-  //create the headers
-  let headers = new HttpHeaders();
-  //add all the formats to the Accept header
-  headers = headers.append('Accept', formatsAcepted.map(f => f.getMediaType()));
+export function getRequest(http: HttpClient, url: string, formatsAcepted: IFormatConverter[]) : Observable<any>
+{
+   //create the headers
+   let headers = new HttpHeaders();
+   //add all the formats to the Accept header
+   headers = headers.append('Accept', formatsAcepted.map(f=>f.getMediaType()) );
 
-  //create the request
-  return http.get(url, {
+   //create the request
+   return http.get(url, {
     headers: headers,
     observe: 'response',
     responseType: 'arraybuffer'
-  }).pipe(map(response => {
+   }).pipe(map(response=>{
 
-    //process response
-    if (response.ok) {
-      if (!response.body)
-        throw 'response body not found';
+     //process response
+     if(response.ok)
+     {
+        if(!response.body)
+          throw 'response body not found';
 
-      //get the content type of the response
-      let contentType = response.headers.get("Content-Type");
-      if (!contentType)
-        throw 'response without content-type';
+        //get the content type of the response
+        let contentType = response.headers.get("Content-Type");
+        if(!contentType) contentType = 'text/plain';
 
-      //get the format converter asociated with this content type
-      let contentTypeSplit = contentType.split(';');
-      let mediaType = contentTypeSplit[0];
-      let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
-      charset.trim();
+        //get the format converter asociated with this content type
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();
 
-      let formatConverter = formatsAcepted.find(c => c.getMediaType() == mediaType && c.getCharset() == charset);
-      if (!formatConverter)
-        throw "cant't find formatConverter for Content-Type: " + contentType;
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
+        if(!formatConverter)
+          throw "cant't find formatConverter for Content-Type: " + contentType;
 
-      return formatConverter.convertToObject(response.body);
-    }
-    else
-      throw response.statusText;
+        return formatConverter.convertToObject(response.body);
+     }
+     else
+        throw response.statusText;
 
 
-  }));
+   }));
 }
 
 
@@ -92,7 +93,7 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
  * @param url the url of the endpoint.
  * @param body the body of the request.
  * @param requestFormat the format to use to parse the body request.
- * @param formatsAcepted an array of the formats that can parse the response. 
+ * @param formatsAcepted an array of the formats that can parse the response.
  */
 export function postRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]): Observable<any> {
   let headers = new HttpHeaders();
@@ -108,23 +109,23 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
     headers: headers,
     observe: 'response',
     responseType: 'arraybuffer'
-  }).pipe(map(response => {
+   }).pipe(map(response=>{
 
-    //process response
-    if (response.ok) {
-      if (!response.body)
+     //process response
+     if(response.ok)
+     {
+        if(!response.body)
         throw 'response body not found';
 
-      //get the content type of the response
-      let contentType = response.headers.get("Content-Type");
-      if (!contentType)
-        throw 'response without content-type';
+        //get the content type of the response
+        let contentType = response.headers.get("Content-Type");
+        if(!contentType) contentType = 'text/plain';
 
-      //get the format converter asociated with this content type
-      let contentTypeSplit = contentType.split(';');
-      let mediaType = contentTypeSplit[0];
-      let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
-      charset.trim();
+        //get the format converter asociated with this content type
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();
 
       let formatConverter = formatsAcepted.find(c => c.getMediaType() == mediaType && c.getCharset() == charset);
       if (!formatConverter)
@@ -144,7 +145,7 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
  * make a delete request.
  * @param http the angular http client.
  * @param url the url of the endpoint.
- * @param formatsAcepted an array of the formats that can parse the response. 
+ * @param formatsAcepted an array of the formats that can parse the response.
  */
 export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFormatConverter[]): Observable<any> {
   let headers = new HttpHeaders();
@@ -154,31 +155,31 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
     headers: headers,
     observe: 'response',
     responseType: 'arraybuffer'
-  }).pipe(map(response => {
+   }).pipe(map(response=>{
 
-    //process response
-    if (response.ok) {
-      if (!response.body)
-        throw 'response body not found';
+     //process response
+     if(response.ok)
+     {
+        if(!response.body)
+          throw 'response body not found';
 
-      //get the content type of the response
-      let contentType = response.headers.get("Content-Type");
-      if (!contentType)
-        throw 'response without content-type';
+        //get the content type of the response
+        let contentType = response.headers.get("Content-Type");
+        if(!contentType) contentType = 'text/plain';
 
-      //get the format converter asociated with this content type
-      let contentTypeSplit = contentType.split(';');
-      let mediaType = contentTypeSplit[0];
-      let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
-      charset.trim();
+        //get the format converter asociated with this content type
+        let contentTypeSplit = contentType.split(';');
+        let mediaType = contentTypeSplit[0];
+        let charset = contentTypeSplit[1] ? extractCharset(contentTypeSplit[1]) : 'utf-8';
+        charset.trim();
 
-      let formatConverter = formatsAcepted.find(c => c.getMediaType() == mediaType && c.getCharset() == charset);
-      if (!formatConverter)
-        throw "cant't find formatConverter for Content-Type: " + contentType;
+        let formatConverter = formatsAcepted.find(c=>c.getMediaType() == mediaType && c.getCharset() == charset);
+        if(!formatConverter)
+          throw "cant't find formatConverter for Content-Type: " + contentType;
 
-      return formatConverter.convertToObject(response.body);
-    }
-    else
+        return formatConverter.convertToObject(response.body);
+     }
+     else
       throw response.statusText;
 
   }));
@@ -191,7 +192,7 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
  * @param url the url of the endpoint.
  * @param body the body of the request.
  * @param requestFormat the format to use to parse the body request.
- * @param formatsAcepted an array of the formats that can parse the response. 
+ * @param formatsAcepted an array of the formats that can parse the response.
  */
 export function putRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]): Observable<any> {
   let headers = new HttpHeaders();
@@ -214,8 +215,7 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
 
       //get the content type of the response
       let contentType = response.headers.get("Content-Type");
-      if (!contentType)
-        throw 'response without content-type';
+      if(!contentType) contentType = 'text/plain';
 
       //get the format converter asociated with this content type
       let contentTypeSplit = contentType.split(';');
@@ -241,7 +241,7 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
  * @param url the url of the endpoint.
  * @param body the body of the request.
  * @param requestFormat the format to use to parse the body request.
- * @param formatsAcepted an array of the formats that can parse the response. 
+ * @param formatsAcepted an array of the formats that can parse the response.
  */
 export function patchRequest(http: HttpClient, url: string, body: any, requestFormat: IFormatConverter, formatsAcepted: IFormatConverter[]): Observable<any> {
   let headers = new HttpHeaders();
@@ -264,8 +264,7 @@ export function patchRequest(http: HttpClient, url: string, body: any, requestFo
 
       //get the content type of the response
       let contentType = response.headers.get("Content-Type");
-      if (!contentType)
-        throw 'response without content-type';
+      if(!contentType) contentType = 'text/plain';
 
       //get the format converter asociated with this content type
       let contentTypeSplit = contentType.split(';');
