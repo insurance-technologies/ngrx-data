@@ -1,6 +1,6 @@
 {
   "name": "@instechnologies/ngrx-data-lib",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "author": {
     "name": "Insurance Technologies"
   },
@@ -17,7 +17,7 @@
     "url": "https://github.com/insurance-technologies/ngrx-data/issues"
   },
   "keywords": ["ngrx", "ngrx-data", "ngrxdata", "angularstate", "state", "entity", "entities", "ngrx-entity", "ngrx-entities"],
-  "license": "MIT",  
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.2.3",
     "@angular/core": "^8.2.3",

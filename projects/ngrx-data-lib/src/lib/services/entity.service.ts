@@ -9,7 +9,7 @@ import { DataService } from './entity-data.service';
 import { Observable, combineLatest, BehaviorSubject, Subject } from 'rxjs';
 import * as dbAdapter from '../state/entity-states-collection-adapter';
 import { Dictionary, EntityState } from '@ngrx/entity';
-import { map, filter, take, takeUntil } from 'rxjs/operators';
+import { map, filter, take, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { makeImmutable, ImmutableObservable } from '../helpers/immutable-observable';
 import { v1 } from 'uuid';
 import { getDB } from '../state/state';
@@ -153,9 +153,13 @@ export abstract class EntityService<T, M = {}>
     this.selectedId$ = this.store.select(this.getSelectedId);
     this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));
 
-    if (!(this.options && this.options.suppressAutoGet)) {
-      this.selectedId$.subscribe(id => this.dispatchGetById(String(id)));
-    }
+    combineLatest(this.selectedId$.pipe(distinctUntilChanged()), this.selectedEntity$).subscribe(([id, entity]) => {
+      if (id && !(this.options && this.options.suppressAutoGet)) {
+        this.dispatchGetById(String(id));
+      } else {
+        this.reset();
+      }
+    });
   }
 
   private checkRouter() {

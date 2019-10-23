@@ -89,7 +89,10 @@ export class RequestProvider {
         parsedParams.push([v.name, v.value].join('='));
       });
 
-      this._url = encodeURI(url + '?' + parsedParams.join('&'));
+      if (parsedParams.length > 0)
+        this._url = encodeURI(url + '?' + parsedParams.join('&'));
+      else
+        this._url = encodeURI(url);
     }
 
     return this._url;
@@ -106,7 +109,7 @@ export class RequestProvider {
   /**
    * get the request to be executed after or null if there is not any.
    */
-  get chainedRequest() {  
+  get chainedRequest() {
     return this._chainedRequest;
   }
 
