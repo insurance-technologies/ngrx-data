@@ -3,7 +3,6 @@ import * as actions from './db-actions';
 import * as requestActions from './request-actions';
 import { AllActions } from './all-actions';
 import { createFeatureSelector, Action } from '@ngrx/store';
-import { act } from '@ngrx/effects';
 
 const adapter = new EntityStateCollectionAdapter();
 export const initialState = adapter.getInitialState();
@@ -80,7 +79,7 @@ export function reducer(state = initialState, action: any): EntityStatesCollecti
   }
 
   return state;
-  //}    
+  //}
 }
 
 export const getDB = createFeatureSelector('entityDb');
