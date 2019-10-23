@@ -153,13 +153,13 @@ export abstract class EntityService<T, M = {}>
     this.selectedId$ = this.store.select(this.getSelectedId);
     this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));
 
-    combineLatest(this.selectedId$.pipe(distinctUntilChanged()), this.selectedEntity$).subscribe(([id, entity]) => {
-      if (id && !(this.options && this.options.suppressAutoGet)) {
-        this.dispatchGetById(String(id));
-      } else {
-        this.reset();
-      }
+    this.selectedEntity$.subscribe((entity) => {
+      this.reset();
     });
+
+    if (!(this.options && this.options.suppressAutoGet)) {
+      this.selectedId$.pipe(distinctUntilChanged()).subscribe(id => {if (id) this.dispatchGetById(String(id))});
+    }
   }
 
   private checkRouter() {
