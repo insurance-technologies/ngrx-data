@@ -57,8 +57,7 @@ export abstract class EntityService<T, M = {}>
   private selectedEntity$: Observable<T>;
   private $reset = new EventEmitter();
   private $save = new EventEmitter();
-  private isDirty$ = new Subject<boolean>();
-  private dirtyState = 0;
+  private dirtyState = {}; // Container for mitoring dirty state of components
 
   public get GET(): RequestProvider {
     return this.dataService.GET(this.uniqueName, this.endpoint);
@@ -153,9 +152,8 @@ export abstract class EntityService<T, M = {}>
     this.selectedId$ = this.store.select(this.getSelectedId);
     this.selectedEntity$ = combineLatest(this.entities$, this.selectedId$).pipe(map(([entities, id]) => entities[id]));
 
-    this.selectedEntity$.subscribe((entity) => {
-      this.reset();
-    });
+    // RESET DIRTY STATE WHEN THE SELECTED ENTITY CHANGED/WAS UPDATED
+    this.selectedEntity$.subscribe(() => { this.reset(); });
 
     if (!(this.options && this.options.suppressAutoGet)) {
       this.selectedId$.pipe(distinctUntilChanged()).subscribe(id => {if (id) this.dispatchGetById(String(id))});
@@ -334,22 +332,19 @@ export abstract class EntityService<T, M = {}>
     this.store.dispatch(new RequestActions.MakeRequest(uid, this.uniqueName));
   }
 
-  public watch(isDirty: Observable<boolean>, stopOn: Observable<any>) {
-    isDirty.pipe(takeUntil(stopOn)).subscribe(x => {
-      if (x) {
-        this.dirtyState++;
-      } else if (this.dirtyState > 0) {
-        this.dirtyState--;
-      }
-      this.isDirty$.next(this.dirtyState > 0);
-    });
+  /*
+   * Monitors separate components dirty state *
+  */
+  public watch(source: Observable<boolean>, stopOn: Observable<any>) {
+    const id = new Date().getTime();    
+    source.pipe(takeUntil(stopOn)).subscribe(x => this.dirtyState[id] = x);
   }
 
   public onSave(f: () => void, stopOn: Observable<any>) {
     this.$save.pipe(takeUntil(stopOn)).subscribe(f);
   }
 
-  public save() {
+  public save(): void {
     this.$save.emit();
   }
 
@@ -357,13 +352,14 @@ export abstract class EntityService<T, M = {}>
     this.$reset.pipe(takeUntil(stopOn)).subscribe(f);
   }
 
-  public reset() {
-    this.dirtyState = 0;
+  public reset(): void {
     this.$reset.emit();
+    const keys = Object.keys(this.dirtyState);
+    keys.forEach(k => this.dirtyState[k] = false);    
   }
 
-  public isDirty() : Observable<boolean> {
-    return this.isDirty$;
+  public isDirty() : boolean {
+    const keys = Object.keys(this.dirtyState);
+    return keys.some(k => this.dirtyState[k]);
   }
-
 }
