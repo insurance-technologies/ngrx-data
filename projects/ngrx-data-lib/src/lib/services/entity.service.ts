@@ -58,6 +58,7 @@ export abstract class EntityService<T, M = {}>
   private $reset = new EventEmitter();
   private $save = new EventEmitter();
   private dirtyState = {}; // Container for mitoring dirty state of components
+  protected lastSelectedId: string | number;
 
   public get GET(): RequestProvider {
     return this.dataService.GET(this.uniqueName, this.endpoint);
@@ -102,7 +103,13 @@ export abstract class EntityService<T, M = {}>
     if (options) {
 
       if (options.routerParamName) {
-        this.configService.routerParamNames.set(options.routerParamName, uniqueName);
+        let names = this.configService.routerParamNames.get(options.routerParamName);
+        if (names) {
+          names.push(uniqueName);
+        } else {
+          names = [uniqueName];
+        }
+        this.configService.routerParamNames.set(options.routerParamName, names);
       }
 
       if (options.domainModelFactory) {
@@ -154,6 +161,8 @@ export abstract class EntityService<T, M = {}>
 
     // RESET DIRTY STATE WHEN THE SELECTED ENTITY CHANGED/WAS UPDATED
     this.selectedEntity$.subscribe(() => { this.reset(); });
+
+    this.selectedId$.subscribe(id => this.lastSelectedId = id);
 
     if (!(this.options && this.options.suppressAutoGet)) {
       this.selectedId$.pipe(distinctUntilChanged()).subscribe(id => {if (id) this.dispatchGetById(String(id))});
@@ -336,7 +345,7 @@ export abstract class EntityService<T, M = {}>
    * Monitors separate components dirty state *
   */
   public watch(source: Observable<boolean>, stopOn: Observable<any>) {
-    const id = new Date().getTime();    
+    const id = new Date().getTime();
     source.pipe(takeUntil(stopOn)).subscribe(x => this.dirtyState[id] = x);
   }
 
@@ -355,7 +364,7 @@ export abstract class EntityService<T, M = {}>
   public reset(): void {
     this.$reset.emit();
     const keys = Object.keys(this.dirtyState);
-    keys.forEach(k => this.dirtyState[k] = false);    
+    keys.forEach(k => this.dirtyState[k] = false);
   }
 
   public isDirty() : boolean {

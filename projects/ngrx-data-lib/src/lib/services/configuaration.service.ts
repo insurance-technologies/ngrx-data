@@ -10,11 +10,10 @@ import { EntityService } from './entity.service';
 export class NgrxDataConfigurationService {
     private requestProviders: { [uid: string]: RequestProvider } = {};
 
-    routerParamNames: Map<string, string>;
-
+    routerParamNames: Map<string, string[]>;
 
     constructor(@Inject('ngrxdataConfig') private config: NgrxDataConfiguration) {
-        this.routerParamNames = new Map<string, string>();
+        this.routerParamNames = new Map<string, string[]>();
     }
 
     /**

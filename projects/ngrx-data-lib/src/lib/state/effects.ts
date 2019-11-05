@@ -18,7 +18,7 @@ export class NgrxDataEffects {
       private dataService: DataService,
       private configService: NgrxDataConfigurationService,
       private store: Store<any>,
-      private router: Router      
+      private router: Router
    ) {
    }
 
@@ -30,10 +30,10 @@ export class NgrxDataEffects {
          let requestSuccessAction = action as RequestActions.RequestSuccess;
 
          let data = requestSuccessAction.data;
-         
+
 
          //get the provider from the service
-         let provider = this.configService.getRequestProvider(requestSuccessAction.providerUid);        
+         let provider = this.configService.getRequestProvider(requestSuccessAction.providerUid);
          let uniqueName = provider.uniqueName;
 
          //delete the provider from the service very important
@@ -60,8 +60,8 @@ export class NgrxDataEffects {
             let crudActions = dataMapper( { data: data, uniqueName: uniqueName, requestType: method, requestBody: provider.body, dbState: state.entityDb });
 
             crudActions.forEach(a => result.push(a));
-            
-            result.push(new RequestActions.SuccessMapping(uniqueName));            
+
+            result.push(new RequestActions.SuccessMapping(uniqueName));
          }
          catch (error) {
             return <Action[]>[new RequestActions.RequestError([error], uniqueName)];
@@ -87,7 +87,7 @@ export class NgrxDataEffects {
          let makeRequestAction = action as RequestActions.MakeRequest;
 
          let providerUid = makeRequestAction.providerUid;
-         
+
          //get the provider from the service
          let provider = this.configService.getRequestProvider(providerUid);
          let uniqueName = provider.uniqueName;
@@ -142,7 +142,7 @@ export class NgrxDataEffects {
    }
 
    processParams(params: Map<string, string>): Action[] {
-    
+
       let keys = Array.from(params.keys());
       let routesParamNames = this.configService.routerParamNames;
 
@@ -150,18 +150,18 @@ export class NgrxDataEffects {
 
       for (let i = 0; i < keys.length; i++) {
          let key = keys[i];
-         let uniqueName = routesParamNames.get(key);
-         if (uniqueName) {
-            let id = params.get(key);
-            result.push(new SelectEntity(id, uniqueName));
-         }
+         let id = params.get(key);
+         let uniqueNames = routesParamNames.get(key) || [];
+         uniqueNames.forEach(uniqueName => {
+           result.push(new SelectEntity(id, uniqueName));
+         });
       }
 
       return <Action[]>result;
 
    }
 
-   
+
 
 }
 
