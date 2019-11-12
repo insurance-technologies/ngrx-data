@@ -181,7 +181,7 @@ export abstract class EntityService<T, M = {}>
 
   private getParam(route: ActivatedRoute): string | number {
 
-    if (route.snapshot.paramMap.has(this.options.routerParamName)) {
+    if (route.snapshot && route.snapshot.paramMap.has(this.options.routerParamName)) {
       return route.snapshot.paramMap.get(this.options.routerParamName);
     }
 
