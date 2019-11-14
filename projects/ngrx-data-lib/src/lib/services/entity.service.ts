@@ -189,7 +189,7 @@ export abstract class EntityService<T, M = {}>
       return null;
     }
 
-    for (let i = 0; i < this.route.children.length; i++) {
+    for (let i = 0; i < route.children.length; i++) {
       const param = this.getParam(route.children[i]);
       if (param) {
         return param;
