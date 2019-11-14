@@ -27,6 +27,7 @@ export * from './lib/helpers/immutable-observable';
 //data format
 export * from './lib/data-format/format-converter';
 export * from './lib/data-format/json-format-converter';
+export * from './lib/data-format/text-format-converter';
 export * from './lib/data-format/format-converter.factory';
 
 //data mapping
