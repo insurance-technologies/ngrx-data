@@ -14,12 +14,16 @@ export class TextFormatConverter implements IFormatConverter
     }
 
     convertToObject(data: ArrayBuffer) : any {
-        let str = uintToString(new Uint8Array(data));
-        return JSON.parse(str);
+        return uintToString(new Uint8Array(data));
     }
 
     convertToData(obj: any) : ArrayBuffer {
-        let str = JSON.stringify(obj);
+        let str: string;
+        if (typeof obj === 'string') {
+          str = obj;
+        } else {
+          str = JSON.stringify(obj);
+        }
         return stringToUint(str).buffer as ArrayBuffer;
     }
 }
