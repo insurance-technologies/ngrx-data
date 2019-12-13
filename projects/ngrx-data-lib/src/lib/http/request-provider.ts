@@ -148,6 +148,14 @@ export class RequestProvider {
   }
 
   /**
+   * add a path param to the url.
+   * @param param the param to add to the url.
+   */
+  withBaseUrl(baseUrl: string): RequestProvider {
+    return new RequestProvider(this.uniqueName, baseUrl, this.route, this.params, this._requestType, this._body, this._responseFormats, this._requestFormat, this._dataMapper);
+  }
+
+  /**
    * Add a query param to the url (only valid for GET and DELETE requests)
    * @param name the name of the parameter.
    * @param value the value of the parameter.
