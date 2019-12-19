@@ -15,7 +15,7 @@ import { v1 } from 'uuid';
 import { getDB } from '../state/state';
 import { SelectEntity } from '../state/db-actions';
 import { IDomainModelFactory } from '../domain-model/domain-model.factory';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params, ActivatedRouteSnapshot } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 
 const errors = (state: ExtendedEntityState) => state.errors;
@@ -169,34 +169,33 @@ export abstract class EntityService<T, M = {}>
     }
   }
 
+  /**
+   * Selects an Entity if its id is in the route
+   * @param paramName name of the param
+   * @param route ActivatedRoute
+   */
   private checkRouter() {
-
     if (this.options && this.options.routerParamName) {
-      const id = this.getParam(this.route.root);
-      if (id) {
-        this.selectEntity(id);
-      }
+      const id = this.getRouteParam(this.options.routerParamName, this.route);
+      if (id) this.selectEntity(id);
     }
   }
 
-  private getParam(route: ActivatedRoute): string | number {
-
-    if (route.snapshot && route.snapshot.paramMap.has(this.options.routerParamName)) {
-      return route.snapshot.paramMap.get(this.options.routerParamName);
-    }
-
-    if (route.children.length === 0) {
-      return null;
-    }
-
-    for (let i = 0; i < route.children.length; i++) {
-      const param = this.getParam(route.children[i]);
-      if (param) {
-        return param;
-      }
-    }
-
-    return null;
+  /**
+   * GETS param by name from the Root
+   * @param paramName name of the param
+   * @param route ActivatedRoute
+   */
+  getRouteParam(paramName: string, route: ActivatedRoute) {
+    let result = null;
+    (function extractParams(snapshot: ActivatedRouteSnapshot){
+        if (snapshot.params[paramName]) {
+          result = snapshot.params[paramName];
+          return;
+        }
+        snapshot.children.forEach(child => extractParams(child));        
+    })(route.root.snapshot);  
+    return result;
   }
 
   /**
