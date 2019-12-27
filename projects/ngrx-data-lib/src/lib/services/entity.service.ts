@@ -35,7 +35,6 @@ export abstract class EntityService<T, M = {}>
   private domainModelFactory: IDomainModelFactory<T, M> = null;
 
   private entityState$: Observable<ExtendedEntityState>;
-
   private entityStateSelector: MemoizedSelector<EntityStatesCollection, ExtendedEntityState>;
 
   private getAll: MemoizedSelector<object, T[]>;
@@ -328,6 +327,25 @@ export abstract class EntityService<T, M = {}>
    */
   public selectTotal(): Observable<number> {
     return this.total$;
+  }
+
+  public refreshSelected(): boolean {
+    const id = this.lastSelectedId;
+    if (!id) return false;
+
+    this.dispatch(this.GET.at(id.toString()));
+    return true;  
+  }
+
+  public refreshSelectedRequest(): RequestProvider {
+    return this.GET.at(this.lastSelectedId.toString());   
+  }
+
+  public refreshById(id: string): boolean {    
+    if (!id) return false;
+
+    this.dispatch(this.GET.at(id));
+    return true;  
   }
 
   /**
