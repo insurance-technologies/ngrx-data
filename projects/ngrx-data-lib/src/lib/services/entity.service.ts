@@ -176,7 +176,10 @@ export abstract class EntityService<T, M = {}>
   private checkRouter() {
     if (this.options && this.options.routerParamName) {
       const id = this.getRouteParam(this.options.routerParamName, this.route);
-      if (id) this.selectEntity(id);
+      if (id) {
+        this.dispatchGetById(id);
+        this.selectEntity(id);
+      }
     }
   }
 
@@ -339,13 +342,6 @@ export abstract class EntityService<T, M = {}>
 
   public refreshSelectedRequest(): RequestProvider {
     return this.GET.at(this.lastSelectedId.toString());   
-  }
-
-  public refreshById(id: string): boolean {    
-    if (!id) return false;
-
-    this.dispatch(this.GET.at(id));
-    return true;  
   }
 
   /**
