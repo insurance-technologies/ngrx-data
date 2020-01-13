@@ -61,7 +61,7 @@ export function getRequest(http: HttpClient, url: string, formatsAcepted: IForma
      if(response.ok)
      {
         if(!response.body)
-          throw 'response body not found';
+          return null;
 
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
@@ -115,7 +115,7 @@ export function postRequest(http: HttpClient, url: string, body: any, requestFor
      if(response.ok)
      {
         if(!response.body)
-        throw 'response body not found';
+          return null;
 
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
@@ -161,7 +161,7 @@ export function deleteRequest(http: HttpClient, url: string, formatsAcepted: IFo
      if(response.ok)
      {
         if(!response.body)
-          throw 'response body not found';
+          return null;
 
         //get the content type of the response
         let contentType = response.headers.get("Content-Type");
@@ -211,7 +211,7 @@ export function putRequest(http: HttpClient, url: string, body: any, requestForm
     //process response
     if (response.ok) {
       if (!response.body)
-        throw 'response body not found';
+        return null;
 
       //get the content type of the response
       let contentType = response.headers.get("Content-Type");
@@ -260,7 +260,7 @@ export function patchRequest(http: HttpClient, url: string, body: any, requestFo
     //process response
     if (response.ok) {
       if (!response.body)
-        throw 'response body not found';
+        return null;
 
       //get the content type of the response
       let contentType = response.headers.get("Content-Type");

@@ -45,31 +45,21 @@ export class NgrxDataEffects {
 
       let dataMapper = provider.dataMapper;
 
-      if (!dataMapper) {
-
-        if (provider.chainedRequest) {
-          let id = v1();
-          let requestProvider = provider.chainedRequest(requestSuccessAction.data);
-          this.configService.injectRequestProvider(id, requestProvider);
-          return [new RequestActions.MakeRequest(id, requestProvider.uniqueName)]
-        }
-
-      }
-
       let result: Action[] = [];
 
       try {
-        let crudActions = dataMapper({ data: data, uniqueName: uniqueName, requestType: method, requestBody: provider.body, dbState: state.entityDb });
+        if (dataMapper && data) {
+          let crudActions = dataMapper({ data: data, uniqueName: uniqueName, requestType: method, requestBody: provider.body, dbState: state.entityDb });
 
-        crudActions.forEach(a => result.push(a));
+          crudActions.forEach(a => result.push(a));
 
-        result.push(new RequestActions.SuccessMapping(uniqueName));
+          result.push(new RequestActions.SuccessMapping(uniqueName));
+        }
       }
       catch (error) {
-        return <Action[]>[new RequestActions.RequestError([error], uniqueName)];
+        result.push(new RequestActions.RequestError([error], uniqueName));
       }
       finally {
-
         if (provider.chainedRequest) {
           let id = v1();
           let requestProvider = provider.chainedRequest(requestSuccessAction.data);
