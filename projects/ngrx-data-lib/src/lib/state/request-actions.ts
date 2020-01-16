@@ -5,6 +5,7 @@ import { HttpMethod } from '../http/http-method';
 export enum ActionTypes
 {
     MakeRequest = '[Request] MakeRequest',
+    MakeCancellableRequest = '[Request] MakeCancellableRequest',
     RequestSuccess = '[Request] RequestSuccess',
     RequestError = '[Request] RequestError',
     SuccessMapping = '[Request] SuccessMapping',
@@ -16,6 +17,12 @@ export class MakeRequest implements Action
 {
    readonly type: string;
    constructor( public providerUid: string, public uniqueName: string ){ this.type = `${ActionTypes.MakeRequest}: ${uniqueName}` }
+}
+
+export class MakeCancellableRequest implements Action
+{
+   readonly type: string;
+   constructor( public providerUid: string, public uniqueName: string ){ this.type = `${ActionTypes.MakeCancellableRequest}: ${uniqueName}` }
 }
 
 export class RequestSuccess implements Action

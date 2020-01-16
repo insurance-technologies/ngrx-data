@@ -111,6 +111,40 @@ export class NgrxDataEffects {
 
     }))
 
+
+    @Effect()
+    makeCancellableRequest$ = this.actions$.pipe(ofDynamicType(RequestActions.ActionTypes.MakeCancellableRequest),
+      switchMap((action) => {
+  
+        let makeRequestAction = action as RequestActions.MakeRequest;
+  
+        let providerUid = makeRequestAction.providerUid;
+  
+        //get the provider from the service
+        let provider = this.configService.getRequestProvider(providerUid);
+        let uniqueName = provider.uniqueName;
+  
+        //make the http request with the provider
+        return this.dataService.makeRequest(provider.baseUrl, provider)
+  
+          .pipe(
+            map(response => <Action[]>[new RequestActions.RequestSuccess(providerUid, response, makeRequestAction.uniqueName)]),
+            catchError(err => {
+                //delete the provider from the service very important
+              this.configService.deleteRequestProvider(providerUid);
+              let errors: string[];
+              if (err instanceof HttpErrorResponse) {
+                errors = new JsonFormatConverter().convertToObject(err.error);
+              } else if (typeof err === 'string') {
+                errors = [err];
+              } else {
+                errors = ['Unknown error']
+              }    
+              return of(new RequestActions.RequestError(errors, uniqueName));    
+            })
+        ); 
+  }))
+
   @Effect()
   routingEffect$ = this.router.events.pipe(mergeMap(v => {
 

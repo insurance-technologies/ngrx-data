@@ -354,6 +354,16 @@ export abstract class EntityService<T, M = {}>
     this.store.dispatch(new RequestActions.MakeRequest(uid, this.uniqueName));
   }
 
+  /**
+   * Make a CANCELLABLE request via http that will be cancelled when same action fired.
+   * @param provider The request provider to execute
+   */
+  public dispatchCancellable(provider: RequestProvider) {
+    const uid = v1();
+    this.configService.injectRequestProvider(uid, provider);
+    this.store.dispatch(new RequestActions.MakeCancellableRequest(uid, this.uniqueName));
+  }
+
   /*
    * Monitors separate components dirty state *
   */
