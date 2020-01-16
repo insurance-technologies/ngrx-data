@@ -20,6 +20,13 @@ export function reducer(state = initialState, action: any): EntityStatesCollecti
     return copyState;
   }
 
+  if (action.type.startsWith(requestActions.ActionTypes.MakeCancellableRequest)) {
+    copyState = { ...state };
+    es = copyState[action.uniqueName];
+    copyState[action.uniqueName] = { ...es, loadingTasks: es.loadingTasks + 1 }
+    return copyState;
+  }
+
   if (action.type.startsWith(requestActions.ActionTypes.SuccessMapping)) {
     copyState = { ...state };
     es = copyState[action.uniqueName];

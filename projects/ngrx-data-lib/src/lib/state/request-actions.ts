@@ -51,6 +51,7 @@ export class EndRequest implements Action
 
 export type RequestActions = 
 MakeRequest |
+MakeCancellableRequest | 
 RequestSuccess |
 RequestError |
 SuccessMapping |
